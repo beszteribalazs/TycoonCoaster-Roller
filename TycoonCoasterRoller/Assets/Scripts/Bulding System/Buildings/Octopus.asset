@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c230c9f0c23ef0e40bc104c8257346f2, type: 3}
-  m_Name: FerrisChairs
+  m_Name: Octopus
   m_EditorClassIdentifier: 
-  buildingName: Chairs
+  buildingName: Octopus
   width: 3
   height: 3
   prefab: {fileID: 1562681592299601430, guid: 5411d2f11853e6f469e6a9640b3ddb83, type: 3}
