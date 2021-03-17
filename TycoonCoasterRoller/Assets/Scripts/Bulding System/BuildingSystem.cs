@@ -45,22 +45,17 @@ public class BuildingSystem : MonoBehaviour{
         }
 
         // Rotate building
-        if (Input.GetKeyDown(KeyCode.Q)){
+        if (Input.GetKeyDown(KeyCode.R)){
             currentBuildingRotation = BuildingTypeSO.GetNextDirectionLeft(currentBuildingRotation);
         }
-        else if (Input.GetKeyDown(KeyCode.E)){
+        else if (Input.GetKeyDown(KeyCode.F)){
             currentBuildingRotation = BuildingTypeSO.GetNextDirectionRight(currentBuildingRotation);
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)){
-            selectedBuildingSO = placableBuildings[0];
-            EventManager.instance.SelectedBuildingChanged();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha0)){
-            selectedBuildingSO = null;
-            EventManager.instance.SelectedBuildingChanged();
-        }
+    public void SetSelectedBuildingType(BuildingTypeSO type){
+        selectedBuildingSO = type;
+        EventManager.instance.SelectedBuildingChanged();
     }
 
     private void PlaceBuilding(){
