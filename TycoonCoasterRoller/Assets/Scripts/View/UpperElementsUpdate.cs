@@ -16,8 +16,7 @@ public class UpperElementsUpdate : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         //day.text = "Day: "+;
@@ -26,14 +25,5 @@ public class UpperElementsUpdate : MonoBehaviour
         //happiness.text = +"%";
         //trash.text = +"%";
     }
-    
-    public void Resume()
-    {
-        Time.timeScale = 1f;
-    }
 
-    public void Pause()
-    {
-        Time.timeScale = 0f;
-    }
 }
