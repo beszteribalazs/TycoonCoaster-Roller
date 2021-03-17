@@ -91,6 +91,7 @@ public class BuildingSystem : MonoBehaviour{
                 foreach (Vector2Int gridPositions in positionList){
                     grid.GetCell(gridPositions.x, gridPositions.y).SetBuilding(placedBuilding);
                 }
+                SetSelectedBuildingType(null);
             }
             else{
                 if (grid.GetCell(x, z).GetBuilding() != null){
