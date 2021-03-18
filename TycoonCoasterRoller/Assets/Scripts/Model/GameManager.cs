@@ -6,9 +6,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] public BuildingSystem buildingSystem;
-    static public GameManager instance;
-
-
+    public static GameManager instance;
+    private int width=50;
+    private int height=50;
+    
+    
     private void Awake()
     {
         instance = this;
@@ -27,5 +29,15 @@ public class GameManager : MonoBehaviour
     public void ChangeSelectedType(BuildingTypeSO buildingTypeSO)
     {
         buildingSystem.SetSelectedBuildingType(buildingTypeSO);
+    }
+
+    public int Width
+    {
+        get => width;
+    }
+
+    public int Height
+    {
+        get => height;
     }
 }
