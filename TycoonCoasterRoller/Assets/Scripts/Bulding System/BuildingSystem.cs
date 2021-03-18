@@ -28,7 +28,7 @@ public class BuildingSystem : MonoBehaviour{
         ground = Instantiate(groundVisualPrefab, new Vector3(groundSizeX / 2, -0.5f, groundSizeY / 2), Quaternion.identity);
         ground.localScale = new Vector3(groundSizeX, 1, groundSizeY);
 
-        selectedBuildingSO = placableBuildings[0];
+        selectedBuildingSO = null;
         currentBuildingRotation = BuildingTypeSO.Direction.Down;
     }
 

@@ -97,31 +97,19 @@ public class CameraController : MonoBehaviour
         //movement
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
-            if (((GameManager.instance.Height*3)+20) > helpVector.z)
-            {
-                newPosition += (transform.forward * movementSpeed);
-            }
+            newPosition += (transform.forward * movementSpeed);
         }
         if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
-            if (-10 < helpVector.z)
-            {
-                newPosition += (transform.forward * -movementSpeed);
-            }
+            newPosition += (transform.forward * -movementSpeed);
         }
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            if (((GameManager.instance.Width*3)+40) > helpVector.x)
-            {
-                newPosition += (transform.right * movementSpeed);
-            }
+            newPosition += (transform.right * movementSpeed);
         }
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            if (-20 < helpVector.x)
-            {
-                newPosition += (transform.right * -movementSpeed);
-            }
+            newPosition += (transform.right * -movementSpeed);
         }
         
         //rotation
