@@ -103,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8771790324392349395}
   m_Layer: 0
-  m_Name: Circus Tent
+  m_Name: circusPreview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,22 +155,22 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1e91e4a86f4402144a40449d4332d063,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1e91e4a86f4402144a40449d4332d063,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1e91e4a86f4402144a40449d4332d063,
-        type: 3}
-      propertyPath: m_LocalRotation.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e91e4a86f4402144a40449d4332d063,
         type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1e91e4a86f4402144a40449d4332d063,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1e91e4a86f4402144a40449d4332d063,
+        type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e91e4a86f4402144a40449d4332d063,
         type: 3}
@@ -180,7 +180,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1e91e4a86f4402144a40449d4332d063,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e91e4a86f4402144a40449d4332d063,
         type: 3}

@@ -28,10 +28,12 @@ public class BuildingSystem : MonoBehaviour{
         ground = Instantiate(groundVisualPrefab, new Vector3(groundSizeX / 2, -0.5f, groundSizeY / 2), Quaternion.identity);
         ground.localScale = new Vector3(groundSizeX, 1, groundSizeY);
 
-        selectedBuildingSO = null;
+        selectedBuildingSO = placableBuildings[0];
         currentBuildingRotation = BuildingTypeSO.Direction.Down;
     }
 
+    int buildingIndex = 0;
+    
     void Update(){
         // Place building
         if (Input.GetMouseButtonDown(0)){
@@ -50,6 +52,17 @@ public class BuildingSystem : MonoBehaviour{
         }
         else if (Input.GetKeyDown(KeyCode.F)){
             currentBuildingRotation = BuildingTypeSO.GetNextDirectionRight(currentBuildingRotation);
+        }
+        
+        //Cycle buildings
+        if (Input.GetKeyDown(KeyCode.Tab)){
+            buildingIndex++;
+            if (buildingIndex >= placableBuildings.Count){
+                buildingIndex = 0;
+            }
+
+            selectedBuildingSO = placableBuildings[buildingIndex];
+            EventManager.instance.SelectedBuildingChanged();
         }
     }
 

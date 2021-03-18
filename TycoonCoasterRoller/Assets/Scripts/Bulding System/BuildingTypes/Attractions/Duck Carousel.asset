@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c230c9f0c23ef0e40bc104c8257346f2, type: 3}
+  m_Name: Duck Carousel
+  m_EditorClassIdentifier: 
+  buildingName: Duck Carousel
+  width: 2
+  height: 2
+  prefab: {fileID: 2292469437810068118, guid: 9cc22f52718840d4a9fd927af9c5f720, type: 3}
+  preview: {fileID: 2292469437810068118, guid: 09f6b0866c23f124da34db1ac0a0c7b4, type: 3}

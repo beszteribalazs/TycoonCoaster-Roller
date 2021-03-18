@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 749819647006534670}
-  - component: {fileID: 8944134362903991065}
+  - component: {fileID: 2716480603817993972}
   m_Layer: 0
-  m_Name: ferrisPrefab
+  m_Name: ferrisWheelPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8944134362903991065
+--- !u!114 &2716480603817993972
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5573614386441458592}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3658a39458cc3af48b44ee767b3a92f6, type: 3}
+  m_Script: {fileID: 11500000, guid: d817a59413ebf3f4b816970102391f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &9161202789482387465

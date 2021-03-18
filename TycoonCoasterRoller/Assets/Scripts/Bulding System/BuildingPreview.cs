@@ -23,7 +23,9 @@ public class BuildingPreview : MonoBehaviour{
             targetPosition = buildingSystem.GetMouseWorldSnappedPosition();
             targetPosition.y = 0f;
         }
-        catch (Exception e){ }
+        catch (Exception e){
+            // ignored
+        }
 
         if (visual != null){
             transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 20f);

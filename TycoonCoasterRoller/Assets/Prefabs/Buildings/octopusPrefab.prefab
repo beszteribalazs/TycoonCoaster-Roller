@@ -102,9 +102,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1562681592299601430}
-  - component: {fileID: 9197030938535016841}
+  - component: {fileID: 1983341353194099550}
   m_Layer: 0
-  m_Name: ferrisChairPrefab
+  m_Name: octopusPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,7 +126,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9197030938535016841
+--- !u!114 &1983341353194099550
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1562681592299601429}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3658a39458cc3af48b44ee767b3a92f6, type: 3}
+  m_Script: {fileID: 11500000, guid: d817a59413ebf3f4b816970102391f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1562681591093889073

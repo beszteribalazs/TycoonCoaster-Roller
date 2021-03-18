@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c230c9f0c23ef0e40bc104c8257346f2, type: 3}
+  m_Name: Balloons
+  m_EditorClassIdentifier: 
+  buildingName: Balloon Stand
+  width: 1
+  height: 1
+  prefab: {fileID: 3942155157553872441, guid: 70d0ab14e9f7f4146994b182d7dc3a5e, type: 3}
+  preview: {fileID: 3942155157553872441, guid: 383e2e20e517b78489836c8c361748a5, type: 3}

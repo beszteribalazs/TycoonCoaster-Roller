@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c230c9f0c23ef0e40bc104c8257346f2, type: 3}
+  m_Name: Mcdonalds
+  m_EditorClassIdentifier: 
+  buildingName: McDonalds
+  width: 6
+  height: 4
+  prefab: {fileID: 3994283277440307252, guid: d5c32dc081873a7478fe4ec30f15660a, type: 3}
+  preview: {fileID: 3994283277440307252, guid: 9a4a4a33d4683be4dbe6b66c283da391, type: 3}
