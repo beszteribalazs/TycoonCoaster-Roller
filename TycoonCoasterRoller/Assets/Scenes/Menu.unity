@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: fb739b93e7db9624d80eefcc9cd7b30f,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -2125,10 +2126,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 130718054}
   m_HandleRect: {fileID: 381637022}
   m_Direction: 0
-  m_MinValue: 10
-  m_MaxValue: 30
+  m_MinValue: 20
+  m_MaxValue: 50
   m_WholeNumbers: 1
-  m_Value: 10
+  m_Value: 20
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
