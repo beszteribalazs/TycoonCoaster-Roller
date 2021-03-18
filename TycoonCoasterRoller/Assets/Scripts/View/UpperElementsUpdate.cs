@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using TMPro;
@@ -19,11 +20,15 @@ public class UpperElementsUpdate : MonoBehaviour
     
     void Update()
     {
-        //day.text = "Day: "+;
-        //time.text = hour + ":" + minute;
-        //money.text = +"$";
-        //happiness.text = +"%";
-        //trash.text = +"%";
+        day.text = "Day: "+GameManager.instance.DayCount;
+
+        TimeSpan result = TimeSpan.FromMinutes((GameManager.instance.GameHour*60)+GameManager.instance.GameSecond);
+        string timeString = result.ToString("hh':'mm");
+        time.text = timeString;
+        
+        money.text = GameManager.instance.Money+"$";
+        happiness.text = GameManager.instance.TotalHappiness*100+"%";
+        trash.text = GameManager.instance.TrashPercentage*100+"%";
     }
 
 }
