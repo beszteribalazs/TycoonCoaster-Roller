@@ -56,13 +56,12 @@ public class BuildingSystem : MonoBehaviour{
         
         //Cycle buildings
         if (Input.GetKeyDown(KeyCode.Tab)){
+            selectedBuildingSO = placableBuildings[buildingIndex];
+            EventManager.instance.SelectedBuildingChanged();
             buildingIndex++;
             if (buildingIndex >= placableBuildings.Count){
                 buildingIndex = 0;
             }
-
-            selectedBuildingSO = placableBuildings[buildingIndex];
-            EventManager.instance.SelectedBuildingChanged();
         }
     }
 

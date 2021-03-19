@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         this.totalHappiness = 1f;
         this.trashLevel = 0f;
         this.trashPercentage = 0f;
-        this.gameSpeed = 100f;
+        this.gameSpeed = 1f;
         this.dayCount = 0;
         this.gameIsActive = true;
     }
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
 
     private void GameLoop()
     {
-        Debug.Log("Days: " + dayCount + "           Hours: " + gameHour + "           Minute: " + gameSecond);
+        //Debug.Log("Days: " + dayCount + "           Hours: " + gameHour + "           Minute: " + gameSecond);
         this.countSecond++;
         this.gameSecond++;
 
