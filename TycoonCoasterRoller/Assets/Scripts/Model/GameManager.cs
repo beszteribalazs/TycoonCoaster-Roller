@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,7 +10,6 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     private int width = 50;
     private int height = 50;
-    private const float REFUNDMULTIPLIER = 0.25f;
     private const int REPAIRTIME = 60;
     private float money;
     private float totalHappiness;
@@ -23,7 +23,10 @@ public class GameManager : MonoBehaviour
     private float countSecond;
     private float helpSecond;
     private bool gameIsActive;
-
+    private List<Janitor> janitors;
+    private List<Mechanic> mechanics;
+    private List<Visitor> visitors;
+    
     private void Awake()
     {
         instance = this;
@@ -38,6 +41,9 @@ public class GameManager : MonoBehaviour
         this.gameSpeed = 1f;
         this.dayCount = 0;
         this.gameIsActive = true;
+        this.janitors = new List<Janitor>();
+        this.mechanics = new List<Mechanic>();
+        this.visitors = new List<Visitor>();
     }
 
     void Update()
@@ -86,12 +92,129 @@ public class GameManager : MonoBehaviour
         UpdateProperties();
     }
 
+    public bool BuyBuilding(BuildingTypeSO type)
+    {
+        if (this.money >= type.price)
+        {
+            this.money = this.money - type.price;
+            return true;
+        }
+        return false;
+    }
 
+    public bool UpgradeBuilding(Building building)
+    {
+        if (this.money >= building.UpgradePrice)
+        {
+            this.money = this.money - building.UpgradePrice;
+            return true;
+        }
+        return false;
+    }
 
+    public void SellBuilding(Building building)
+    {
+        this.money = this.money + building.SellPrice;
+    }
+
+    public bool RepairBuilding(Building building)
+    {
+        Mechanic helperMechanic=null;
+        foreach (Mechanic mechanic in this.mechanics)
+        {
+            if (mechanic.Occupied == false)
+            {
+                helperMechanic = mechanic;
+                break;
+            }
+        }
+
+        if (helperMechanic != null)
+        {
+            building.Repair(helperMechanic);
+            return true;
+        }
+        return false;
+    }
+    
+    public bool BuyJanitor()
+    {
+        if (this.money >= 150f)
+        {
+            this.money = this.money - 150f;
+            this.janitors.Add(new Janitor());
+            return true;
+        }
+        return false;
+    }
+    
+    public bool BuyMechanic()
+    {
+        if (this.money >= 300f)
+        {
+            this.money = this.money - 300f;
+            this.mechanics.Add(new Mechanic());
+            return true;
+        }
+        return false;
+    }
+
+    public bool RemoveJanitor()
+    {
+        if (this.janitors.Count > 0)
+        {
+            this.janitors.RemoveAt(this.janitors.Count-1);
+            return true;
+        }
+        return false;
+    }
+    
+    public bool RemoveMechanic()
+    {
+        if (this.mechanics.Count > 0)
+        {
+            Mechanic helperMechanic=null;
+            foreach (Mechanic mechanic in this.mechanics)
+            {
+                if (mechanic.Occupied == false)
+                {
+                    helperMechanic = mechanic;
+                    break;
+                }
+            }
+
+            if (helperMechanic != null)
+            {
+                this.mechanics.Remove(helperMechanic);
+                return true;
+            }
+        }
+        return false;
+    }
+    
     private void UpdateProperties()
     {
+        foreach (Building building in this.buildingSystem.Buildings)
+        {
+            this.money -= building.Upkeep; 
+            this.money += building.GetIncome;
+
+            float rand_float = Random.Range(0f,1f);
+            if(rand_float<building.BreakChance) 
+            {
+                building.Broke=true;
+            }
+        }
+        foreach (Janitor janitor in this.janitors) { this.money -= janitor.Salary; }
+        foreach (Mechanic mechanic in this.mechanics) { this.money -= mechanic.Salary; }
+        foreach (Visitor visitor in this.visitors) { this.trashLevel += 0.2f / 24f / 60f; }
         
+        if(this.trashLevel>this.totalCapacity) { this.trashLevel=this.totalCapacity; }
+        this.trashPercentage=this.trashLevel/this.totalCapacity;
+        this.totalHappiness=1-this.trashPercentage;
     }
+    
+    private void UpdateWeather(){}
 
     public void Resume()
     {
