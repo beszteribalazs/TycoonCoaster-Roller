@@ -18829,68 +18829,59 @@ PrefabInstance:
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
       propertyPath: placableBuildings.Array.size
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
       propertyPath: placableBuildings.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 319988a6237baf849bec815c476b86d2,
+      objectReference: {fileID: 11400000, guid: e9be47d9e3f3fd74ba3006be5620d764,
         type: 2}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
       propertyPath: placableBuildings.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 745dcff7af271c94a8460585b3f0107a,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
       propertyPath: placableBuildings.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: e4006dcb9d64c3c4987408cc6887b642,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
       propertyPath: placableBuildings.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: 0fa229c0ec024ba478e9b5afc3484612,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
       propertyPath: placableBuildings.Array.data[4]
       value: 
-      objectReference: {fileID: 11400000, guid: decd50f348fafc3419fb3919f9bfd877,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
       propertyPath: placableBuildings.Array.data[5]
       value: 
-      objectReference: {fileID: 11400000, guid: 04d91bb7b95532d40a8cacb786c998fc,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
       propertyPath: placableBuildings.Array.data[6]
       value: 
-      objectReference: {fileID: 11400000, guid: a8cdf3678680eaf45b3a840c666cf5c3,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
       propertyPath: placableBuildings.Array.data[7]
       value: 
-      objectReference: {fileID: 11400000, guid: 8c56614a88e5fb84980e22a4556a9203,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
       propertyPath: placableBuildings.Array.data[8]
       value: 
-      objectReference: {fileID: 11400000, guid: a9f18f1aa05fd2c4aac709e922ce24bc,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
       propertyPath: placableBuildings.Array.data[9]
       value: 
-      objectReference: {fileID: 11400000, guid: 9bd198f1957bd38428c13cf04f5c7a09,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
       propertyPath: placableBuildings.Array.data[10]
