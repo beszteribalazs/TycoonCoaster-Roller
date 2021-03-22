@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Toilet
   m_EditorClassIdentifier: 
   buildingName: Toilet
-  price: 0
+  price: 150
   sellMultiplier: 0.5
   upgradeMultiplier: 2
-  baseIncome: 0
-  breakChance: 0.01
+  baseIncome: 10
+  breakChance: 0.25
   width: 1
   height: 1
   prefab: {fileID: 3519247608901454096, guid: 79b6e4e0660f0ed4f91a0b34e70d8485, type: 3}

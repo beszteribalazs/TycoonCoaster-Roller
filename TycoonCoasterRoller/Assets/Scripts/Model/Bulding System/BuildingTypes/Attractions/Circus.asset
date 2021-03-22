@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Circus
   m_EditorClassIdentifier: 
   buildingName: Circus
-  price: 0
+  price: 3500
   sellMultiplier: 0.5
   upgradeMultiplier: 2
-  baseIncome: 0
-  breakChance: 0.01
+  baseIncome: 375
+  breakChance: 0.1
   width: 4
   height: 4
   prefab: {fileID: 8771790324392349395, guid: 13dafac51b98bce4db0d20c55395b7be, type: 3}

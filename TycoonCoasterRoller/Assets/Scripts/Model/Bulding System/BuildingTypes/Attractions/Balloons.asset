@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Balloons
   m_EditorClassIdentifier: 
   buildingName: Balloon Stand
-  price: 0
+  price: 250
   sellMultiplier: 0.5
   upgradeMultiplier: 2
-  baseIncome: 0
-  breakChance: 0.01
+  baseIncome: 50
+  breakChance: 0.05
   width: 1
   height: 1
   prefab: {fileID: 3942155157553872441, guid: 70d0ab14e9f7f4146994b182d7dc3a5e, type: 3}

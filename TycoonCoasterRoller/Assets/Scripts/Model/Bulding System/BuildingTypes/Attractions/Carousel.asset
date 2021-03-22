@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Carousel
   m_EditorClassIdentifier: 
   buildingName: Carousel
-  price: 0
+  price: 5000
   sellMultiplier: 0.5
   upgradeMultiplier: 2
-  baseIncome: 0
-  breakChance: 0.01
+  baseIncome: 450
+  breakChance: 0.1
   width: 4
   height: 4
   prefab: {fileID: 2997855354766291615, guid: f29a470e76bdadd4fb997d8fd3fc8772, type: 3}

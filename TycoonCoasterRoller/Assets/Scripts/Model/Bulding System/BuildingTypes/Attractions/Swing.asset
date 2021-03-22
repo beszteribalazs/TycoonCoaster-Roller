@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Swing
   m_EditorClassIdentifier: 
   buildingName: Swing
-  price: 0
+  price: 800
   sellMultiplier: 0.5
   upgradeMultiplier: 2
-  baseIncome: 0
-  breakChance: 0.01
+  baseIncome: 100
+  breakChance: 0.08
   width: 2
   height: 2
   prefab: {fileID: 2071160883558928823, guid: 9896043c55476ba4bb2964c54a41027d, type: 3}

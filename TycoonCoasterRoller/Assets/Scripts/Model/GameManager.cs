@@ -212,8 +212,15 @@ public class GameManager : MonoBehaviour
         foreach (Visitor visitor in this.visitors) { this.trashLevel += 0.2f / 24f / 60f; }
         
         if(this.trashLevel>this.totalCapacity) { this.trashLevel=this.totalCapacity; }
-        this.trashPercentage=this.trashLevel/this.totalCapacity;
-        this.totalHappiness=1-this.trashPercentage;
+        if (this.totalCapacity == 0)
+        {
+            this.trashPercentage = 0;
+        }
+        else
+        {
+            this.trashPercentage=this.trashLevel/this.totalCapacity;
+        }
+        this.totalHappiness=1f-this.trashPercentage;
     }
     
     private void UpdateWeather(){}

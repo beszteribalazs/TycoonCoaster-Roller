@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: RollerCoaster
   m_EditorClassIdentifier: 
   buildingName: Roller Coaster
-  price: 0
+  price: 16000
   sellMultiplier: 0.5
   upgradeMultiplier: 2
-  baseIncome: 0
-  breakChance: 0.01
+  baseIncome: 1000
+  breakChance: 0.15
   width: 7
   height: 7
   prefab: {fileID: 4863732021162573958, guid: 59d77c9f11ba0c247b1d5e868037c57f, type: 3}

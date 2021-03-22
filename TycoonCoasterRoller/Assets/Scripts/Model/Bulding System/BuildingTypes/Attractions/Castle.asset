@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Castle
   m_EditorClassIdentifier: 
   buildingName: Castle
-  price: 0
+  price: 1750
   sellMultiplier: 0.5
   upgradeMultiplier: 2
-  baseIncome: 0
-  breakChance: 0.01
+  baseIncome: 200
+  breakChance: 0.08
   width: 3
   height: 3
   prefab: {fileID: 7214329642185966137, guid: 8b2dd7fc4868cfe48bb2ea8e6161fa6d, type: 3}

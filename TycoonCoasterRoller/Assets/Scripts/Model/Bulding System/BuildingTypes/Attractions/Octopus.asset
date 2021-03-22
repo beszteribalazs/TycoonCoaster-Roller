@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Octopus
   m_EditorClassIdentifier: 
   buildingName: Octopus
-  price: 0
+  price: 2000
   sellMultiplier: 0.5
   upgradeMultiplier: 2
-  baseIncome: 0
-  breakChance: 0.01
+  baseIncome: 225
+  breakChance: 0.09
   width: 3
   height: 3
   prefab: {fileID: 1562681592299601430, guid: 5411d2f11853e6f469e6a9640b3ddb83, type: 3}

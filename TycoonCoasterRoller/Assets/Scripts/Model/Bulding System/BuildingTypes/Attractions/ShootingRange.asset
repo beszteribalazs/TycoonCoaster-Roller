@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: ShootingRange
   m_EditorClassIdentifier: 
   buildingName: Shooting Range
-  price: 0
+  price: 600
   sellMultiplier: 0.5
   upgradeMultiplier: 2
-  baseIncome: 0
-  breakChance: 0.01
+  baseIncome: 100
+  breakChance: 0.08
   width: 2
   height: 2
   prefab: {fileID: 8583174586481952002, guid: 6a2d9f73c8bc12a4c81949eceb79c79a, type: 3}
