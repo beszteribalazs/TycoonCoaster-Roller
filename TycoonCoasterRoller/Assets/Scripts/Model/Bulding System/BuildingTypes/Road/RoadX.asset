@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RoadX
   m_EditorClassIdentifier: 
   buildingName: Road X Intersection
-  price: 0
+  price: 25
   sellMultiplier: 0.5
   upgradeMultiplier: 2
   baseIncome: 0

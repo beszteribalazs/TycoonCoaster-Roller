@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TrashBin
   m_EditorClassIdentifier: 
   buildingName: Trach Bin
-  price: 0
+  price: 50
   sellMultiplier: 0.5
   upgradeMultiplier: 0
   baseIncome: 0

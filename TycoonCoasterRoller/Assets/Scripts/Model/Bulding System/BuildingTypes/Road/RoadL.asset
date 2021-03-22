@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RoadL
   m_EditorClassIdentifier: 
   buildingName: Road L Turn
-  price: 0
+  price: 25
   sellMultiplier: 0.5
   upgradeMultiplier: 2
   baseIncome: 0
