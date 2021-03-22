@@ -12,6 +12,8 @@ public class UpperElementsUpdate : MonoBehaviour
     public TMP_Text money;
     public TMP_Text happiness;
     public TMP_Text trash;
+    public TMP_Text janitor;
+    public TMP_Text mechanic;
     
     void Start()
     {
@@ -26,9 +28,15 @@ public class UpperElementsUpdate : MonoBehaviour
         string timeString = result.ToString("hh':'mm");
         time.text = timeString;
         
-        money.text = GameManager.instance.Money+"$";
+        money.text = (int)Math.Round(GameManager.instance.Money)+"$";
         happiness.text = GameManager.instance.TotalHappiness*100+"%";
         trash.text = GameManager.instance.TrashPercentage*100+"%";
+        janitor.text = GameManager.instance.Janitors.Count.ToString();
+
+
+
+        
+        mechanic.text = "KELL"+"/"+GameManager.instance.Mechanics.Count.ToString();
     }
 
 }
