@@ -285,4 +285,14 @@ public class GameManager : MonoBehaviour
     {
         get => money;
     }
+
+    public List<Janitor> Janitors
+    {
+        get => janitors;
+    }
+
+    public List<Mechanic> Mechanics
+    {
+        get => mechanics;
+    }
 }
