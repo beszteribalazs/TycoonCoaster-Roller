@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: FerrisWheel
   m_EditorClassIdentifier: 
   buildingName: Ferris Wheel
+  price: 0
+  sellMultiplier: 0.5
+  upgradeMultiplier: 2
+  baseIncome: 0
+  breakChance: 0.01
   width: 6
   height: 3
   prefab: {fileID: 749819647006534670, guid: 0f4c5e36eaca81c4e898cb072f3f71f2, type: 3}

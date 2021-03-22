@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: HotdogStand
   m_EditorClassIdentifier: 
   buildingName: Hotdog stand
+  price: 0
+  sellMultiplier: 0.5
+  upgradeMultiplier: 2
+  baseIncome: 0
+  breakChance: 0.01
   width: 1
   height: 1
   prefab: {fileID: 7606120766570842788, guid: 02645d79778c644439b0628d02693afb, type: 3}

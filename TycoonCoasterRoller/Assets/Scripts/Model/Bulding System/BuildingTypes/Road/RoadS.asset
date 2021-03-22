@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: RoadS
   m_EditorClassIdentifier: 
   buildingName: Road Straight
+  price: 0
+  sellMultiplier: 0.5
+  upgradeMultiplier: 2
+  baseIncome: 0
+  breakChance: 0
   width: 1
   height: 1
   prefab: {fileID: 7876778915689920414, guid: cfb700d2b90064c489a2e131d34f806a, type: 3}

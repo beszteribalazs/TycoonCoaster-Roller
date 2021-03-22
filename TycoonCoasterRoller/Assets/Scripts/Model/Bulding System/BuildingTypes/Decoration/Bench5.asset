@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: Bench5
   m_EditorClassIdentifier: 
   buildingName: Bench 5
+  price: 0
+  sellMultiplier: 0.5
+  upgradeMultiplier: 2
+  baseIncome: 0
+  breakChance: 0
   width: 1
   height: 1
   prefab: {fileID: 3196305578906901473, guid: faf88d644ce2d3744aba0b78261cca3e, type: 3}

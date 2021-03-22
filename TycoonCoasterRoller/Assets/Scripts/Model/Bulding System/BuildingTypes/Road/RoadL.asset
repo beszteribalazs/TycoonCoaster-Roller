@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: RoadL
   m_EditorClassIdentifier: 
   buildingName: Road L Turn
+  price: 0
+  sellMultiplier: 0.5
+  upgradeMultiplier: 2
+  baseIncome: 0
+  breakChance: 0
   width: 1
   height: 1
   prefab: {fileID: 6240644660728553968, guid: 8ff6258c37076cc4183b9646b8480525, type: 3}

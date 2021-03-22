@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    public bool UpgradeBuilding(Building building)
+    public bool UpgradeBuilding(Attraction building)
     {
         if (this.money >= building.UpgradePrice)
         {
@@ -112,12 +112,13 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    
     public void SellBuilding(Building building)
     {
         this.money = this.money + building.SellPrice;
     }
 
-    public bool RepairBuilding(Building building)
+    public bool RepairBuilding(Attraction building)
     {
         Mechanic helperMechanic=null;
         foreach (Mechanic mechanic in this.mechanics)
@@ -136,6 +137,7 @@ public class GameManager : MonoBehaviour
         }
         return false;
     }
+    
     
     public bool BuyJanitor()
     {
@@ -197,7 +199,7 @@ public class GameManager : MonoBehaviour
         foreach (Building building in this.buildingSystem.Buildings)
         {
             this.money -= building.Upkeep; 
-            this.money += building.GetIncome;
+            this.money += building.Income;
 
             float rand_float = Random.Range(0f,1f);
             if(rand_float<building.BreakChance) 

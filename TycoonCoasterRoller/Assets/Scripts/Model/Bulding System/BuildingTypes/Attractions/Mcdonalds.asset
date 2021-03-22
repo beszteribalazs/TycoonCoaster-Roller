@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: Mcdonalds
   m_EditorClassIdentifier: 
   buildingName: McDonalds
+  price: 0
+  sellMultiplier: 0.5
+  upgradeMultiplier: 2
+  baseIncome: 0
+  breakChance: 0.01
   width: 6
   height: 4
   prefab: {fileID: 3994283277440307252, guid: d5c32dc081873a7478fe4ec30f15660a, type: 3}

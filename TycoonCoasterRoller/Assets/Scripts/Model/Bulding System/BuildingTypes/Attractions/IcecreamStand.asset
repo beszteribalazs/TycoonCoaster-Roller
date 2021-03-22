@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: IcecreamStand
   m_EditorClassIdentifier: 
   buildingName: Icecream Stand
+  price: 0
+  sellMultiplier: 0.5
+  upgradeMultiplier: 2
+  baseIncome: 0
+  breakChance: 0.01
   width: 1
   height: 1
   prefab: {fileID: 4375764988047440218, guid: a09be6fc3bdba624a835c7d09f488364, type: 3}

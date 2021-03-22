@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: PopcornStands
   m_EditorClassIdentifier: 
   buildingName: Popcorn Stand
+  price: 0
+  sellMultiplier: 0.5
+  upgradeMultiplier: 2
+  baseIncome: 0
+  breakChance: 0.01
   width: 1
   height: 1
   prefab: {fileID: 7234051157162314784, guid: 5e546ba892203584f9596cb849492257, type: 3}

@@ -2,15 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Building: MonoBehaviour{
-    BuildingTypeSO buildingType;
+public abstract class Building : MonoBehaviour{
+    protected BuildingTypeSO buildingType;
     Vector2Int gridOrigin;
     BuildingTypeSO.Direction buildingDirection;
-    
+
+    public abstract float SellPrice{ get; }
+    public abstract float Upkeep{ get; }
+    public abstract float Income{ get; }
+    public abstract float BreakChance{ get; }
+    public abstract bool Broke{ get; set; }
+
     public List<Vector2Int> GetGridPositionList(){
         return buildingType.GetPositionList(gridOrigin, buildingDirection);
     }
-    
+
     public void Destroy(){
         Destroy(this.gameObject);
     }

@@ -37,6 +37,20 @@ public class GridXZ{
         Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 1000f);
     }
 
+    public List<Building> GetBuildingList(){
+        List<Building> buildings = new List<Building>();
+
+        for (int x = 0; x < gridArray.GetLength(0); x++){
+            for (int y = 0; y < gridArray.GetLength(1); y++){
+                if (gridArray[x, y].GetBuilding() != null){
+                    buildings.Add(gridArray[x,y].GetBuilding());
+                }
+            }
+        }
+        
+        return buildings;
+    }
+
     public float GetCellSize(){
         return cellSize;
     }

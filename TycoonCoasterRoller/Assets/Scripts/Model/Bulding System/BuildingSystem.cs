@@ -17,6 +17,8 @@ public class BuildingSystem : MonoBehaviour{
     BuildingTypeSO selectedBuildingSO;
     BuildingTypeSO.Direction currentBuildingRotation;
 
+    public List<Building> Buildings => grid.GetBuildingList();
+    
     void Awake(){
         //instance = this;
 

@@ -32,7 +32,14 @@ public class BuildingTypeSO : ScriptableObject{
 
 
     public string buildingName;
-    public int width;
+    [Header("Game setup")] public float price;
+    public float sellMultiplier = 0.5f;
+    public float upgradeMultiplier = 2f;
+    [Tooltip("Income at level 1")] public float baseIncome;
+    [Range(0f,1f)]
+    public float breakChance;
+
+    [Header("Map setup")] public int width;
     public int height;
     public Transform prefab;
     public Transform preview;

@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: RoadT
   m_EditorClassIdentifier: 
   buildingName: Road T Intersection
+  price: 0
+  sellMultiplier: 0.5
+  upgradeMultiplier: 2
+  baseIncome: 0
+  breakChance: 0
   width: 1
   height: 1
   prefab: {fileID: 6494056921266320676, guid: 4e4e36239c947f4449cb05ecc045d6e8, type: 3}
