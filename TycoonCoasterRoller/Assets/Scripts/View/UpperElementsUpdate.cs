@@ -28,7 +28,7 @@ public class UpperElementsUpdate : MonoBehaviour
         string timeString = result.ToString("hh':'mm");
         time.text = timeString;
         
-        money.text = (int)Math.Round(GameManager.instance.Money)+"$";
+        money.text = (int)Math.Floor(GameManager.instance.Money)+"$";
         happiness.text = GameManager.instance.TotalHappiness*100+"%";
         trash.text = GameManager.instance.TrashPercentage*100+"%";
         janitor.text = GameManager.instance.Janitors.Count.ToString();

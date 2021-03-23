@@ -45,7 +45,6 @@ public class CameraController : MonoBehaviour
         HandleMovementInput();
         HandleMouseInput();
     }
-
     
     void HandleMouseInput()
     {
@@ -141,8 +140,5 @@ public class CameraController : MonoBehaviour
         
         transform.rotation = Quaternion.Lerp(transform.rotation,newRotation,Time.deltaTime * movementTime);
     }
-    
-    
-    
-    
+
 }
