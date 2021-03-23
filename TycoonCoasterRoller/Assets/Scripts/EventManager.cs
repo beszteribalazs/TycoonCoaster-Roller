@@ -14,4 +14,9 @@ public class EventManager : MonoBehaviour{
     public void SelectedBuildingChanged(){
         onSelectedBuildingChanged?.Invoke();
     }
+
+    public event Action onMapChanged;
+    public void MapChanged(){
+        onMapChanged?.Invoke();
+    }
 }

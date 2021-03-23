@@ -34,7 +34,6 @@ public class BuildingTypeSO : ScriptableObject{
     public string buildingName;
     [Header("Game setup")] public float price;
     public float sellMultiplier = 0.5f;
-    public float upgradeMultiplier = 2f;
     [Tooltip("Income at level 1")] public float baseIncome;
     [Range(0f,1f)]
     public float breakChance;

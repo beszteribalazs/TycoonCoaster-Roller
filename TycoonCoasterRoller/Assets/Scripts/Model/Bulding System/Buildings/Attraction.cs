@@ -15,8 +15,8 @@ public class Attraction : Building{
     public float UpgradePrice => buildingType.price * (float)level;
 
     public override float SellPrice => (buildingType.price * (float) level) * buildingType.sellMultiplier;
-    public override float Upkeep => ((buildingType.price * (float) level)) * buildingType.upgradeMultiplier;
-    public override float Income => buildingType.baseIncome * level;
+    public override float Upkeep => Mathf.Sqrt(level) / 3f / 24f;
+    public override float Income => Mathf.Sqrt(level) / 24f;
     public override float BreakChance => buildingType.breakChance;
 
     public override bool Broke{

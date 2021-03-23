@@ -205,6 +205,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road_intersection_T 1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 32a7d874241119b4a843b6e7ad6dfec2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32a7d874241119b4a843b6e7ad6dfec2, type: 3}
 --- !u!4 &8216066420883553076 stripped

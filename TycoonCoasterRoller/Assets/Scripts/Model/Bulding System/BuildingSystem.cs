@@ -13,7 +13,9 @@ public class BuildingSystem : MonoBehaviour{
     [SerializeField] float cellSize = 3f;
     [SerializeField] List<BuildingTypeSO> placableBuildings;
     [SerializeField] Transform groundVisualPrefab;
+    [SerializeField] Transform entryPointPrefab;
 
+    public Transform entryPoint;
     BuildingTypeSO selectedBuildingSO;
     BuildingTypeSO.Direction currentBuildingRotation;
 
@@ -33,6 +35,10 @@ public class BuildingSystem : MonoBehaviour{
 
         selectedBuildingSO = null;
         currentBuildingRotation = BuildingTypeSO.Direction.Down;
+    }
+
+    void Start(){
+        entryPoint = Instantiate(entryPointPrefab, new Vector3((float) ((int) (gridWidth / 2) * cellSize), 0, -3), Quaternion.identity);
     }
 
     int buildingIndex = 0;
@@ -106,7 +112,9 @@ public class BuildingSystem : MonoBehaviour{
                 foreach (Vector2Int gridPositions in positionList){
                     grid.GetCell(gridPositions.x, gridPositions.y).SetBuilding(placedBuilding);
                 }
+                GameManager.instance.BuyBuilding(selectedBuildingSO);
                 SetSelectedBuildingType(null);
+                EventManager.instance.MapChanged();
             }
             else{
                 if (grid.GetCell(x, z).GetBuilding() != null){
@@ -133,9 +141,16 @@ public class BuildingSystem : MonoBehaviour{
             }
 
             clickedBuilding.Destroy();
+            
+            Invoke(nameof(Aaaaa), 0.1f);
+            
         }
     }
 
+    private void Aaaaa(){
+        EventManager.instance.MapChanged();
+    }
+    
     public Quaternion GetCurrentBuildingRotation(){
         return Quaternion.Euler(0, selectedBuildingSO.GetRotationAngle(currentBuildingRotation), 0);
     }
