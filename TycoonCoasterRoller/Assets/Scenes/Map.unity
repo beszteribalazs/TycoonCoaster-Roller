@@ -107,15 +107,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
-    agentHeight: 2
+    agentRadius: 0.1
+    agentHeight: 1.8
     agentSlope: 45
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.033333335
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -535,6 +535,7 @@ Transform:
   - {fileID: 165145202}
   - {fileID: 450993785}
   - {fileID: 756077025}
+  - {fileID: 1439787512}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -637,7 +638,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: f9578532dcbb907478288d439513df48,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f9578532dcbb907478288d439513df48,
         type: 3}
@@ -1460,7 +1461,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e58e4c99bd8230542887b3b62dbf0ac6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e58e4c99bd8230542887b3b62dbf0ac6,
         type: 3}
@@ -10936,7 +10937,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 69c6e116ab2711647b8fc70241830fab,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 69c6e116ab2711647b8fc70241830fab,
         type: 3}
@@ -15663,7 +15664,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 32a7d874241119b4a843b6e7ad6dfec2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 32a7d874241119b4a843b6e7ad6dfec2,
         type: 3}
@@ -16791,6 +16792,97 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb1deac6ca708d541b405f7f16d3ceff, type: 3}
+--- !u!1 &1439787511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1439787512}
+  - component: {fileID: 1439787514}
+  - component: {fileID: 1439787513}
+  - component: {fileID: 1439787515}
+  m_Layer: 0
+  m_Name: NavigationManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1439787512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439787511}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 31733190}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1439787513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439787511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.033333335
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!114 &1439787514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439787511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0696f830e825e334c8380c526ff8aea9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingSystem: {fileID: 1197608044}
+--- !u!114 &1439787515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439787511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d42cbf108d53544fb09b7ac4883d40d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newPrefab: {fileID: 9113561252080322206, guid: d6112008cba14c147b799fa5f0944f3d,
+    type: 3}
+  prefabParent: {fileID: 6234793233146066051, guid: 2d0d3869de2344841b89946b662c861d,
+    type: 3}
 --- !u!1 &1443581293 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 257e8e1b2b3d45e46973c4aadca8fe9e,
@@ -19984,6 +20076,12 @@ PrefabInstance:
       propertyPath: gridHeight
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
+        type: 3}
+      propertyPath: entryPointPrefab
+      value: 
+      objectReference: {fileID: 6458569254635465236, guid: 84316493459767140ad94a8685047553,
+        type: 3}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
       propertyPath: placableBuildings.Array.size
