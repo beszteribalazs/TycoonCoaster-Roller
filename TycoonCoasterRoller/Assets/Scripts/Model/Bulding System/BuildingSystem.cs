@@ -112,7 +112,9 @@ public class BuildingSystem : MonoBehaviour{
                 foreach (Vector2Int gridPositions in positionList){
                     grid.GetCell(gridPositions.x, gridPositions.y).SetBuilding(placedBuilding);
                 }
+
                 GameManager.instance.BuyBuilding(selectedBuildingSO);
+                
                 SetSelectedBuildingType(null);
                 EventManager.instance.MapChanged();
             }
