@@ -19977,12 +19977,12 @@ PrefabInstance:
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
       propertyPath: gridWidth
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
       propertyPath: gridHeight
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}

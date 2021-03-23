@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] public BuildingSystem buildingSystem;
     public static GameManager instance;
-    private int width = 50;
-    private int height = 50;
+    private int width;
+    private int height;
     private const int REPAIRTIME = 60;
     private float money;
     private float totalHappiness;
@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        this.width = MapSizeController.mapSize;
+        this.height = MapSizeController.mapSize;
         this.money = 1000f;
         this.totalHappiness = 1f;
         this.trashLevel = 0f;

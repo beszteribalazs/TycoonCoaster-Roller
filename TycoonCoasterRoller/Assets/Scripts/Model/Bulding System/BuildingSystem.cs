@@ -8,8 +8,8 @@ public class BuildingSystem : MonoBehaviour{
     GridXZ grid;
     Transform ground;
 
-    [Header("Setup")] [SerializeField] int gridWidth = 20;
-    [SerializeField] int gridHeight = 20;
+    [Header("Setup")] [SerializeField] int gridWidth;
+    [SerializeField] int gridHeight;
     [SerializeField] float cellSize = 3f;
     [SerializeField] List<BuildingTypeSO> placableBuildings;
     [SerializeField] Transform groundVisualPrefab;
@@ -21,7 +21,8 @@ public class BuildingSystem : MonoBehaviour{
     
     void Awake(){
         //instance = this;
-
+        gridWidth = MapSizeController.mapSize;
+        gridHeight = MapSizeController.mapSize;
         grid = new GridXZ(gridWidth, gridHeight, cellSize, Vector3.zero);
 
         // Create ground visual

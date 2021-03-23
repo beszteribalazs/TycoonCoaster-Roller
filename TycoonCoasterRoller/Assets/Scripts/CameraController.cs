@@ -134,20 +134,12 @@ public class CameraController : MonoBehaviour
         {
             newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
         }
-
-
-
-            
+        
         transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, limitMinX, limitMaxX), transform.position.y, Mathf.Clamp(transform.position.z, limitMinZ, limitMaxZ));
-        newPosition=new Vector3(Mathf.Clamp(newPosition.x, limitMinX, limitMaxX), transform.position.y, Mathf.Clamp(newPosition.z, limitMinZ, limitMaxZ));
+        newPosition = new Vector3(Mathf.Clamp(newPosition.x, limitMinX, limitMaxX), transform.position.y, Mathf.Clamp(newPosition.z, limitMinZ, limitMaxZ));
         
         transform.rotation = Quaternion.Lerp(transform.rotation,newRotation,Time.deltaTime * movementTime);
-        
-
-        
-        
-        
     }
     
     
