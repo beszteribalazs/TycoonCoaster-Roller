@@ -94,12 +94,17 @@ public class BuildingSystem : MonoBehaviour{
                 try{
                     if (!grid.GetCell(gridPosition.x, gridPosition.y).IsEmpty()){
                         canBuild = false;
+                        Debug.Log("Placing on (" + x + "," + z + ") would collide with another building");
                         break;
                     }
                 }
                 catch (NotValidCellException e){
                     canBuild = false;
                 }
+            }
+
+            if (GameManager.instance.Money < selectedBuildingSO.price){
+                canBuild = false;
             }
 
             // Place building if area is clear
@@ -115,14 +120,6 @@ public class BuildingSystem : MonoBehaviour{
                 GameManager.instance.BuyBuilding(selectedBuildingSO);
                 SetSelectedBuildingType(null);
                 EventManager.instance.MapChanged();
-            }
-            else{
-                if (grid.GetCell(x, z).GetBuilding() != null){
-                    Debug.Log("(" + x + "," + z + ") is already occupied by " + grid.GetCell(x, z).GetBuilding());
-                }
-                else{
-                    Debug.Log("Placing on (" + x + "," + z + ") would collide with another building");
-                }
             }
         }
         catch (Exception e){
