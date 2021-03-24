@@ -6,11 +6,9 @@ using UnityEngine.UI;
 public class BuySelect : MonoBehaviour
 {
     public GameObject buyMenu;
+    public GameObject inspectorMenu;
     public Button buyButton;
-
-public bool check;
-    
-    
+    public bool check;
     
     // Start is called before the first frame update
     void Start()
@@ -23,6 +21,7 @@ public bool check;
     {
         if(Input.GetKeyDown(KeyCode.B))
         {
+            inspectorMenu.SetActive(false);
             buyMenu.SetActive(check);
             check = !check;
         }

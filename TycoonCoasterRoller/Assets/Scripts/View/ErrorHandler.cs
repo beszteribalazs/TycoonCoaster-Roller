@@ -1,13 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class ErrorHandler : MonoBehaviour
 {
-    public GameObject noMoney;
-    public GameObject noJanitor;
-    public GameObject noMechanic;
+    public static ErrorHandler instance;
+    [SerializeField] GameObject buyMenu;
+    [SerializeField] GameObject noMoney;
+    [SerializeField] GameObject noJanitor;
+    [SerializeField] GameObject noMechanic;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public void BuyMechanic()
     {
         if (!GameManager.instance.BuyMechanic())
@@ -40,6 +49,24 @@ public class ErrorHandler : MonoBehaviour
         }
     }
     
+    public void BuyBuilding(BuildingTypeSO type)
+    {
+        if (!GameManager.instance.ChangeSelectedType(type))
+        {
+            StartCoroutine(NoMoneyWait());
+        }
+        else
+        {
+            buyMenu.SetActive(false);
+        }
+    }
+    
+
+    public void NoMoneyError()
+    {
+        StartCoroutine(NoMoneyWait());
+    }
+
     IEnumerator NoMoneyWait()
     {
         noJanitor.SetActive(false);
