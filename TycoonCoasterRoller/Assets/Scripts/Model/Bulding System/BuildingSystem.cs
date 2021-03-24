@@ -103,11 +103,13 @@ public class BuildingSystem : MonoBehaviour{
         if (Input.GetKeyUp(KeyCode.Escape)){
             SetSelectedBuildingType(null);
             currentMode = ClickMode.Normal;
+            EventManager.instance.ModeChanged(currentMode);
         }
         
         if (Input.GetKeyUp(KeyCode.B)){
             SetSelectedBuildingType(null);
             currentMode = ClickMode.Normal;
+            EventManager.instance.ModeChanged(currentMode);
         }
 
         //Cycle buildings
@@ -123,6 +125,7 @@ public class BuildingSystem : MonoBehaviour{
 
     public void SwitchMode(ClickMode m){
         currentMode = m;
+        EventManager.instance.ModeChanged(m);
     }
 
     public void SetSelectedBuildingType(BuildingTypeSO type){

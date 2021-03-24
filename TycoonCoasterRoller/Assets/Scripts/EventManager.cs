@@ -19,4 +19,14 @@ public class EventManager : MonoBehaviour{
     public void MapChanged(){
         onMapChanged?.Invoke();
     }
+
+    public event Action<BuildingSystem.ClickMode> onModeChanged;
+    public void ModeChanged(BuildingSystem.ClickMode m){
+        onModeChanged?.Invoke(m);
+    }
+
+    public event Action<float> onBuildingSold;
+    public void SoldBuilding(float sellPrice){
+        onBuildingSold?.Invoke(sellPrice);
+    }
 }

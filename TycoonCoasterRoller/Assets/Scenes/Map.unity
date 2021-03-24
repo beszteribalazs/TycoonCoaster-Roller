@@ -20010,6 +20010,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
+      propertyPath: road
+      value: 
+      objectReference: {fileID: 11400000, guid: 9cbefe565d55ccd459ea8e257a4d55b2,
+        type: 2}
+    - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
+        type: 3}
       propertyPath: gridWidth
       value: 0
       objectReference: {fileID: 0}
