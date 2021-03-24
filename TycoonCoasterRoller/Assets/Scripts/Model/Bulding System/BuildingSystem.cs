@@ -17,10 +17,12 @@ public class BuildingSystem : MonoBehaviour{
     [Header("Setup")] [SerializeField] int gridWidth;
     [SerializeField] int gridHeight;
     [SerializeField] float cellSize = 3f;
-    [SerializeField] List<BuildingTypeSO> placableBuildings;
+    //[SerializeField] List<BuildingTypeSO> placableBuildings;
     [SerializeField] Transform groundVisualPrefab;
     [SerializeField] Transform entryPointPrefab;
 
+    [SerializeField] BuildingTypeSO road;
+    
     public Transform entryPoint;
 
     List<Building> placedBuildings = new List<Building>();
