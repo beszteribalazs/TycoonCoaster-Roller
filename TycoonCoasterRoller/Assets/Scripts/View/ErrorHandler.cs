@@ -11,7 +11,7 @@ public class ErrorHandler : MonoBehaviour
     [SerializeField] GameObject noMoney;
     [SerializeField] GameObject noJanitor;
     [SerializeField] GameObject noMechanic;
-
+    [SerializeField] GameObject gotMoney;
     private void Awake()
     {
         instance = this;
@@ -61,14 +61,19 @@ public class ErrorHandler : MonoBehaviour
         }
     }
     
-
     public void NoMoneyError()
     {
         StartCoroutine(NoMoneyWait());
     }
 
+    public void GotMoney()
+    {
+        StartCoroutine(GotMoneyWait());
+    }
+
     IEnumerator NoMoneyWait()
     {
+        gotMoney.SetActive(false);
         noJanitor.SetActive(false);
         noMechanic.SetActive(false);
         noMoney.SetActive(true);
@@ -78,6 +83,7 @@ public class ErrorHandler : MonoBehaviour
     
     IEnumerator NoMechanicWait()
     {
+        gotMoney.SetActive(false);
         noJanitor.SetActive(false);
         noMoney.SetActive(false);
         noMechanic.SetActive(true);
@@ -87,10 +93,21 @@ public class ErrorHandler : MonoBehaviour
     
     IEnumerator NoJanitorWait()
     {
+        gotMoney.SetActive(false);
         noMechanic.SetActive(false);
         noMoney.SetActive(false);
         noJanitor.SetActive(true);
         yield return new WaitForSeconds(3);
         noJanitor.SetActive(false);
+    }
+
+    IEnumerator GotMoneyWait()
+    {
+        noMechanic.SetActive(false);
+        noMoney.SetActive(false);
+        noJanitor.SetActive(false);
+        gotMoney.SetActive(true);
+        yield return new WaitForSeconds(3);
+        gotMoney.SetActive(false);
     }
 }
