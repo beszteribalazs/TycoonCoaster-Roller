@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Circus
   m_EditorClassIdentifier: 
   buildingName: Circus
+  capacity: 20
   price: 3500
   sellMultiplier: 0.5
-  upgradeMultiplier: 2
   baseIncome: 375
   breakChance: 0.1
   width: 4

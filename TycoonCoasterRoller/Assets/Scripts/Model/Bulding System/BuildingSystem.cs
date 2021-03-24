@@ -64,6 +64,7 @@ public class BuildingSystem : MonoBehaviour
                 //Debug.Log(hitInfo.collider.transform.parent.name);
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {
+                    
                     InspectorMenu.instance.DisplayDetails(hitInfo.collider.transform.parent.GetComponent<Attraction>());
                 }
             }

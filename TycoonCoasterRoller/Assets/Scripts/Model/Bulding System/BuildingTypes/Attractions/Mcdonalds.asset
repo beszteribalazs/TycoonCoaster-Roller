@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Mcdonalds
   m_EditorClassIdentifier: 
   buildingName: McDonalds
+  capacity: 30
   price: 10000
   sellMultiplier: 0.5
-  upgradeMultiplier: 2
   baseIncome: 700
   breakChance: 0.1
   width: 6

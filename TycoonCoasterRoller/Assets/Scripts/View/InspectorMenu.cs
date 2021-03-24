@@ -7,11 +7,11 @@ using UnityEngine;
 public class InspectorMenu : MonoBehaviour
 {
     public static InspectorMenu instance;
-
+    
     Attraction selectedBuilding;
 
     [SerializeField] GameObject display;
-
+    [SerializeField] GameObject buyMenu;
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI level;
     [SerializeField] TextMeshProUGUI capacity;
@@ -25,9 +25,19 @@ public class InspectorMenu : MonoBehaviour
     {
         instance = this;
     }
-
+    
+    void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            CloseDisplay();
+        }
+    }
+    
     public void DisplayDetails(Attraction building)
     {
+        buyMenu.SetActive(false);
+        BuySelect.instance.SetCheck();
         selectedBuilding = building;
         display.gameObject.SetActive(true);
         nameText.text = building.Name;

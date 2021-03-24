@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Castle
   m_EditorClassIdentifier: 
   buildingName: Castle
+  capacity: 10
   price: 1750
   sellMultiplier: 0.5
-  upgradeMultiplier: 2
   baseIncome: 200
   breakChance: 0.08
   width: 3

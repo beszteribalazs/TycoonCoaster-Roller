@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: FerrisWheel
   m_EditorClassIdentifier: 
   buildingName: Ferris Wheel
+  capacity: 24
   price: 8000
   sellMultiplier: 0.5
-  upgradeMultiplier: 2
   baseIncome: 600
   breakChance: 0.12
   width: 6

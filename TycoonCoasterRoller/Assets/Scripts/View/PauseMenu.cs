@@ -5,18 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
-    public GameObject pauseMenuUi;
-
-    void Start()
-    {
-
-    }
+    private static bool GameIsPaused = false;
+    [SerializeField] GameObject buyMenu;
+    [SerializeField] GameObject insperctorMenu;
+    [SerializeField] GameObject pauseMenuUi;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !buyMenu.activeSelf && !insperctorMenu.activeSelf)
         {
             if (GameIsPaused)
             {
@@ -45,10 +42,10 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
         pauseMenuUi.SetActive(false);
         GameIsPaused = false;
         Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
     }
 
     public void QuitGame()

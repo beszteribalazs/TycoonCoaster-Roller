@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Swing
   m_EditorClassIdentifier: 
   buildingName: Swing
+  capacity: 2
   price: 800
   sellMultiplier: 0.5
-  upgradeMultiplier: 2
   baseIncome: 120
   breakChance: 0.06
   width: 2

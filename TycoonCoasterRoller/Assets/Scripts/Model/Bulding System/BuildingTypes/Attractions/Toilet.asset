@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Toilet
   m_EditorClassIdentifier: 
   buildingName: Toilet
+  capacity: 1
   price: 150
   sellMultiplier: 0.5
-  upgradeMultiplier: 2
   baseIncome: 10
   breakChance: 0.25
   width: 1

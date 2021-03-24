@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Duck Carousel
   m_EditorClassIdentifier: 
   buildingName: Duck Carousel
+  capacity: 4
   price: 1250
   sellMultiplier: 0.5
-  upgradeMultiplier: 2
   baseIncome: 150
   breakChance: 0.07
   width: 2

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Carousel
   m_EditorClassIdentifier: 
   buildingName: Carousel
+  capacity: 18
   price: 5000
   sellMultiplier: 0.5
-  upgradeMultiplier: 2
   baseIncome: 450
   breakChance: 0.1
   width: 4
