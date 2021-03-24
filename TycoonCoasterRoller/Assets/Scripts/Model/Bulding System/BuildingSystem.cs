@@ -75,7 +75,7 @@ public class BuildingSystem : MonoBehaviour
             if (selectedBuildingSO == null)
             {
                 // Destroy building
-                DestroyBuilding();
+                SellBuilding();
             }
             else
             {
@@ -197,7 +197,7 @@ public class BuildingSystem : MonoBehaviour
         }
     }
 
-    private void DestroyBuilding()
+    private void SellBuilding()
     {
         Cell clickedCell = grid.GetCell(GetMouseWorldPosition());
         Building clickedBuilding = clickedCell.GetBuilding();
@@ -211,9 +211,9 @@ public class BuildingSystem : MonoBehaviour
             }
 
             placedBuildings.Remove(clickedBuilding);
-
+            GameManager.instance.SellBuilding(clickedBuilding);
+            
             clickedBuilding.Destroy();
-
             Invoke(nameof(Aaaaa), 0.1f);
         }
     }
