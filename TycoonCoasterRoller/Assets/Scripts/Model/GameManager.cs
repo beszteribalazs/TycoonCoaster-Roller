@@ -195,6 +195,23 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    public void NormalMode(){
+        buildingSystem.currentMode = BuildingSystem.ClickMode.Normal;
+    }
+    
+    public void SwitchMode(){
+        if (buildingSystem.currentMode == BuildingSystem.ClickMode.Destroy){
+            buildingSystem.currentMode = BuildingSystem.ClickMode.Normal;
+        }
+        else{
+            buildingSystem.currentMode = BuildingSystem.ClickMode.Destroy;
+        }
+    }
+    
+    public void ResetSelectedBuilding(){
+        buildingSystem.SetSelectedBuildingType(null);
+    }
+
     private void UpdateProperties()
     {
         foreach (Building building in this.buildingSystem.Buildings)
