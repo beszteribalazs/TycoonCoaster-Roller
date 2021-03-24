@@ -13341,7 +13341,7 @@ MonoBehaviour:
   movementTime: 5
   rotationAmount: 0.75
   zoomAmount: {x: 0, y: -5, z: 5}
-  maxZoom: -30
+  maxZoom: -25
   minZoom: -150
   limitMinX: 0
   limitMaxX: 150

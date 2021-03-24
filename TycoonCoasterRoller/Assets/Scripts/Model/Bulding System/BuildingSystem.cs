@@ -47,7 +47,7 @@ public class BuildingSystem : MonoBehaviour
 
     void Start()
     {
-        entryPoint = Instantiate(entryPointPrefab, new Vector3((float) ((int) (gridWidth / 2) * cellSize), 0, -3),
+        entryPoint = Instantiate(entryPointPrefab, new Vector3((float) ((int) (gridWidth / 2) * cellSize), 0, -3), 
             Quaternion.identity);
     }
 
@@ -82,14 +82,20 @@ public class BuildingSystem : MonoBehaviour
                 SetSelectedBuildingType(null);
             }
         }
-
+        
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            SetSelectedBuildingType(null);
+        }
+        
+        
         // Place building
         if (Input.GetMouseButtonDown(0))
         {
             //left click
             PlaceBuilding();
         }
-
+        
 
         // Rotate building
         if (Input.GetKeyDown(KeyCode.R))
@@ -154,6 +160,7 @@ public class BuildingSystem : MonoBehaviour
             if (GameManager.instance.Money < selectedBuildingSO.price)
             {
                 canBuild = false;
+                SetSelectedBuildingType(null);
             }
 
             // Place building if area is clear
@@ -173,10 +180,12 @@ public class BuildingSystem : MonoBehaviour
 
                 GameManager.instance.BuyBuilding(selectedBuildingSO);
 
-                if (!Input.GetKey(KeyCode.LeftShift))
+
+                if (!Input.GetKey(KeyCode.LeftShift)) 
                 {
                     SetSelectedBuildingType(null);
                 }
+                
 
                 EventManager.instance.MapChanged();
                 placedBuildings.Add(placedBuilding);
