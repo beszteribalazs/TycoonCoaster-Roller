@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BuildingSystem : MonoBehaviour{
     //public static BuildingSystem instance;
@@ -15,12 +16,16 @@ public class BuildingSystem : MonoBehaviour{
     [SerializeField] Transform groundVisualPrefab;
     [SerializeField] Transform entryPointPrefab;
 
+    List<Building> placedBuildings = new List<Building>();
+
+
     public Transform entryPoint;
     BuildingTypeSO selectedBuildingSO;
     BuildingTypeSO.Direction currentBuildingRotation;
 
-    public List<Building> Buildings => grid.GetBuildingList();
-    
+    //public List<Building> Buildings => grid.GetBuildingList();
+    public List<Building> Buildings => placedBuildings;
+
     void Awake(){
         //instance = this;
         gridWidth = MapSizeController.mapSize;
@@ -42,18 +47,34 @@ public class BuildingSystem : MonoBehaviour{
     }
 
     int buildingIndex = 0;
-    
+
     void Update(){
+        // Select placed building
+        if (Input.GetMouseButtonDown(0) && selectedBuildingSO == null){
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo, 1000f, (1 << 9))){
+                //Debug.Log(hitInfo.collider.transform.parent.name);
+                if (!EventSystem.current.IsPointerOverGameObject()){
+                    InspectorMenu.instance.DisplayDetails(hitInfo.collider.transform.parent.GetComponent<Attraction>());
+                }
+            }
+        }
+
+        if (Input.GetMouseButtonDown(1)){
+            if (selectedBuildingSO == null){
+                // Destroy building
+                DestroyBuilding();
+            }
+            else{
+                SetSelectedBuildingType(null);
+            }
+        }
+
         // Place building
         if (Input.GetMouseButtonDown(0)){
             //left click
             PlaceBuilding();
         }
-        // Destroy building
-        else if (Input.GetMouseButtonDown(1)){
-            //right click
-            DestroyBuilding();
-        }
+
 
         // Rotate building
         if (Input.GetKeyDown(KeyCode.R)){
@@ -62,7 +83,7 @@ public class BuildingSystem : MonoBehaviour{
         else if (Input.GetKeyDown(KeyCode.F)){
             currentBuildingRotation = BuildingTypeSO.GetNextDirectionRight(currentBuildingRotation);
         }
-        
+
         //Cycle buildings
         if (Input.GetKeyDown(KeyCode.Tab)){
             selectedBuildingSO = placableBuildings[buildingIndex];
@@ -119,9 +140,13 @@ public class BuildingSystem : MonoBehaviour{
                 }
 
                 GameManager.instance.BuyBuilding(selectedBuildingSO);
-                
-                SetSelectedBuildingType(null);
+
+                if (!Input.GetKey(KeyCode.LeftShift)){
+                    SetSelectedBuildingType(null);
+                }
+
                 EventManager.instance.MapChanged();
+                placedBuildings.Add(placedBuilding);
             }
         }
         catch (Exception e){
@@ -139,17 +164,18 @@ public class BuildingSystem : MonoBehaviour{
                 grid.GetCell(gridPos.x, gridPos.y).ClearBuilding();
             }
 
+            placedBuildings.Remove(clickedBuilding);
+
             clickedBuilding.Destroy();
-            
+
             Invoke(nameof(Aaaaa), 0.1f);
-            
         }
     }
 
     private void Aaaaa(){
         EventManager.instance.MapChanged();
     }
-    
+
     public Quaternion GetCurrentBuildingRotation(){
         return Quaternion.Euler(0, selectedBuildingSO.GetRotationAngle(currentBuildingRotation), 0);
     }

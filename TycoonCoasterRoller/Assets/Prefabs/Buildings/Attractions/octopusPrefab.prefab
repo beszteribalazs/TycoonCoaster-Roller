@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1562681591926590641}
   - component: {fileID: 1562681591926590640}
   - component: {fileID: 1562681591926590655}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1562681592299601430}
   - component: {fileID: 1983341353194099550}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: octopusPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d817a59413ebf3f4b816970102391f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _broke: 0
 --- !u!1001 &1562681591093889073
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -204,6 +205,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ferris_chairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5adecb36ac99ac84880d900c0619b13e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5adecb36ac99ac84880d900c0619b13e,
         type: 3}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8766978279048739067}
   - component: {fileID: 655412735084818517}
   - component: {fileID: 6555708515845747117}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 3994283275996458762}
   - component: {fileID: 3994283275996458760}
   - component: {fileID: 3994283275996458761}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: part1model.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 3994283276622751380}
   - component: {fileID: 3994283276622751386}
   - component: {fileID: 3994283276622751387}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: part2alphamodel.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3994283277195971506}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Mcdonalds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3994283277440307252}
   - component: {fileID: 4051782769075997983}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mekiPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -328,3 +328,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d817a59413ebf3f4b816970102391f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _broke: 0

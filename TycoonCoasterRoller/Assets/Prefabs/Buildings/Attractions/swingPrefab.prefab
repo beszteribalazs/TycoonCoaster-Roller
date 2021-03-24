@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1233732966528918336}
   - component: {fileID: 7257316838822432157}
   - component: {fileID: 2432751747524286088}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2071160883558928823}
   - component: {fileID: 1887336275927469592}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: swingPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d817a59413ebf3f4b816970102391f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _broke: 0
 --- !u!1001 &2071160884024132321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -204,6 +205,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Swing
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fb1deac6ca708d541b405f7f16d3ceff,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb1deac6ca708d541b405f7f16d3ceff, type: 3}

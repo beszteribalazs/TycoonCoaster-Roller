@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 749819647006534670}
   - component: {fileID: 2716480603817993972}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ferrisWheelPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d817a59413ebf3f4b816970102391f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _broke: 0
 --- !u!1 &9161202789482387465
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +58,7 @@ GameObject:
   - component: {fileID: 716770190344638871}
   - component: {fileID: 3397569936336781649}
   - component: {fileID: 4096965349518388898}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,6 +205,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ferris_wheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2f2b46fa28eadce4497918a37b16f6a8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f2b46fa28eadce4497918a37b16f6a8, type: 3}
