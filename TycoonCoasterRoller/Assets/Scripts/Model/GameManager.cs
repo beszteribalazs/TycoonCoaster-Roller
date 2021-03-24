@@ -107,8 +107,7 @@ public class GameManager : MonoBehaviour
 
         return false;
     }
-
-
+    
     public void SellBuilding(Building building)
     {
         this.money = this.money + building.SellPrice;
@@ -134,7 +133,6 @@ public class GameManager : MonoBehaviour
 
         return false;
     }
-
 
     public bool BuyJanitor()
     {
