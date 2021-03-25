@@ -16,13 +16,15 @@ public class BuildingSystem : MonoBehaviour{
 
     [Header("Setup")] [SerializeField] int gridWidth;
     [SerializeField] int gridHeight;
+
     [SerializeField] float cellSize = 3f;
+
     //[SerializeField] List<BuildingTypeSO> placableBuildings;
     [SerializeField] Transform groundVisualPrefab;
     [SerializeField] Transform entryPointPrefab;
 
     [SerializeField] BuildingTypeSO road;
-    
+
     public Transform entryPoint;
 
     List<Building> placedBuildings = new List<Building>();
@@ -59,66 +61,68 @@ public class BuildingSystem : MonoBehaviour{
     int buildingIndex = 0;
 
     void Update(){
-
-        if (currentMode == ClickMode.Normal){
-            // Select placed building
-            if (Input.GetMouseButtonDown(0) && selectedBuildingSO == null){
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo, 1000f,
-                    (1 << 9))){
-                    //Debug.Log(hitInfo.collider.transform.parent.name);
-                    if (!EventSystem.current.IsPointerOverGameObject()){
-                        InspectorMenu.instance.DisplayDetails(hitInfo.collider.transform.parent.GetComponent<Attraction>());
+        if (!EventSystem.current.IsPointerOverGameObject()){
+            if (currentMode == ClickMode.Normal){
+                // Select placed building
+                if (Input.GetMouseButtonDown(0) && selectedBuildingSO == null){
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo, 1000f,
+                        (1 << 9))){
+                        //Debug.Log(hitInfo.collider.transform.parent.name);
+                        if (!EventSystem.current.IsPointerOverGameObject()){
+                            InspectorMenu.instance.DisplayDetails(hitInfo.collider.transform.parent.GetComponent<Attraction>());
+                        }
                     }
                 }
-            }
 
-            if (Input.GetMouseButtonDown(1)){
-                SetSelectedBuildingType(null);
-            }
-            
-            // Place building
-            if (Input.GetMouseButtonDown(0)){
-                //left click
-                PlaceBuilding();
-            }
-
-            // Hide preview if not enough money
-            if (Input.GetMouseButtonUp(0) && selectedBuildingSO != null && GameManager.instance.Money < selectedBuildingSO.price){
-                SetSelectedBuildingType(null);
-            }
-
-            // Rotate building
-            if (Input.GetKeyDown(KeyCode.R)){
-                currentBuildingRotation = BuildingTypeSO.GetNextDirectionLeft(currentBuildingRotation);
-            }
-            else if (Input.GetKeyDown(KeyCode.F)){
-                currentBuildingRotation = BuildingTypeSO.GetNextDirectionRight(currentBuildingRotation);
-            }
-            
-        }else if (currentMode == ClickMode.Destroy){
-            if (Input.GetMouseButtonDown(0)){
-                if (selectedBuildingSO == null){
-                    // Destroy building
-                    SellBuilding();
-                }
-                else{
+                if (Input.GetMouseButtonDown(1)){
                     SetSelectedBuildingType(null);
                 }
-            }
 
-            if (Input.GetMouseButtonDown(1)){
-                currentMode = ClickMode.Normal;
-                EventManager.instance.ModeChanged(currentMode);
+                // Place building
+                if (Input.GetMouseButtonDown(0)){
+                    //left click
+                    PlaceBuilding();
+                }
+
+                // Hide preview if not enough money
+                if (Input.GetMouseButtonUp(0) && selectedBuildingSO != null && GameManager.instance.Money < selectedBuildingSO.price){
+                    SetSelectedBuildingType(null);
+                }
+
+                // Rotate building
+                if (Input.GetKeyDown(KeyCode.R)){
+                    currentBuildingRotation = BuildingTypeSO.GetNextDirectionLeft(currentBuildingRotation);
+                }
+                else if (Input.GetKeyDown(KeyCode.F)){
+                    currentBuildingRotation = BuildingTypeSO.GetNextDirectionRight(currentBuildingRotation);
+                }
+            }
+            else if (currentMode == ClickMode.Destroy){
+                if (Input.GetMouseButtonDown(0)){
+                    if (selectedBuildingSO == null){
+                        // Destroy building
+                        SellBuilding();
+                    }
+                    else{
+                        SetSelectedBuildingType(null);
+                    }
+                }
+
+                if (Input.GetMouseButtonDown(1)){
+                    currentMode = ClickMode.Normal;
+                    EventManager.instance.ModeChanged(currentMode);
+                }
             }
         }
-        
-        
+
+
+
         if (Input.GetKeyUp(KeyCode.Escape)){
             SetSelectedBuildingType(null);
             currentMode = ClickMode.Normal;
             EventManager.instance.ModeChanged(currentMode);
         }
-        
+
         if (Input.GetKeyUp(KeyCode.B)){
             SetSelectedBuildingType(null);
             currentMode = ClickMode.Normal;

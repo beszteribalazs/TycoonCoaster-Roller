@@ -194,7 +194,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void NormalMode(){
-        buildingSystem.currentMode = BuildingSystem.ClickMode.Normal;
+        buildingSystem.SwitchMode(BuildingSystem.ClickMode.Normal);
     }
     
     public void SwitchMode(){
