@@ -199,10 +199,10 @@ public class GameManager : MonoBehaviour
     
     public void SwitchMode(){
         if (buildingSystem.currentMode == BuildingSystem.ClickMode.Destroy){
-            buildingSystem.currentMode = BuildingSystem.ClickMode.Normal;
+            buildingSystem.SwitchMode(BuildingSystem.ClickMode.Normal);
         }
         else{
-            buildingSystem.currentMode = BuildingSystem.ClickMode.Destroy;
+            buildingSystem.SwitchMode(BuildingSystem.ClickMode.Destroy);
         }
     }
     

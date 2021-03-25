@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,13 +8,24 @@ public class CursorChange : MonoBehaviour
     public Texture2D cursorTexture;
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot = Vector2.zero;
-    public void OnMouseEnter()
+    public GameObject image;
+
+    private void Start()
     {
-        Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+        EventManager.instance.onModeChanged += OnMouseEnter;
     }
 
-    public void OnMouseExit()
+    private void OnMouseEnter(BuildingSystem.ClickMode obj)
     {
-        Cursor.SetCursor(null, Vector2.zero, cursorMode);
+        if (obj == BuildingSystem.ClickMode.Normal)
+        {
+            Cursor.SetCursor(null, Vector2.zero, cursorMode);
+            image.SetActive(false);
+        }
+        else
+        {
+            Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+            image.SetActive(true);
+        }
     }
 }
