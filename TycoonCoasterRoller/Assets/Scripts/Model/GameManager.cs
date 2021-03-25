@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     {
         this.width = MapSizeController.mapSize;
         this.height = MapSizeController.mapSize;
-        this.money = 100000f;
+        this.money = 1000f;
         this.totalHappiness = 1f;
         this.trashLevel = 0f;
         this.trashPercentage = 0f;

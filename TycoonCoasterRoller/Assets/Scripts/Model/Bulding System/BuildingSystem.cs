@@ -71,6 +71,10 @@ public class BuildingSystem : MonoBehaviour{
                     }
                 }
             }
+
+            if (Input.GetMouseButtonDown(1)){
+                SetSelectedBuildingType(null);
+            }
             
             // Place building
             if (Input.GetMouseButtonDown(0)){
@@ -78,6 +82,10 @@ public class BuildingSystem : MonoBehaviour{
                 PlaceBuilding();
             }
 
+            // Hide preview if not enough money
+            if (Input.GetMouseButtonUp(0) && selectedBuildingSO != null && GameManager.instance.Money < selectedBuildingSO.price){
+                SetSelectedBuildingType(null);
+            }
 
             // Rotate building
             if (Input.GetKeyDown(KeyCode.R)){
@@ -96,6 +104,11 @@ public class BuildingSystem : MonoBehaviour{
                 else{
                     SetSelectedBuildingType(null);
                 }
+            }
+
+            if (Input.GetMouseButtonDown(1)){
+                currentMode = ClickMode.Normal;
+                EventManager.instance.ModeChanged(currentMode);
             }
         }
         
