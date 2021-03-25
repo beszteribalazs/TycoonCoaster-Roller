@@ -71,7 +71,12 @@ public class GridXZ{
     public Cell GetCell(Vector3 worldPosition){
         int x, z;
         XZFromWorldPosition(worldPosition, out x, out z);
-        return gridArray[x, z];
+        if (x < 0 || x >= width || z < 0 || z >= height){
+            return null;
+        }
+        else{
+            return gridArray[x, z];    
+        }
     }
     
     // Converts word coordinate to grid position

@@ -195,6 +195,7 @@ public class BuildingSystem : MonoBehaviour{
 
     private void SellBuilding(){
         Cell clickedCell = grid.GetCell(GetMouseWorldPosition());
+        if (clickedCell == null) return;
         Building clickedBuilding = clickedCell.GetBuilding();
         if (clickedBuilding != null){
             List<Vector2Int> destroyedCoordinates = clickedBuilding.GetGridPositionList();
