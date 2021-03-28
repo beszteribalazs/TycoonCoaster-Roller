@@ -22,3 +22,5 @@ MonoBehaviour:
   height: 7
   prefab: {fileID: 4863732021162573958, guid: 59d77c9f11ba0c247b1d5e868037c57f, type: 3}
   preview: {fileID: 4863732021162573958, guid: 11f66337e091a6741b3e381071a70ec6, type: 3}
+  uiPrefab: {fileID: 7558931803405781207, guid: e352e9226a456ad40bc4fc797b626ede,
+    type: 3}
