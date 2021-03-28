@@ -43,6 +43,7 @@ public class BuildingTypeSO : ScriptableObject{
     public int height;
     public Transform prefab;
     public Transform preview;
+    public Transform uiPrefab;
 
 
     // Calculates new offset on the grid based on rotation

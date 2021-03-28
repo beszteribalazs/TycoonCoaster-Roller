@@ -13,6 +13,8 @@ public abstract class Building : MonoBehaviour{
     public abstract float BreakChance{ get; }
     public abstract bool Broke{ get; set; }
 
+    public BuildingTypeSO Type => buildingType;
+    
     public string Name => buildingType.buildingName;
 
     public List<Vector2Int> GetGridPositionList(){

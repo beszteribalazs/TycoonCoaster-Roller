@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 
@@ -20,7 +21,9 @@ public class InspectorMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI upgradePrice;
     [SerializeField] TextMeshProUGUI repairPrice;
     [SerializeField] TextMeshProUGUI netIncome;
-
+    [SerializeField] Transform previewModel;
+    Transform previewModelObject;
+    
     void Awake()
     {
         instance = this;
@@ -48,6 +51,10 @@ public class InspectorMenu : MonoBehaviour
         netIncome.text = "- Net Income: " + Math.Round(building.DailyIncome - building.DailyUpkeep, 0) + "$";
         upgradePrice.text = Math.Round(building.UpgradePrice, 0) + "$";
         repairPrice.text = "nincs:c $";
+        if (previewModelObject != null){
+            Destroy(previewModelObject.gameObject);
+        }
+        previewModelObject = Instantiate(building.Type.uiPrefab, previewModel);
     }
 
     public void UpgradeBuilding()
