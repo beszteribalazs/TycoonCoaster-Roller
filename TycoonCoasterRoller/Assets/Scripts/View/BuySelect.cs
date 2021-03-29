@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class BuySelect : MonoBehaviour
 {
     public static BuySelect instance;
-    public GameObject buyMenu;
-    public GameObject inspectorMenu;
-    public Button buyButton;
+    [SerializeField] GameObject buyMenu;
+    [SerializeField] GameObject inspectorMenu;
+    [SerializeField] GameObject pauseMenu;
     public bool check;
 
 
@@ -27,7 +27,7 @@ public class BuySelect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B) && !pauseMenu.activeSelf)
         {
             inspectorMenu.SetActive(false);
             buyMenu.SetActive(check);
