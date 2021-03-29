@@ -23,8 +23,6 @@ public class BuildingSystem : MonoBehaviour{
     [SerializeField] Transform groundVisualPrefab;
     [SerializeField] Transform entryPointPrefab;
 
-    [SerializeField] BuildingTypeSO road;
-
     public Transform entryPoint;
 
     List<Building> placedBuildings = new List<Building>();
@@ -35,6 +33,7 @@ public class BuildingSystem : MonoBehaviour{
 
     //public List<Building> Buildings => grid.GetBuildingList();
     public List<Building> Buildings => placedBuildings;
+    private int lastX, lastZ;
 
     void Awake(){
         //instance = this;
@@ -56,6 +55,7 @@ public class BuildingSystem : MonoBehaviour{
     void Start(){
         entryPoint = Instantiate(entryPointPrefab, new Vector3((float) ((int) (gridWidth / 2) * cellSize), 0, -3),
             Quaternion.identity);
+        lastX = -1; lastZ = -1;
     }
 
     int buildingIndex = 0;
@@ -82,6 +82,19 @@ public class BuildingSystem : MonoBehaviour{
                 if (Input.GetMouseButtonDown(0)){
                     //left click
                     PlaceBuilding();
+                }
+                
+                // Drag roads only
+                if (selectedBuildingSO != null && GetSelectedBuildingType().type == BuildingTypeSO.Type.Road && Input.GetMouseButton(0))
+                {
+                    int x, z;
+                    grid.XZFromWorldPosition(GetMouseWorldPosition(), out x, out z);
+                    if ( !(x == lastX && z == lastZ) )
+                    {
+                        lastX = x;
+                        lastZ = z;
+                        PlaceBuilding();
+                    }
                 }
 
                 // Hide preview if not enough money
