@@ -9,6 +9,14 @@ public class BuildingTypeSO : ScriptableObject{
         Down,
         Left
     }
+    
+    // The 3 types of buildings
+    public enum Type
+    {
+        Attraction,
+        Decoration,
+        Road
+    }
 
     public static Direction GetNextDirectionRight(Direction dir){
         switch (dir){
@@ -38,6 +46,7 @@ public class BuildingTypeSO : ScriptableObject{
     [Tooltip("Income at level 1")] public float baseIncome;
     [Range(0f,1f)]
     public float breakChance;
+    public Type type;
 
     [Header("Map setup")] public int width;
     public int height;
