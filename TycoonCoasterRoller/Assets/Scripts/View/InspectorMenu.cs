@@ -45,10 +45,10 @@ public class InspectorMenu : MonoBehaviour
         display.gameObject.SetActive(true);
         nameText.text = building.Name;
         level.text = "Level: " + building.Level;
-        capacity.text = "- Capacity: " + building.CurrentVisitors + "/" + building.TotalCapacity;
-        upkeep.text = "- Daily Upkeep: " + Math.Round(building.DailyUpkeep, 0) + "$";
-        income.text = "- Daily Income: " + Math.Round(building.DailyIncome, 0) + "$";
-        netIncome.text = "- Net Income: " + Math.Round(building.DailyIncome - building.DailyUpkeep, 0) + "$";
+        capacity.text = "Capacity: " + building.CurrentVisitors + "/" + building.TotalCapacity;
+        upkeep.text = "Daily Upkeep: -" + Math.Round(building.DailyUpkeep, 0) + "$";
+        income.text = "Daily Income: " + Math.Round(building.DailyIncome, 0) + "$";
+        netIncome.text = "Net Income: " + Math.Round(building.DailyIncome - building.DailyUpkeep, 0) + "$";
         upgradePrice.text = Math.Round(building.UpgradePrice, 0) + "$";
         repairPrice.text = "nincs:c $";
         if (previewModelObject != null){
