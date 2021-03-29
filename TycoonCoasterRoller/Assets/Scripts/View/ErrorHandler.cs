@@ -14,6 +14,7 @@ public class ErrorHandler : MonoBehaviour
     [SerializeField] GameObject noMechanic;
     [SerializeField] GameObject gotMoney;
     [SerializeField] TextMeshProUGUI gotMoneyText;
+    Coroutine co;
     
     private void Awake()
     {
@@ -29,7 +30,12 @@ public class ErrorHandler : MonoBehaviour
     {
         if (!GameManager.instance.BuyMechanic())
         {
-            StartCoroutine(NoMoneyWait());
+            
+            if (co != null)
+            {
+                StopCoroutine(co);
+            }
+            co=StartCoroutine(NoMoneyWait());
         }
     }
     
@@ -37,7 +43,11 @@ public class ErrorHandler : MonoBehaviour
     {
         if (!GameManager.instance.BuyJanitor())
         {
-            StartCoroutine(NoMoneyWait());
+            if (co != null)
+            {
+                StopCoroutine(co);
+            }
+            co=StartCoroutine(NoMoneyWait());
         }
     }
     
@@ -45,7 +55,11 @@ public class ErrorHandler : MonoBehaviour
     {
         if (!GameManager.instance.RemoveMechanic())
         {
-            StartCoroutine(NoMechanicWait());
+            if (co != null)
+            {
+                StopCoroutine(co);
+            }
+            co=StartCoroutine(NoMechanicWait());
         }
     }
     
@@ -53,7 +67,11 @@ public class ErrorHandler : MonoBehaviour
     {
         if (!GameManager.instance.RemoveJanitor())
         {
-            StartCoroutine(NoJanitorWait());
+            if (co != null)
+            {
+                StopCoroutine(co);
+            }
+            co=StartCoroutine(NoJanitorWait());
         }
     }
     
@@ -61,7 +79,11 @@ public class ErrorHandler : MonoBehaviour
     {
         if (!GameManager.instance.ChangeSelectedType(type))
         {
-            StartCoroutine(NoMoneyWait());
+            if (co != null)
+            {
+                StopCoroutine(co);
+            }
+            co=StartCoroutine(NoMoneyWait());
         }
         else
         {
@@ -71,13 +93,21 @@ public class ErrorHandler : MonoBehaviour
     
     public void NoMoneyError()
     {
-        StartCoroutine(NoMoneyWait());
+        if (co != null)
+        {
+            StopCoroutine(co);
+        }
+        co=StartCoroutine(NoMoneyWait());
     }
 
     public void GotMoney(float number)
     {
         gotMoneyText.text = "You got " + (int) Math.Floor(number) + "$.";
-        StartCoroutine(GotMoneyWait());
+        if (co != null)
+        {
+            StopCoroutine(co);
+        }
+        co=StartCoroutine(GotMoneyWait());
     }
 
     IEnumerator NoMoneyWait()
@@ -86,7 +116,7 @@ public class ErrorHandler : MonoBehaviour
         noJanitor.SetActive(false);
         noMechanic.SetActive(false);
         noMoney.SetActive(true);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         noMoney.SetActive(false);
     }
     
@@ -96,7 +126,7 @@ public class ErrorHandler : MonoBehaviour
         noJanitor.SetActive(false);
         noMoney.SetActive(false);
         noMechanic.SetActive(true);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         noMechanic.SetActive(false);
     }
     
@@ -106,7 +136,7 @@ public class ErrorHandler : MonoBehaviour
         noMechanic.SetActive(false);
         noMoney.SetActive(false);
         noJanitor.SetActive(true);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         noJanitor.SetActive(false);
     }
 
@@ -116,7 +146,7 @@ public class ErrorHandler : MonoBehaviour
         noMoney.SetActive(false);
         noJanitor.SetActive(false);
         gotMoney.SetActive(true);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         gotMoney.SetActive(false);
     }
 }
