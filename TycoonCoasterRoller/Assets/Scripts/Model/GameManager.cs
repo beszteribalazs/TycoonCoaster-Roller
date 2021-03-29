@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
+
     [SerializeField] public BuildingSystem buildingSystem;
     public static GameManager instance;
     private int width;
@@ -69,9 +70,11 @@ public class GameManager : MonoBehaviour
         //evening-daytime
         if (countSecond >= 0 && countSecond < 720)
         {
+
         }
         else if (countSecond >= 720 && countSecond < 1440)
         {
+
         }
         else if (Math.Abs(countSecond - 1440f) < 0.0001f)
         {
@@ -111,6 +114,7 @@ public class GameManager : MonoBehaviour
     public void SellBuilding(Building building)
     {
         this.money = this.money + building.SellPrice;
+        EventManager.instance.SoldBuilding(building.SellPrice);
     }
 
     public bool RepairBuilding(Attraction building)
@@ -336,5 +340,10 @@ public class GameManager : MonoBehaviour
     public List<Mechanic> Mechanics
     {
         get => mechanics;
+    }
+
+    public float CountSecond
+    {
+        get => countSecond;
     }
 }

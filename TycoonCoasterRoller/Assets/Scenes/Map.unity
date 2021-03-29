@@ -4563,7 +4563,7 @@ RectTransform:
   - {fileID: 268842583}
   - {fileID: 1006410270}
   m_Father: {fileID: 764467902}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -10152,8 +10152,8 @@ RectTransform:
   - {fileID: 329639981}
   - {fileID: 555774020}
   - {fileID: 820990565}
-  - {fileID: 363477572}
   - {fileID: 1669749354}
+  - {fileID: 363477572}
   m_Father: {fileID: 1585249609}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13568,7 +13568,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 3372220415
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0.78431374}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.92156863}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -19712,7 +19712,7 @@ RectTransform:
   - {fileID: 444790495}
   - {fileID: 967621038}
   m_Father: {fileID: 764467902}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -22514,6 +22514,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionalLightObject: {fileID: 705507993}
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.3066101
+      inSlope: 1.3867664
+      outSlope: 1.3867664
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 0.9999933
+      inSlope: -0.022613525
+      outSlope: -0.022613525
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.28399658
+      inSlope: -1.4319935
+      outSlope: -1.4319935
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1894524073
 GameObject:
   m_ObjectHideFlags: 0
