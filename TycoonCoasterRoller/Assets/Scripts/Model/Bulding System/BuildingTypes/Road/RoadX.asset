@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: RoadX
   m_EditorClassIdentifier: 
   buildingName: Road X Intersection
+  capacity: 0
   price: 25
   sellMultiplier: 0.5
-  upgradeMultiplier: 2
   baseIncome: 0
   breakChance: 0
+  type: 2
   width: 1
   height: 1
   prefab: {fileID: 6607174490675374449, guid: 5b7c1ed2a3aaec54d97e21290590938d, type: 3}
   preview: {fileID: 6607174490675374449, guid: a042fb73e4695554e916526ccd337be7, type: 3}
+  uiPrefab: {fileID: 0}
