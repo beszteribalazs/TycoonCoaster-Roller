@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4753904354746836625}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9, y: -0.499, z: 6}
-  m_LocalScale: {x: 18, y: 1, z: 12}
+  m_LocalPosition: {x: 9, y: -0.6487, z: 6}
+  m_LocalScale: {x: 18, y: 1.3, z: 12}
   m_Children: []
   m_Father: {fileID: 8073466839882132811}
   m_RootOrder: 1
@@ -261,7 +261,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8073466839882132811}
   m_Layer: 5
-  m_Name: mekiPrefab
+  m_Name: mekiUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

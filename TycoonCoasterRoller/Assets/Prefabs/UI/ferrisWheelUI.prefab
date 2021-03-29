@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6305677472678373434}
   m_Layer: 5
-  m_Name: ferrisWheelPrefab
+  m_Name: ferrisWheelUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,8 +59,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2505833014708788285}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9, y: -0.499, z: 4.5}
-  m_LocalScale: {x: 18, y: 1, z: 9}
+  m_LocalPosition: {x: 9, y: -0.7485, z: 4.5}
+  m_LocalScale: {x: 18, y: 1.5, z: 9}
   m_Children: []
   m_Father: {fileID: 6305677472678373434}
   m_RootOrder: 1

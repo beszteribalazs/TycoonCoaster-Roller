@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4155210413826901848}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3, y: -0.499, z: 3}
-  m_LocalScale: {x: 6, y: 1, z: 6}
+  m_LocalPosition: {x: 3, y: -0.3992, z: 3}
+  m_LocalScale: {x: 6, y: 0.8, z: 6}
   m_Children: []
   m_Father: {fileID: 4933520326930261322}
   m_RootOrder: 1
@@ -182,7 +182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4933520326930261322}
   m_Layer: 5
-  m_Name: duckPrefab
+  m_Name: duckUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
