@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -12,11 +13,18 @@ public class ErrorHandler : MonoBehaviour
     [SerializeField] GameObject noJanitor;
     [SerializeField] GameObject noMechanic;
     [SerializeField] GameObject gotMoney;
+    [SerializeField] TextMeshProUGUI gotMoneyText;
+    
     private void Awake()
     {
         instance = this;
     }
-
+    
+    private void Start()
+    {
+        EventManager.instance.onBuildingSold += GotMoney;
+    }
+    
     public void BuyMechanic()
     {
         if (!GameManager.instance.BuyMechanic())
@@ -66,8 +74,9 @@ public class ErrorHandler : MonoBehaviour
         StartCoroutine(NoMoneyWait());
     }
 
-    public void GotMoney()
+    public void GotMoney(float number)
     {
+        gotMoneyText.text = "You got " + (int) Math.Floor(number) + "$.";
         StartCoroutine(GotMoneyWait());
     }
 
