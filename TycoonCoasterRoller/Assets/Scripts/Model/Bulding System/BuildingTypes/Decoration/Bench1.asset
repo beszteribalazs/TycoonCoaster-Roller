@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c230c9f0c23ef0e40bc104c8257346f2, type: 3}
+  m_Name: Bench1
+  m_EditorClassIdentifier: 
+  buildingName: Bench 1
+  price: 80
+  sellMultiplier: 0.5
+  upgradeMultiplier: 2
+  baseIncome: 0
+  breakChance: 0
+  width: 1
+  height: 1
+  prefab: {fileID: 7243705755632157488, guid: 63e04c1d190e06a46a325c71cd0c3be5, type: 3}
+  preview: {fileID: 7243705755632157488, guid: a5e02425064d9de49b815acfc5aae0bd, type: 3}

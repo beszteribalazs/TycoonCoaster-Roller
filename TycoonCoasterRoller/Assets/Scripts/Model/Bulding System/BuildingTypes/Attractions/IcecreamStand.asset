@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c230c9f0c23ef0e40bc104c8257346f2, type: 3}
+  m_Name: IcecreamStand
+  m_EditorClassIdentifier: 
+  buildingName: Icecream Stand
+  capacity: 4
+  price: 250
+  sellMultiplier: 0.5
+  baseIncome: 50
+  breakChance: 0.05
+  width: 1
+  height: 1
+  prefab: {fileID: 4375764988047440218, guid: a09be6fc3bdba624a835c7d09f488364, type: 3}
+  preview: {fileID: 4375764988047440218, guid: ee6141929a5c27a4ab37872f3d5d736e, type: 3}
+  uiPrefab: {fileID: 4469683725709367014, guid: 87965731a52892d45a726ec8e01fd78f,
+    type: 3}

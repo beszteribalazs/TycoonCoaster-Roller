@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c230c9f0c23ef0e40bc104c8257346f2, type: 3}
+  m_Name: HotdogStand
+  m_EditorClassIdentifier: 
+  buildingName: Hotdog Stand
+  capacity: 4
+  price: 250
+  sellMultiplier: 0.5
+  baseIncome: 50
+  breakChance: 0.05
+  width: 1
+  height: 1
+  prefab: {fileID: 7606120766570842788, guid: 02645d79778c644439b0628d02693afb, type: 3}
+  preview: {fileID: 7606120766570842788, guid: c5d7658efceccdc44be72abda77f5aa0, type: 3}
+  uiPrefab: {fileID: 3961339103948118926, guid: c2adc4200ef8382499ea41e8724e882a,
+    type: 3}

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c230c9f0c23ef0e40bc104c8257346f2, type: 3}
+  m_Name: Tree2
+  m_EditorClassIdentifier: 
+  buildingName: Tree 2
+  price: 100
+  sellMultiplier: 0.5
+  upgradeMultiplier: 2
+  baseIncome: 0
+  breakChance: 0
+  width: 1
+  height: 1
+  prefab: {fileID: 524628451261756986, guid: 0d0e8d12d5f842149b18a572571a1257, type: 3}
+  preview: {fileID: 524628451261756986, guid: 7ee02e014a6c09543b2b52206cfd5274, type: 3}

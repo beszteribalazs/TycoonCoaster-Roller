@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using TMPro;
@@ -11,6 +12,8 @@ public class UpperElementsUpdate : MonoBehaviour
     public TMP_Text money;
     public TMP_Text happiness;
     public TMP_Text trash;
+    public TMP_Text janitor;
+    public TMP_Text mechanic;
     
     void Start()
     {
@@ -19,11 +22,21 @@ public class UpperElementsUpdate : MonoBehaviour
     
     void Update()
     {
-        //day.text = "Day: "+;
-        //time.text = hour + ":" + minute;
-        //money.text = +"$";
-        //happiness.text = +"%";
-        //trash.text = +"%";
+        day.text = "Day: "+GameManager.instance.DayCount;
+
+        TimeSpan result = TimeSpan.FromMinutes((GameManager.instance.GameHour*60)+GameManager.instance.GameSecond);
+        string timeString = result.ToString("hh':'mm");
+        time.text = timeString;
+        
+        money.text = (int)Math.Floor(GameManager.instance.Money)+"$";
+        happiness.text = GameManager.instance.TotalHappiness*100+"%";
+        trash.text = GameManager.instance.TrashPercentage*100+"%";
+        janitor.text = GameManager.instance.Janitors.Count.ToString();
+
+
+
+        
+        mechanic.text = "KELL"+"/"+GameManager.instance.Mechanics.Count.ToString();
     }
 
 }
