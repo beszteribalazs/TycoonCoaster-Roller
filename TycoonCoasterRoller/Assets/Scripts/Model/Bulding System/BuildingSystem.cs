@@ -10,8 +10,9 @@ public class BuildingSystem : MonoBehaviour{
         Destroy
     }
 
-    //public static BuildingSystem instance;
-    GridXZ grid;
+    public static BuildingSystem instance;
+    
+    public GridXZ grid;
     Transform ground;
 
     [Header("Setup")] [SerializeField] int gridWidth;
@@ -19,6 +20,8 @@ public class BuildingSystem : MonoBehaviour{
 
     [SerializeField] float cellSize = 3f;
 
+    public float CellSize => cellSize;
+    
     //[SerializeField] List<BuildingTypeSO> placableBuildings;
     [SerializeField] Transform groundVisualPrefab;
     [SerializeField] Transform entryPointPrefab;
@@ -36,7 +39,7 @@ public class BuildingSystem : MonoBehaviour{
     private int lastX, lastZ;
 
     void Awake(){
-        //instance = this;
+        instance = this;
         gridWidth = MapSizeController.mapSize;
         gridHeight = MapSizeController.mapSize;
         grid = new GridXZ(gridWidth, gridHeight, cellSize, Vector3.zero);
@@ -179,7 +182,7 @@ public class BuildingSystem : MonoBehaviour{
                 try{
                     if (!grid.GetCell(gridPosition.x, gridPosition.y).IsEmpty()){
                         canBuild = false;
-                        Debug.Log("Placing on (" + x + "," + z + ") would collide with another building");
+                        //Debug.Log("Placing on (" + x + "," + z + ") would collide with another building");
                         break;
                     }
                 }
@@ -199,7 +202,7 @@ public class BuildingSystem : MonoBehaviour{
                 Vector3 worldPosition = grid.GetWorldPosition(x, z) +
                                         new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
                 Building placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
-                    currentBuildingRotation, selectedBuildingSO);
+                    currentBuildingRotation, selectedBuildingSO, positionList);
 
                 //placedBuilding.RemovePreviewBox();
                 foreach (Vector2Int gridPositions in positionList){
