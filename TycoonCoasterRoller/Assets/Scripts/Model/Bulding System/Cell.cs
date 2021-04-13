@@ -10,6 +10,43 @@ public class Cell{
 
     public string PositionString => "x: " + x + " y: " + y;
 
+    public Dictionary<string, bool> AdjacentRoads{
+        get{
+            Dictionary<string, bool> roads = new Dictionary<string, bool>();
+            roads.Add("up", false);
+            roads.Add("right", false);
+            roads.Add("down", false);
+            roads.Add("left", false);
+
+
+            if (grid.GetCell(x + 1, y) != null && grid.GetCell(x + 1, y).GetBuilding() != null){
+                if (grid.GetCell(x + 1, y).GetBuilding().Type.type == BuildingTypeSO.Type.Road){
+                    roads["right"] = true;
+                }
+            }
+
+            if (grid.GetCell(x - 1, y) != null && grid.GetCell(x - 1, y).GetBuilding() != null){
+                if (grid.GetCell(x - 1, y).GetBuilding().Type.type == BuildingTypeSO.Type.Road){
+                    roads["left"] = true;
+                }
+            }
+
+            if (grid.GetCell(x, y + 1) != null && grid.GetCell(x, y + 1).GetBuilding() != null){
+                if (grid.GetCell(x, y + 1).GetBuilding().Type.type == BuildingTypeSO.Type.Road){
+                    roads["up"] = true;
+                }
+            }
+
+            if (grid.GetCell(x, y - 1) != null && grid.GetCell(x, y - 1).GetBuilding() != null){
+                if (grid.GetCell(x, y - 1).GetBuilding().Type.type == BuildingTypeSO.Type.Road){
+                    roads["down"] = true;
+                }
+            }
+
+            return roads;
+        }
+    }
+
     public List<Cell> Neighbours{
         get{
             List<Cell> list = new List<Cell>();
