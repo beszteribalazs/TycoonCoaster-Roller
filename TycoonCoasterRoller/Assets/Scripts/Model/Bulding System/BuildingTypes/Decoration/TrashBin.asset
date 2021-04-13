@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: TrashBin
   m_EditorClassIdentifier: 
   buildingName: Trach Bin
+  capacity: 0
   price: 50
   sellMultiplier: 0.5
-  upgradeMultiplier: 0
   baseIncome: 0
   breakChance: 0
+  type: 1
   width: 1
   height: 1
   prefab: {fileID: 1820396616472809854, guid: 0d0d907457a2e8d4da27bfb5e7908e13, type: 3}
   preview: {fileID: 1820396616472809854, guid: a85a959ec66ea9449b77f5fc6763d019, type: 3}
+  uiPrefab: {fileID: 0}

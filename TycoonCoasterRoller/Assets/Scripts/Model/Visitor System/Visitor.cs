@@ -10,14 +10,42 @@ public class Visitor : MonoBehaviour{
 
     void Start(){
         agent = GetComponent<NavMeshAgent>();
+        lastFramePosition = transform.position;
+        transform.parent = GameObject.Find("Visitors").transform;
+
+        /*foreach (Attraction attraction in GameManager.instance.ReachableAttractions){
+            Debug.Log(attraction);
+        }*/
     }
-    
+
+    Vector3 velocity;
+    Vector3 lastFramePosition;
+    void FixedUpdate(){
+        velocity = transform.position - lastFramePosition;
+        lastFramePosition = transform.position;
+    }
 
     void Update(){
         if (Input.GetKeyDown(KeyCode.C)){
             agent.SetDestination(GetMouseWorldPosition());
         }
+
+        if (Input.GetKeyDown(KeyCode.V)){
+            GoToRandomBuilding();
+        }
+
+        if (velocity != Vector3.zero){
+            Quaternion newRotation = Quaternion.Euler(0, 90, 0) * Quaternion.LookRotation(velocity, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, Time.deltaTime * 720);
+        }
+        
         //InvokeRepeating(nameof(RandomTarget), 0f, 1f);
+    }
+
+    void GoToRandomBuilding(){
+        int target = Random.Range(0, GameManager.instance.ReachableAttractions.Count);
+        Vector3 targetPosition = GameManager.instance.ReachableAttractions[target].Position;
+        agent.SetDestination(targetPosition);
     }
     
     public Vector3 GetMouseWorldPosition(){
@@ -31,6 +59,7 @@ public class Visitor : MonoBehaviour{
         }
     }
 
+    /*
     private void RandomTarget(){
         Vector3 newPos = RandomNavSphere(transform.position, 0.5f, ~(1 << 10));
         agent.SetDestination(newPos);
@@ -46,5 +75,5 @@ public class Visitor : MonoBehaviour{
         NavMesh.SamplePosition (randDirection, out navHit, dist, layermask);
  
         return navHit.position;
-    }
+    }*/
 }

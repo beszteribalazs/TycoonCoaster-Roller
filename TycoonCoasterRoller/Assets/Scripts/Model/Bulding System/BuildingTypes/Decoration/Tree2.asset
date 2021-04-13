@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: Tree2
   m_EditorClassIdentifier: 
   buildingName: Tree 2
+  capacity: 0
   price: 100
   sellMultiplier: 0.5
-  upgradeMultiplier: 2
   baseIncome: 0
   breakChance: 0
+  type: 1
   width: 1
   height: 1
   prefab: {fileID: 524628451261756986, guid: 0d0e8d12d5f842149b18a572571a1257, type: 3}
   preview: {fileID: 524628451261756986, guid: 7ee02e014a6c09543b2b52206cfd5274, type: 3}
+  uiPrefab: {fileID: 0}
