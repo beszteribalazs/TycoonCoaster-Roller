@@ -64,7 +64,8 @@ public class GridXZ{
             return gridArray[x, z];
         }
         else{
-            throw new NotValidCellException("(" + x + "," + z + ") cell does not exist :(");
+            //throw new NotValidCellException("(" + x + "," + z + ") cell does not exist :(");
+            return null;
         }
     }
 
