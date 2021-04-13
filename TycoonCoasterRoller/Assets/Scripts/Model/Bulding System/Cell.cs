@@ -10,6 +10,8 @@ public class Cell{
 
     public string PositionString => "x: " + x + " y: " + y;
 
+    public Vector3 WorldPosition => new Vector3(x * grid.GetCellSize() + grid.GetCellSize() / 2, 0, y * grid.GetCellSize() + grid.GetCellSize() / 2);
+    
     public List<Cell> Neighbours{
         get{
             List<Cell> list = new List<Cell>();

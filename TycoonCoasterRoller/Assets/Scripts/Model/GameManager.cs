@@ -40,88 +40,6 @@ public class GameManager : MonoBehaviour{
         }
     }
 
-    public List<Attraction> ReachableAttractions{
-        get{
-            List<Attraction> reachable = new List<Attraction>();
-
-            GridXZ grid = buildingSystem.grid;
-
-            // Find first cell from spawn
-            int x;
-            int z;
-            grid.XZFromWorldPosition(buildingSystem.entryPoint.position + Vector3.forward * buildingSystem.CellSize, out x, out z);
-            //Debug.Log("x: " + x + " z: " + z);
-
-            if (grid.GetCell(x, z).GetBuilding() == null){
-                return reachable;
-            }
-                
-                
-            if (grid.GetCell(x, z).GetBuilding().Type.type == BuildingTypeSO.Type.Attraction){
-                // only first building is reachable
-                reachable.Add((Attraction) grid.GetCell(x, z).GetBuilding());
-            }
-            else if (grid.GetCell(x, z).GetBuilding().Type.type == BuildingTypeSO.Type.Decoration){
-                // nothing reachable
-            }
-            else if (grid.GetCell(x, z).GetBuilding().Type.type == BuildingTypeSO.Type.Road){
-                List<Cell> visited = new List<Cell>();
-                Stack<Cell> path = new Stack<Cell>();
-                Cell currentCell = grid.GetCell(x, z);
-
-                bool finished = false;
-                while (!finished){
-                    //Debug.Log("CurrentCell: " + currentCell.PositionString + " " + currentCell.GetBuilding());
-                    
-                    // add current to visited
-                    if (!visited.Contains(currentCell)){
-                        visited.Add(currentCell);
-                    }
-                    //if current cell is attraction, add to reachable and go back
-                    if (currentCell.GetBuilding().Type.type == BuildingTypeSO.Type.Attraction){
-                        reachable.Add((Attraction)currentCell.GetBuilding());
-                        currentCell = path.Pop();
-                    } // else search
-                    else if (currentCell.GetBuilding().Type.type == BuildingTypeSO.Type.Road){
-                        // choose random direction
-                        Cell direction = null;
-                        foreach (Cell neighbour in currentCell.Neighbours){
-                            // check if neighbour cell has building
-                            if (neighbour.GetBuilding() != null){
-                                // check if already visited
-                                if (!visited.Contains(neighbour)){
-                                    // not visited neighbour exists
-                                    direction = neighbour;
-                                    break;
-                                }
-                            }
-                        }
-                        // if exists
-                        if (direction != null){
-                            // add current to path
-                            // go there
-                            path.Push(currentCell);
-                            currentCell = direction;
-                        } //else
-                        else{
-                            // if path.count > 0
-                            if (path.Count > 0){
-                                // go back
-                                currentCell = path.Pop();
-                            }
-                            else{
-                                finished = true;
-                            }
-                        }
-                    }else if (currentCell.GetBuilding().Type.type == BuildingTypeSO.Type.Decoration){
-                        currentCell = path.Pop();
-                    }
-                }
-            }
-            return reachable;
-        }
-    }
-
     private void Awake(){
         instance = this;
     }
@@ -139,6 +57,7 @@ public class GameManager : MonoBehaviour{
         this.janitors = new List<Janitor>();
         this.mechanics = new List<Mechanic>();
         this.visitors = new List<Visitor>();
+        EventManager.instance.SpeedChanged(1);
     }
 
     void Update(){
@@ -317,6 +236,7 @@ public class GameManager : MonoBehaviour{
     public void Resume(){
         this.gameSpeed = 10f;
         this.gameIsActive = true;
+        EventManager.instance.SpeedChanged(1);
     }
 
     public void Pause(){
@@ -326,6 +246,7 @@ public class GameManager : MonoBehaviour{
     public void ChangeSpeed(float number){
         gameIsActive = true;
         this.gameSpeed = number * 10f;
+        EventManager.instance.SpeedChanged((int)number);
     }
 
     public bool ChangeSelectedType(BuildingTypeSO buildingTypeSO){
