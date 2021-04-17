@@ -92,5 +92,15 @@ public class Cell{
     public Building GetBuilding(){
         return building;
     }
+
+    public int GetX()
+    {
+        return this.x;
+    }
+    
+    public int GetY()
+    {
+        return this.y;
+    }
     
 }
