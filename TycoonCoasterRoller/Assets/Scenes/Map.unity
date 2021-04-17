@@ -19361,6 +19361,24 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
+      propertyPath: roadT
+      value: 
+      objectReference: {fileID: 11400000, guid: d05dfbd2818103c47a3fdd3cb6815350,
+        type: 2}
+    - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
+        type: 3}
+      propertyPath: roadX
+      value: 
+      objectReference: {fileID: 11400000, guid: 2f98d8f606d38404483b472d2a85581f,
+        type: 2}
+    - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
+        type: 3}
+      propertyPath: roadTurn
+      value: 
+      objectReference: {fileID: 11400000, guid: 77ca99cb49e25ab4f82d7c5544485220,
+        type: 2}
+    - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
+        type: 3}
       propertyPath: gridWidth
       value: 0
       objectReference: {fileID: 0}
@@ -19369,6 +19387,12 @@ PrefabInstance:
       propertyPath: gridHeight
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
+        type: 3}
+      propertyPath: roadStraight
+      value: 
+      objectReference: {fileID: 11400000, guid: 9cbefe565d55ccd459ea8e257a4d55b2,
+        type: 2}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
       propertyPath: entryPointPrefab
