@@ -147,25 +147,7 @@ public class BuildingSystem : MonoBehaviour
                 {
                     if (selectedBuildingSO == null)
                     {
-                        Cell currentCell = grid.GetCell(GetMouseWorldPosition());
-                        bool isRoad= currentCell.GetBuilding().Type.type == BuildingTypeSO.Type.Road;
                         SellBuilding();
-                        
-                        // Destroy building
-                        if (isRoad)
-                        {
-                            int x, z;
-                            grid.XZFromWorldPosition(GetMouseWorldPosition(), out x, out z);
-                            UpdateRoad(x, z);
-                            foreach (Cell cell in grid.GetCell(x,z).Neighbours)
-                            {
-                                Debug.Log(cell.PositionString);
-                                if (cell.GetBuilding() != null && cell.GetBuilding().Type.type == BuildingTypeSO.Type.Road)
-                                {
-                                    UpdateRoad(cell.GetX(),cell.GetY());
-                                }
-                            }
-                        }
                     }
                     else
                     {
@@ -414,16 +396,42 @@ public class BuildingSystem : MonoBehaviour
         Building clickedBuilding = clickedCell.GetBuilding();
         if (clickedBuilding != null)
         {
-            List<Vector2Int> destroyedCoordinates = clickedBuilding.GetGridPositionList();
-            foreach (Vector2Int gridPos in destroyedCoordinates)
-            {
-                grid.GetCell(gridPos.x, gridPos.y).ClearBuilding();
-            }
+            if (clickedBuilding.Type.type == BuildingTypeSO.Type.Road){
+                int posX, posZ;
+                posX = clickedCell.GetX();
+                posZ = clickedCell.GetY();
+                
+                List<Vector2Int> destroyedCoordinates = clickedBuilding.GetGridPositionList();
+                foreach (Vector2Int gridPos in destroyedCoordinates)
+                {
+                    grid.GetCell(gridPos.x, gridPos.y).ClearBuilding();
+                }
 
-            placedBuildings.Remove(clickedBuilding);
-            GameManager.instance.SellBuilding(clickedBuilding);
-            clickedBuilding.Destroy();
-            Invoke(nameof(Aaaaa), 0.1f);
+                placedBuildings.Remove(clickedBuilding);
+                GameManager.instance.SellBuilding(clickedBuilding);
+                clickedBuilding.Destroy();
+                foreach (Cell cell in grid.GetCell(posX,posZ).Neighbours)
+                {
+                    if (cell.GetBuilding() != null && cell.GetBuilding().Type.type == BuildingTypeSO.Type.Road)
+                    {
+                        UpdateRoad(cell.GetX(),cell.GetY());
+                    }
+                }
+                
+                Invoke(nameof(Aaaaa), 0.1f);    
+            }
+            else{
+                List<Vector2Int> destroyedCoordinates = clickedBuilding.GetGridPositionList();
+                foreach (Vector2Int gridPos in destroyedCoordinates)
+                {
+                    grid.GetCell(gridPos.x, gridPos.y).ClearBuilding();
+                }
+
+                placedBuildings.Remove(clickedBuilding);
+                GameManager.instance.SellBuilding(clickedBuilding);
+                clickedBuilding.Destroy();
+                Invoke(nameof(Aaaaa), 0.1f);    
+            }
         }
     }
 
