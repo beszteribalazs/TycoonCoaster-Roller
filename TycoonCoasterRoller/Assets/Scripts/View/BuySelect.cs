@@ -11,20 +11,17 @@ public class BuySelect : MonoBehaviour
     [SerializeField] GameObject inspectorMenu;
     [SerializeField] GameObject pauseMenu;
     public bool check;
-
-
+    
     void Awake()
     {
         instance = this;
     }
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         check = true;
     }
     
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.B) && !pauseMenu.activeSelf)
@@ -51,5 +48,4 @@ public class BuySelect : MonoBehaviour
         buyMenu.SetActive(check);
         check = !check;
     }
-
 }

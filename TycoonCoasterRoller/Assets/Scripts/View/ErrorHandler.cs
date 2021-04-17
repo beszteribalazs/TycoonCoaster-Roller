@@ -30,7 +30,6 @@ public class ErrorHandler : MonoBehaviour
     {
         if (!GameManager.instance.BuyMechanic())
         {
-            
             if (co != null)
             {
                 StopCoroutine(co);
