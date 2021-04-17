@@ -4310,12 +4310,12 @@ GameObject:
   - component: {fileID: 7712416154765089979}
   - component: {fileID: 2960899563134702687}
   m_Layer: 0
-  m_Name: red
+  m_Name: Broke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7399660245196593897
 Transform:
   m_ObjectHideFlags: 0
