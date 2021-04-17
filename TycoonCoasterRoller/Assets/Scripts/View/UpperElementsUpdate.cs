@@ -7,19 +7,14 @@ using UnityEngine;
 
 public class UpperElementsUpdate : MonoBehaviour
 {
-    public TMP_Text day;
-    public TMP_Text time;
-    public TMP_Text money;
-    public TMP_Text happiness;
-    public TMP_Text trash;
-    public TMP_Text janitor;
-    public TMP_Text mechanic;
-    
-    void Start()
-    {
-        
-    }
-    
+    [SerializeField] TMP_Text day;
+    [SerializeField] TMP_Text time;
+    [SerializeField] TMP_Text money;
+    [SerializeField] TMP_Text happiness;
+    [SerializeField] TMP_Text trash;
+    [SerializeField] TMP_Text janitor;
+    [SerializeField] TMP_Text mechanic;
+    [SerializeField] TMP_Text visitors;
     void Update()
     {
         day.text = "Day: "+GameManager.instance.DayCount;
@@ -32,7 +27,7 @@ public class UpperElementsUpdate : MonoBehaviour
         happiness.text = GameManager.instance.TotalHappiness*100+"%";
         trash.text = GameManager.instance.TrashPercentage*100+"%";
         janitor.text = GameManager.instance.Janitors.Count.ToString();
-
+        visitors.text = "0"+"/"+(int)GameManager.instance.TotalCapacity;
 
 
         

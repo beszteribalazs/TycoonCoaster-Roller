@@ -8,22 +8,22 @@ using Vector3 = UnityEngine.Vector3;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform cameraTransform;
-    public float normalSpeed;
-    public float fastSpeed;
-    public float movementSpeed;
-    public float movementTime;
-    public float rotationAmount;
-    public Vector3 zoomAmount;
+    [SerializeField] Transform cameraTransform;
+    [SerializeField] float normalSpeed;
+    [SerializeField] float fastSpeed;
+    [SerializeField] float movementSpeed;
+    [SerializeField] float movementTime;
+    [SerializeField] float rotationAmount;
+    [SerializeField] Vector3 zoomAmount;
     private Vector3 newPosition;
     private Quaternion newRotation;
     private Vector3 newZoom;
-    public float maxZoom; 
-    public float minZoom;
-    public float limitMinX;
-    public float limitMaxX;
-    public float limitMinZ;
-    public float limitMaxZ;
+    [SerializeField] float maxZoom; 
+    [SerializeField] float minZoom;
+    [SerializeField] float limitMinX;
+    [SerializeField] float limitMaxX;
+    [SerializeField] float limitMinZ;
+    [SerializeField] float limitMaxZ;
 
     private Vector3 dragStartPosition;
     private Vector3 dragCurrentPosition;
