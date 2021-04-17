@@ -95,8 +95,8 @@ public class BuildingSystem : MonoBehaviour{
                 // Drag roads only
                 if (selectedBuildingSO != null && GetSelectedBuildingType().type == BuildingTypeSO.Type.Road && Input.GetMouseButton(0))
                 {
-                    placeRoad();
-                    /*int x, z;
+                    //placeRoad();
+                    int x, z;
                     grid.XZFromWorldPosition(GetMouseWorldPosition(), out x, out z);
                     if ( !(x == lastX && z == lastZ) )
                     {
@@ -104,7 +104,7 @@ public class BuildingSystem : MonoBehaviour{
                         lastZ = z;
                         //PlaceBuilding();
                         placeRoad();
-                    }*/
+                    }
                 }
 
                 // Hide preview if not enough money
@@ -176,7 +176,7 @@ public class BuildingSystem : MonoBehaviour{
     void updateNeighbours(int x, int z)
     {
         Dictionary<string, bool> neighbours = grid.GetCell(x,z).AdjacentRoads;
-        List<Vector2Int> positionList = selectedBuildingSO.GetPositionList(new Vector2Int(x, z), currentBuildingRotation);
+        List<Vector2Int> positionList = roadStraight.GetPositionList(new Vector2Int(x, z), currentBuildingRotation);
         
         Vector2Int rotationOffset;
         Vector3 worldPosition;
@@ -196,7 +196,7 @@ public class BuildingSystem : MonoBehaviour{
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Up, roadStraight, positionList);
                     grid.GetCell(x, z).SetBuilding(placedBuilding);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                 }
                 else if (neighbours["up"] == false && neighbours["down"] && neighbours["left"] == false && neighbours["right"] == false)
@@ -213,7 +213,7 @@ public class BuildingSystem : MonoBehaviour{
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Up, roadStraight, positionList);
                     grid.GetCell(x, z).SetBuilding(placedBuilding);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                     
                 }
@@ -231,7 +231,7 @@ public class BuildingSystem : MonoBehaviour{
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Right, roadStraight, positionList);
                     grid.GetCell(x, z).SetBuilding(placedBuilding);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                 }
                 else if (neighbours["up"] == false && neighbours["down"] == false && neighbours["left"] == false && neighbours["right"])
@@ -249,7 +249,7 @@ public class BuildingSystem : MonoBehaviour{
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Left, roadStraight, positionList);
                     grid.GetCell(x, z).SetBuilding(placedBuilding);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                 }
                 else if (neighbours["up"]  && neighbours["down"] && neighbours["left"] == false && neighbours["right"] == false)
@@ -267,13 +267,13 @@ public class BuildingSystem : MonoBehaviour{
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), BuildingTypeSO.Direction.Up, roadStraight, positionList);
                     grid.GetCell(x, z).SetBuilding(placedBuilding);
 
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                 }
                 else if (neighbours["up"] && neighbours["down"] == false && neighbours["left"] && neighbours["right"] == false)
                 {
                     //fel és bal
-                    rotationOffset = roadStraight.GetRotationOffset(BuildingTypeSO.Direction.Up);
+                    rotationOffset = roadTurn.GetRotationOffset(BuildingTypeSO.Direction.Up);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
 
                     /*Cell updateableCell = grid.GetCell(x,z+1);
@@ -285,13 +285,13 @@ public class BuildingSystem : MonoBehaviour{
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), BuildingTypeSO.Direction.Up, roadTurn, positionList);
                     grid.GetCell(x, z).SetBuilding(placedBuilding);
 
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                 }
                 else if (neighbours["up"]  && neighbours["down"] == false && neighbours["left"] == false && neighbours["right"])
                 {
                     //fel és jobb
-                    rotationOffset = roadStraight.GetRotationOffset(BuildingTypeSO.Direction.Right);
+                    rotationOffset = roadTurn.GetRotationOffset(BuildingTypeSO.Direction.Right);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
 
                     /*Cell updateableCell = grid.GetCell(x,z+1);
@@ -303,13 +303,13 @@ public class BuildingSystem : MonoBehaviour{
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), BuildingTypeSO.Direction.Right, roadTurn, positionList);
                     grid.GetCell(x, z).SetBuilding(placedBuilding);
 
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                 }
                 else if (neighbours["up"] == false && neighbours["down"] && neighbours["left"]  && neighbours["right"] == false )
                 {
                     //le és bal
-                    rotationOffset = roadStraight.GetRotationOffset(BuildingTypeSO.Direction.Left);
+                    rotationOffset = roadTurn.GetRotationOffset(BuildingTypeSO.Direction.Left);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
 
                     /*Cell updateableCell = grid.GetCell(x,z+1);
@@ -321,13 +321,13 @@ public class BuildingSystem : MonoBehaviour{
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), BuildingTypeSO.Direction.Left, roadTurn, positionList);
                     grid.GetCell(x, z).SetBuilding(placedBuilding);
 
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                 }
                 else if (neighbours["up"] == false && neighbours["down"] && neighbours["left"] == false && neighbours["right"])
                 {
                     //le és jobb
-                    rotationOffset = roadStraight.GetRotationOffset(BuildingTypeSO.Direction.Down);
+                    rotationOffset = roadTurn.GetRotationOffset(BuildingTypeSO.Direction.Down);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
 
                     /*Cell updateableCell = grid.GetCell(x,z+1);
@@ -339,7 +339,7 @@ public class BuildingSystem : MonoBehaviour{
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), BuildingTypeSO.Direction.Down, roadTurn, positionList);
                     grid.GetCell(x, z).SetBuilding(placedBuilding);
 
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                 }
                 else if (neighbours["up"] == false && neighbours["down"] == false && neighbours["left"] && neighbours["right"])
@@ -357,13 +357,13 @@ public class BuildingSystem : MonoBehaviour{
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), BuildingTypeSO.Direction.Right, roadStraight, positionList);
                     grid.GetCell(x, z).SetBuilding(placedBuilding);
 
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                 }
                 else if (neighbours["up"]  && neighbours["down"] && neighbours["left"]  && neighbours["right"] == false)
                 {
                     //fent le bal
-                    rotationOffset = roadStraight.GetRotationOffset(BuildingTypeSO.Direction.Up);
+                    rotationOffset = roadT.GetRotationOffset(BuildingTypeSO.Direction.Up);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
 
                     /*Cell updateableCell = grid.GetCell(x,z+1);
@@ -375,13 +375,13 @@ public class BuildingSystem : MonoBehaviour{
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), BuildingTypeSO.Direction.Up, roadT, positionList);
                     grid.GetCell(x, z).SetBuilding(placedBuilding);
 
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                 }
                 else if (neighbours["up"]  && neighbours["down"] && neighbours["left"] == false && neighbours["right"])
                 {
                     //fent le jobb
-                    rotationOffset = roadStraight.GetRotationOffset(BuildingTypeSO.Direction.Down);
+                    rotationOffset = roadT.GetRotationOffset(BuildingTypeSO.Direction.Down);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
 
                     /*Cell updateableCell = grid.GetCell(x,z+1);
@@ -393,13 +393,13 @@ public class BuildingSystem : MonoBehaviour{
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), BuildingTypeSO.Direction.Down, roadT, positionList);
                     grid.GetCell(x, z).SetBuilding(placedBuilding);
 
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                 }
                 else if (neighbours["up"]  && neighbours["down"] == false && neighbours["left"]  && neighbours["right"])
                 {
                     //fent bal joob
-                    rotationOffset = roadStraight.GetRotationOffset(BuildingTypeSO.Direction.Right);
+                    rotationOffset = roadT.GetRotationOffset(BuildingTypeSO.Direction.Right);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
 
                     /*Cell updateableCell = grid.GetCell(x,z+1);
@@ -411,13 +411,13 @@ public class BuildingSystem : MonoBehaviour{
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), BuildingTypeSO.Direction.Right, roadT, positionList);
                     grid.GetCell(x, z).SetBuilding(placedBuilding);
 
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                 }
                 else if (neighbours["up"] == false  && neighbours["down"] && neighbours["left"]  && neighbours["right"])
                 {
                     //le bal jobb
-                    rotationOffset = roadStraight.GetRotationOffset(BuildingTypeSO.Direction.Left);
+                    rotationOffset = roadT.GetRotationOffset(BuildingTypeSO.Direction.Left);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
 
                     /*Cell updateableCell = grid.GetCell(x,z+1);
@@ -429,13 +429,13 @@ public class BuildingSystem : MonoBehaviour{
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), BuildingTypeSO.Direction.Left, roadT, positionList);
                     grid.GetCell(x, z).SetBuilding(placedBuilding);
 
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                 }
                 else if (neighbours["up"]  && neighbours["down"]  && neighbours["left"]  && neighbours["right"])
                 {
                     //minden oldal
-                    rotationOffset = roadStraight.GetRotationOffset(BuildingTypeSO.Direction.Up);
+                    rotationOffset = roadX.GetRotationOffset(BuildingTypeSO.Direction.Up);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
 
                     /*Cell updateableCell = grid.GetCell(x,z+1);
@@ -448,7 +448,7 @@ public class BuildingSystem : MonoBehaviour{
                     grid.GetCell(x, z).SetBuilding(placedBuilding);
 
 
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                 }
                 else
@@ -459,12 +459,12 @@ public class BuildingSystem : MonoBehaviour{
 
     void deleteNeighbourRoad(Building updateableRoad, int x,int z)
     {
-        if (updateableRoad != null)
-        {
+        //if (updateableRoad != null)
+        //{
             grid.GetCell(x,z).ClearBuilding();
             placedBuildings.Remove(updateableRoad);
             updateableRoad.Destroy();
-        }
+        //}
     }
 
     void placeRoad()
@@ -512,65 +512,65 @@ public class BuildingSystem : MonoBehaviour{
                 if ( neighbours["up"] && neighbours["down"] == false && neighbours["left"] == false && neighbours["right"] == false)
                 {
                     //csak fel
-                    rotationOffset = selectedBuildingSO.GetRotationOffset(BuildingTypeSO.Direction.Up);
+                    rotationOffset = roadStraight.GetRotationOffset(BuildingTypeSO.Direction.Up);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Up, roadStraight, positionList);
                     grid.GetCell(x,z).SetBuilding(placedBuilding);
                     GameManager.instance.BuyBuilding(roadStraight);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                     updateNeighbours(x,z+1);
                 }
                 else if (neighbours["up"] == false && neighbours["down"] && neighbours["left"] == false && neighbours["right"] == false)
                 {
                     //csak le
-                    rotationOffset = selectedBuildingSO.GetRotationOffset(BuildingTypeSO.Direction.Down);
+                    rotationOffset = roadStraight.GetRotationOffset(BuildingTypeSO.Direction.Down);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Down, roadStraight, positionList);
                     grid.GetCell(x,z).SetBuilding(placedBuilding);
                     GameManager.instance.BuyBuilding(roadStraight);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                     updateNeighbours(x,z-1);
                 }
                 else if (neighbours["up"] == false && neighbours["down"] == false && neighbours["left"] == true && neighbours["right"] == false)
                 {
                     //csak bal
-                    rotationOffset = selectedBuildingSO.GetRotationOffset(BuildingTypeSO.Direction.Right);
+                    rotationOffset = roadStraight.GetRotationOffset(BuildingTypeSO.Direction.Right);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Right, roadStraight, positionList);
                     grid.GetCell(x,z).SetBuilding(placedBuilding);
                     GameManager.instance.BuyBuilding(roadStraight);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                     updateNeighbours((x-1),z);
                 }
                 else if (neighbours["up"] == false && neighbours["down"] == false && neighbours["left"] == false && neighbours["right"])
                 {
                     //csak jobb
-                    rotationOffset = selectedBuildingSO.GetRotationOffset(BuildingTypeSO.Direction.Left);
+                    rotationOffset = roadStraight.GetRotationOffset(BuildingTypeSO.Direction.Left);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Left, roadStraight, positionList);
                     grid.GetCell(x,z).SetBuilding(placedBuilding);
                     GameManager.instance.BuyBuilding(roadStraight);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                     updateNeighbours(x+1,z);
                 }
                 else if (neighbours["up"]  && neighbours["down"] && neighbours["left"] == false && neighbours["right"] == false)
                 {
                     //fent és lent
-                    rotationOffset = selectedBuildingSO.GetRotationOffset(BuildingTypeSO.Direction.Up);
+                    rotationOffset = roadStraight.GetRotationOffset(BuildingTypeSO.Direction.Up);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Up, roadStraight, positionList);
                     grid.GetCell(x,z).SetBuilding(placedBuilding);
                     GameManager.instance.BuyBuilding(roadStraight);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                     updateNeighbours(x,z+1);
                     updateNeighbours(x,z-1);
@@ -578,13 +578,13 @@ public class BuildingSystem : MonoBehaviour{
                 else if (neighbours["up"] && neighbours["down"] == false && neighbours["left"] && neighbours["right"] == false)
                 {
                     //fel és bal
-                    rotationOffset = selectedBuildingSO.GetRotationOffset(BuildingTypeSO.Direction.Up);
+                    rotationOffset = roadTurn.GetRotationOffset(BuildingTypeSO.Direction.Up);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Up, roadTurn, positionList);
                     grid.GetCell(x,z).SetBuilding(placedBuilding);
                     GameManager.instance.BuyBuilding(roadStraight);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                     updateNeighbours(x,z+1);
                     updateNeighbours(x-1,z);
@@ -592,13 +592,13 @@ public class BuildingSystem : MonoBehaviour{
                 else if (neighbours["up"]  && neighbours["down"] == false && neighbours["left"] == false && neighbours["right"])
                 {
                     //fel és jobb
-                    rotationOffset = selectedBuildingSO.GetRotationOffset(BuildingTypeSO.Direction.Right);
+                    rotationOffset = roadTurn.GetRotationOffset(BuildingTypeSO.Direction.Right);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Right, roadTurn, positionList);
                     grid.GetCell(x,z).SetBuilding(placedBuilding);
                     GameManager.instance.BuyBuilding(roadStraight);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                     updateNeighbours(x,z+1);
                     updateNeighbours(x+1,z);
@@ -606,13 +606,13 @@ public class BuildingSystem : MonoBehaviour{
                 else if (neighbours["up"] == false && neighbours["down"] && neighbours["left"]  && neighbours["right"] == false )
                 {
                     //le és bal
-                    rotationOffset = selectedBuildingSO.GetRotationOffset(BuildingTypeSO.Direction.Left);
+                    rotationOffset = roadTurn.GetRotationOffset(BuildingTypeSO.Direction.Left);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Left, roadTurn, positionList);
                     grid.GetCell(x,z).SetBuilding(placedBuilding);
                     GameManager.instance.BuyBuilding(roadStraight);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                     updateNeighbours(x,z-1);
                     updateNeighbours(x-1,z);
@@ -620,13 +620,13 @@ public class BuildingSystem : MonoBehaviour{
                 else if (neighbours["up"] == false && neighbours["down"] && neighbours["left"] == false && neighbours["right"])
                 {
                     //le és jobb
-                    rotationOffset = selectedBuildingSO.GetRotationOffset(BuildingTypeSO.Direction.Down);
+                    rotationOffset = roadTurn.GetRotationOffset(BuildingTypeSO.Direction.Down);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Down, roadTurn, positionList);
                     grid.GetCell(x,z).SetBuilding(placedBuilding);
                     GameManager.instance.BuyBuilding(roadStraight);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                     updateNeighbours(x,z-1);
                     updateNeighbours(x+1,z);
@@ -634,13 +634,13 @@ public class BuildingSystem : MonoBehaviour{
                 else if (neighbours["up"] == false && neighbours["down"] == false && neighbours["left"] && neighbours["right"])
                 {
                     //bal és jobb
-                    rotationOffset = selectedBuildingSO.GetRotationOffset(BuildingTypeSO.Direction.Right);
+                    rotationOffset = roadTurn.GetRotationOffset(BuildingTypeSO.Direction.Right);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Right, roadTurn, positionList);
                     grid.GetCell(x,z).SetBuilding(placedBuilding);
                     GameManager.instance.BuyBuilding(roadStraight);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                     updateNeighbours(x-1,z);
                     updateNeighbours(x+1,z);
@@ -648,13 +648,13 @@ public class BuildingSystem : MonoBehaviour{
                 else if (neighbours["up"]  && neighbours["down"] && neighbours["left"]  && neighbours["right"] == false)
                 {
                     //fent le bal
-                    rotationOffset = selectedBuildingSO.GetRotationOffset(BuildingTypeSO.Direction.Up);
+                    rotationOffset = roadT.GetRotationOffset(BuildingTypeSO.Direction.Up);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Up, roadT, positionList);
                     grid.GetCell(x,z).SetBuilding(placedBuilding);
                     GameManager.instance.BuyBuilding(roadStraight);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                     updateNeighbours(x,z+1);
                     updateNeighbours(x,z-1);
@@ -663,13 +663,13 @@ public class BuildingSystem : MonoBehaviour{
                 else if (neighbours["up"]  && neighbours["down"] && neighbours["left"] == false && neighbours["right"])
                 {
                     //fent le jobb
-                    rotationOffset = selectedBuildingSO.GetRotationOffset(BuildingTypeSO.Direction.Down);
+                    rotationOffset = roadT.GetRotationOffset(BuildingTypeSO.Direction.Down);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Down, roadT, positionList);
                     grid.GetCell(x,z).SetBuilding(placedBuilding);
                     GameManager.instance.BuyBuilding(roadStraight);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                     updateNeighbours(x,z+1);
                     updateNeighbours(x,z-1);
@@ -678,13 +678,13 @@ public class BuildingSystem : MonoBehaviour{
                 else if (neighbours["up"]  && neighbours["down"] == false && neighbours["left"]  && neighbours["right"])
                 {
                     //fent bal joob
-                    rotationOffset = selectedBuildingSO.GetRotationOffset(BuildingTypeSO.Direction.Right);
+                    rotationOffset = roadT.GetRotationOffset(BuildingTypeSO.Direction.Right);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Right, roadT, positionList);
                     grid.GetCell(x,z).SetBuilding(placedBuilding);
                     GameManager.instance.BuyBuilding(roadStraight);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                     updateNeighbours(x,z+1);
                     updateNeighbours(x-1,z);
@@ -693,13 +693,13 @@ public class BuildingSystem : MonoBehaviour{
                 else if (neighbours["up"] == false  && neighbours["down"] && neighbours["left"]  && neighbours["right"])
                 {
                     //le bal jobb
-                    rotationOffset = selectedBuildingSO.GetRotationOffset(BuildingTypeSO.Direction.Left);
+                    rotationOffset = roadT.GetRotationOffset(BuildingTypeSO.Direction.Left);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Left, roadT, positionList);
                     grid.GetCell(x,z).SetBuilding(placedBuilding);
                     GameManager.instance.BuyBuilding(roadStraight);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                     updateNeighbours(x,z-1);
                     updateNeighbours(x-1,z);
@@ -708,13 +708,13 @@ public class BuildingSystem : MonoBehaviour{
                 else if (neighbours["up"]  && neighbours["down"]  && neighbours["left"]  && neighbours["right"])
                 {
                     //minden oldal
-                    rotationOffset = selectedBuildingSO.GetRotationOffset(BuildingTypeSO.Direction.Up);
+                    rotationOffset = roadX.GetRotationOffset(BuildingTypeSO.Direction.Up);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Up, roadX, positionList);
                     grid.GetCell(x,z).SetBuilding(placedBuilding);
                     GameManager.instance.BuyBuilding(roadStraight);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                     updateNeighbours(x,z+1);
                     updateNeighbours(x,z-1);
@@ -723,15 +723,16 @@ public class BuildingSystem : MonoBehaviour{
                 }
                 else
                 {
-                    rotationOffset = selectedBuildingSO.GetRotationOffset(BuildingTypeSO.Direction.Up);
+                    rotationOffset = roadX.GetRotationOffset(BuildingTypeSO.Direction.Up);
                     worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
                     placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                         BuildingTypeSO.Direction.Up, roadX, positionList);
                     grid.GetCell(x,z).SetBuilding(placedBuilding);
                     GameManager.instance.BuyBuilding(roadStraight);
-                    EventManager.instance.MapChanged();
+                    //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
                 }
+                EventManager.instance.MapChanged();
                 
                 if (!Input.GetKey(KeyCode.LeftShift)){
                     SetSelectedBuildingType(null);
@@ -808,34 +809,34 @@ public class BuildingSystem : MonoBehaviour{
         if (clickedCell == null) return;
         Building clickedBuilding = clickedCell.GetBuilding();
         if (clickedBuilding != null){
-            List<Vector2Int> destroyedCoordinates = clickedBuilding.GetGridPositionList();
-            
-            foreach (Vector2Int gridPos in destroyedCoordinates){
-                grid.GetCell(gridPos.x, gridPos.y).ClearBuilding();
-            }
-            
-            placedBuildings.Remove(clickedBuilding);
-            GameManager.instance.SellBuilding(clickedBuilding);
-
             if (clickedBuilding.Type.type == BuildingTypeSO.Type.Road)
             {
                 int x, z;
                 grid.XZFromWorldPosition(clickedBuilding.Position, out x, out z);
-                clickedBuilding.Destroy();
                 List<Cell> neighbours = grid.GetCell(x, z).Neighbours;
+                grid.GetCell(x, z).ClearBuilding();
+                placedBuildings.Remove(clickedBuilding);
+                GameManager.instance.SellBuilding(clickedBuilding);
+                clickedBuilding.Destroy();
                 Debug.Log("COUNT: "+neighbours.Count);
                 foreach (Cell neighbour in neighbours)
                 {
-                    Debug.Log("ANAL3"+neighbour.PositionString+" BUILDING TYPE: "+neighbour.GetBuilding());
+                    Debug.Log(neighbour.PositionString+"   BUILDING TYPE: "+neighbour.GetBuilding());
                     if (neighbour.GetBuilding() != null && neighbour.GetBuilding().Type.type == BuildingTypeSO.Type.Road)
                     {
                         updateNeighbours(neighbour.GetX(),neighbour.GetY());
-                        Debug.Log("TOLEDO ROIDOLFGO");
+                        Debug.Log("BELEMENT MERT ROAD VOLT");
                     }
                 }
             }
             else
             {
+                List<Vector2Int> destroyedCoordinates = clickedBuilding.GetGridPositionList();
+                foreach (Vector2Int gridPos in destroyedCoordinates){
+                    grid.GetCell(gridPos.x, gridPos.y).ClearBuilding();
+                }
+                placedBuildings.Remove(clickedBuilding);
+                GameManager.instance.SellBuilding(clickedBuilding);
                 clickedBuilding.Destroy();
             }
             Invoke(nameof(Aaaaa), 0.1f);
