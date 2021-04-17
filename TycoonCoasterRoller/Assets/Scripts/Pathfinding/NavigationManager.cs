@@ -17,6 +17,7 @@ public class NavigationManager : MonoBehaviour{
     }
 
     private void RebakeMap(){
+        surface.RemoveData();
         surface.BuildNavMesh();
     }
 

@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour{
     private List<Mechanic> mechanics;
     private List<Visitor> visitors;
 
+    public int GameSpeed => (int)gameSpeed / 10;
+
     public List<Attraction> Attractions{
         get{
             List<Attraction> list = new List<Attraction>();
@@ -37,88 +39,6 @@ public class GameManager : MonoBehaviour{
             }
 
             return list;
-        }
-    }
-
-    public List<Attraction> ReachableAttractions{
-        get{
-            List<Attraction> reachable = new List<Attraction>();
-
-            GridXZ grid = buildingSystem.grid;
-
-            // Find first cell from spawn
-            int x;
-            int z;
-            grid.XZFromWorldPosition(buildingSystem.entryPoint.position + Vector3.forward * buildingSystem.CellSize, out x, out z);
-            //Debug.Log("x: " + x + " z: " + z);
-
-            if (grid.GetCell(x, z).GetBuilding() == null){
-                return reachable;
-            }
-                
-                
-            if (grid.GetCell(x, z).GetBuilding().Type.type == BuildingTypeSO.Type.Attraction){
-                // only first building is reachable
-                reachable.Add((Attraction) grid.GetCell(x, z).GetBuilding());
-            }
-            else if (grid.GetCell(x, z).GetBuilding().Type.type == BuildingTypeSO.Type.Decoration){
-                // nothing reachable
-            }
-            else if (grid.GetCell(x, z).GetBuilding().Type.type == BuildingTypeSO.Type.Road){
-                List<Cell> visited = new List<Cell>();
-                Stack<Cell> path = new Stack<Cell>();
-                Cell currentCell = grid.GetCell(x, z);
-
-                bool finished = false;
-                while (!finished){
-                    //Debug.Log("CurrentCell: " + currentCell.PositionString + " " + currentCell.GetBuilding());
-                    
-                    // add current to visited
-                    if (!visited.Contains(currentCell)){
-                        visited.Add(currentCell);
-                    }
-                    //if current cell is attraction, add to reachable and go back
-                    if (currentCell.GetBuilding().Type.type == BuildingTypeSO.Type.Attraction){
-                        reachable.Add((Attraction)currentCell.GetBuilding());
-                        currentCell = path.Pop();
-                    } // else search
-                    else if (currentCell.GetBuilding().Type.type == BuildingTypeSO.Type.Road){
-                        // choose random direction
-                        Cell direction = null;
-                        foreach (Cell neighbour in currentCell.Neighbours){
-                            // check if neighbour cell has building
-                            if (neighbour.GetBuilding() != null){
-                                // check if already visited
-                                if (!visited.Contains(neighbour)){
-                                    // not visited neighbour exists
-                                    direction = neighbour;
-                                    break;
-                                }
-                            }
-                        }
-                        // if exists
-                        if (direction != null){
-                            // add current to path
-                            // go there
-                            path.Push(currentCell);
-                            currentCell = direction;
-                        } //else
-                        else{
-                            // if path.count > 0
-                            if (path.Count > 0){
-                                // go back
-                                currentCell = path.Pop();
-                            }
-                            else{
-                                finished = true;
-                            }
-                        }
-                    }else if (currentCell.GetBuilding().Type.type == BuildingTypeSO.Type.Decoration){
-                        currentCell = path.Pop();
-                    }
-                }
-            }
-            return reachable;
         }
     }
 
@@ -139,6 +59,7 @@ public class GameManager : MonoBehaviour{
         this.janitors = new List<Janitor>();
         this.mechanics = new List<Mechanic>();
         this.visitors = new List<Visitor>();
+        EventManager.instance.SpeedChanged(1);
     }
 
     void Update(){
@@ -317,15 +238,18 @@ public class GameManager : MonoBehaviour{
     public void Resume(){
         this.gameSpeed = 10f;
         this.gameIsActive = true;
+        EventManager.instance.SpeedChanged(1);
     }
 
     public void Pause(){
         this.gameIsActive = false;
+        EventManager.instance.SpeedChanged(0);
     }
 
     public void ChangeSpeed(float number){
         gameIsActive = true;
         this.gameSpeed = number * 10f;
+        EventManager.instance.SpeedChanged((int)number);
     }
 
     public bool ChangeSelectedType(BuildingTypeSO buildingTypeSO){
@@ -337,47 +261,25 @@ public class GameManager : MonoBehaviour{
         return false;
     }
 
-    public int Width{
-        get => width;
-    }
+    public int Width => width;
 
-    public int Height{
-        get => height;
-    }
+    public int Height => height;
 
-    public float TotalHappiness{
-        get => totalHappiness;
-    }
+    public float TotalHappiness => totalHappiness;
 
-    public float TrashPercentage{
-        get => trashPercentage;
-    }
+    public float TrashPercentage => trashPercentage;
 
-    public int DayCount{
-        get => dayCount;
-    }
+    public int DayCount => dayCount;
 
-    public int GameHour{
-        get => gameHour;
-    }
+    public int GameHour => gameHour;
 
-    public int GameSecond{
-        get => gameSecond;
-    }
+    public int GameSecond => gameSecond;
 
-    public float Money{
-        get => money;
-    }
+    public float Money => money;
 
-    public List<Janitor> Janitors{
-        get => janitors;
-    }
+    public List<Janitor> Janitors => janitors;
 
-    public List<Mechanic> Mechanics{
-        get => mechanics;
-    }
+    public List<Mechanic> Mechanics => mechanics;
 
-    public float CountSecond{
-        get => countSecond;
-    }
+    public float CountSecond => countSecond;
 }
