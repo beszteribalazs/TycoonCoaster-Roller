@@ -176,7 +176,7 @@ public class BuildingSystem : MonoBehaviour{
     void updateNeighbours(int x, int z)
     {
         Dictionary<string, bool> neighbours = grid.GetCell(x,z).AdjacentRoads;
-        List<Vector2Int> positionList = roadStraight.GetPositionList(new Vector2Int(x, z), currentBuildingRotation);
+        List<Vector2Int> positionList = roadStraight.GetPositionList(new Vector2Int(x, z), BuildingTypeSO.Direction.Up);
         
         Vector2Int rotationOffset;
         Vector3 worldPosition;
@@ -475,7 +475,7 @@ public class BuildingSystem : MonoBehaviour{
 
             // Get list of the buildings coordinates
             List<Vector2Int> positionList =
-                selectedBuildingSO.GetPositionList(new Vector2Int(x, z), currentBuildingRotation);
+                roadStraight.GetPositionList(new Vector2Int(x, z), BuildingTypeSO.Direction.Up);
 
             // Check if all coordinates are empty
             bool canBuild = true;
@@ -493,7 +493,7 @@ public class BuildingSystem : MonoBehaviour{
                 }
             }
 
-            if (GameManager.instance.Money < selectedBuildingSO.price){
+            if (GameManager.instance.Money < roadStraight.price){
                 canBuild = false;
                 SetSelectedBuildingType(null);
             }
@@ -546,7 +546,7 @@ public class BuildingSystem : MonoBehaviour{
                     GameManager.instance.BuyBuilding(roadStraight);
                     //EventManager.instance.MapChanged();
                     placedBuildings.Add(placedBuilding);
-                    updateNeighbours((x-1),z);
+                    updateNeighbours(x-1,z);
                 }
                 else if (neighbours["up"] == false && neighbours["down"] == false && neighbours["left"] == false && neighbours["right"])
                 {
