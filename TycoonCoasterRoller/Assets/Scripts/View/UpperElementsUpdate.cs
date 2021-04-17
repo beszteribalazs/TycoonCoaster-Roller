@@ -27,7 +27,7 @@ public class UpperElementsUpdate : MonoBehaviour
         happiness.text = GameManager.instance.TotalHappiness*100+"%";
         trash.text = GameManager.instance.TrashPercentage*100+"%";
         janitor.text = GameManager.instance.Janitors.Count.ToString();
-
+        visitors.text = "0"+"/"+(int)GameManager.instance.TotalCapacity;
 
 
         
