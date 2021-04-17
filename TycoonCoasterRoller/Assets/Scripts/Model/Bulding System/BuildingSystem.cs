@@ -239,11 +239,11 @@ public class BuildingSystem : MonoBehaviour{
             GameManager.instance.SellBuilding(clickedBuilding);
 
             clickedBuilding.Destroy();
-            Invoke(nameof(Aaaaa), 0.1f);
+            Invoke(nameof(DelayedMapChanged), 0.1f);
         }
     }
 
-    private void Aaaaa(){
+    private void DelayedMapChanged(){
         EventManager.instance.MapChanged();
     }
 

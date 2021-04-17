@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour{
     private List<Mechanic> mechanics;
     private List<Visitor> visitors;
 
+    public int GameSpeed => (int)gameSpeed / 10;
+
     public List<Attraction> Attractions{
         get{
             List<Attraction> list = new List<Attraction>();
@@ -241,6 +243,7 @@ public class GameManager : MonoBehaviour{
 
     public void Pause(){
         this.gameIsActive = false;
+        EventManager.instance.SpeedChanged(0);
     }
 
     public void ChangeSpeed(float number){
@@ -258,47 +261,25 @@ public class GameManager : MonoBehaviour{
         return false;
     }
 
-    public int Width{
-        get => width;
-    }
+    public int Width => width;
 
-    public int Height{
-        get => height;
-    }
+    public int Height => height;
 
-    public float TotalHappiness{
-        get => totalHappiness;
-    }
+    public float TotalHappiness => totalHappiness;
 
-    public float TrashPercentage{
-        get => trashPercentage;
-    }
+    public float TrashPercentage => trashPercentage;
 
-    public int DayCount{
-        get => dayCount;
-    }
+    public int DayCount => dayCount;
 
-    public int GameHour{
-        get => gameHour;
-    }
+    public int GameHour => gameHour;
 
-    public int GameSecond{
-        get => gameSecond;
-    }
+    public int GameSecond => gameSecond;
 
-    public float Money{
-        get => money;
-    }
+    public float Money => money;
 
-    public List<Janitor> Janitors{
-        get => janitors;
-    }
+    public List<Janitor> Janitors => janitors;
 
-    public List<Mechanic> Mechanics{
-        get => mechanics;
-    }
+    public List<Mechanic> Mechanics => mechanics;
 
-    public float CountSecond{
-        get => countSecond;
-    }
+    public float CountSecond => countSecond;
 }

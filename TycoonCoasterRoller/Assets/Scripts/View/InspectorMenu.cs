@@ -23,6 +23,8 @@ public class InspectorMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI netIncome;
     [SerializeField] Transform previewModel;
     Transform previewModelObject;
+
+    bool inspectorOpen = false;
     
     void Awake()
     {
@@ -35,6 +37,10 @@ public class InspectorMenu : MonoBehaviour
         {
             CloseDisplay();
         }
+
+        if (inspectorOpen){
+            DisplayDetails(selectedBuilding);
+        }
     }
     
     public void DisplayDetails(Attraction building)
@@ -45,16 +51,18 @@ public class InspectorMenu : MonoBehaviour
         display.gameObject.SetActive(true);
         nameText.text = building.Name;
         level.text = "Level: " + building.Level;
-        capacity.text = "Capacity: " + building.CurrentVisitors + "/" + building.TotalCapacity;
-        upkeep.text = "Daily Upkeep: -" + Math.Round(building.DailyUpkeep, 0) + "$";
-        income.text = "Daily Income: " + Math.Round(building.DailyIncome, 0) + "$";
-        netIncome.text = "Net Income: " + Math.Round(building.DailyIncome - building.DailyUpkeep, 0) + "$";
+        capacity.text = "Capacity: " + building.CurrentVisitorCount + "/" + building.TotalCapacity;
+        upkeep.text = "Upkeep: -" + Math.Round(building.DailyUpkeep, 0) + "$";
+        income.text = "Income: " + Math.Round(building.CurrentDailyIncome, 0) + "$";
+        netIncome.text = "Net Income: " + Math.Round(building.CurrentDailyIncome - building.DailyUpkeep, 0) + "$";
         upgradePrice.text = Math.Round(building.UpgradePrice, 0) + "$";
         repairPrice.text = "nincs:c $";
         if (previewModelObject != null){
             Destroy(previewModelObject.gameObject);
         }
         previewModelObject = Instantiate(building.Type.uiPrefab, previewModel);
+        //GameManager.instance.Pause();
+        inspectorOpen = true;
     }
 
     public void UpgradeBuilding()
@@ -86,5 +94,7 @@ public class InspectorMenu : MonoBehaviour
     {
         selectedBuilding = null;
         display.gameObject.SetActive(false);
+        //GameManager.instance.Resume();
+        inspectorOpen = false;
     }
 }

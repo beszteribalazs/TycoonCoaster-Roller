@@ -8,6 +8,7 @@ public abstract class Building : MonoBehaviour{
     BuildingTypeSO.Direction buildingDirection;
     Vector3 position;
     public List<Vector2Int> gridPositionlist;
+    public Transform visual;
 
     public Vector3 Position => position;
     public abstract float SellPrice{ get; }
@@ -35,6 +36,7 @@ public abstract class Building : MonoBehaviour{
         spawnedBuilding.position = spawnedBuildingTransform.position;
         spawnedBuildingTransform.parent = GameObject.Find("Buildings").transform;
         spawnedBuilding.gridPositionlist = posList;
+        spawnedBuilding.visual = spawnedBuildingTransform;
 
         spawnedBuilding.buildingType = buildingType;
         spawnedBuilding.gridOrigin = gridOrigin;
