@@ -80,6 +80,8 @@ public class InspectorMenu : MonoBehaviour
 
     public void ReapirBuilding()
     {
+        //selectedBuilding.Repair();
+        
         /*if (GameManager.instance.RepairBuilding()){
    
         }

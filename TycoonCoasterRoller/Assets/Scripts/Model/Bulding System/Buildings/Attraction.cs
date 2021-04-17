@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Attraction : Building{
     int level;
-    [SerializeField] bool _broke;
-
+    [SerializeField] bool _broke = false;
+    [SerializeField] Transform brokeVisual;
+    
     public Attraction(){
         this.level = 1;
     }
@@ -72,11 +73,11 @@ public class Attraction : Building{
 
     public override float Upkeep => DailyUpkeep / 24f / 60f;
     public float DailyUpkeep => Mathf.Pow(DailyIncome, 0.75f);
-    public override float Income => DailyIncome / 24f / 60f * ((float)peopleInside.Count / (float)TotalCapacity);
+    public override float Income => _broke? 0 : DailyIncome / 24f / 60f * ((float)peopleInside.Count / (float)TotalCapacity);
     public float DailyIncome => level * buildingType.baseIncome;
 
     public float CurrentDailyIncome => Income * 24f * 60f;
-    public override float BreakChance => buildingType.breakChance;
+    public override float BreakChance => buildingType.breakChance / 24f / 60f;
 
     public int TotalCapacity => _broke ? 0 : buildingType.capacity;
     public int CurrentVisitorCount => peopleInside.Count;
@@ -85,11 +86,12 @@ public class Attraction : Building{
 
 
     public void BreakBuilding(){
+        _broke = true;
+        brokeVisual.gameObject.SetActive(true);
         //visitorok kiküldése
-    }
-
-    public override bool Broke{
-        get => _broke;
-        set => _broke = value;
+        while (peopleInside.Count > 0){
+            peopleInside[0].LeaveBuilding();
+        }
+        
     }
 }

@@ -15,7 +15,6 @@ public abstract class Building : MonoBehaviour{
     public abstract float Upkeep{ get; }
     public abstract float Income{ get; }
     public abstract float BreakChance{ get; }
-    public abstract bool Broke{ get; set; }
 
     public BuildingTypeSO Type => buildingType;
     

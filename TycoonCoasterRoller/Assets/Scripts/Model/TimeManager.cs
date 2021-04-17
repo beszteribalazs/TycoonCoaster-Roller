@@ -38,7 +38,7 @@ public class TimeManager : MonoBehaviour{
             tickTimer -= TICK_TIMER_MAX / gameSpeed;
             tick++;
             GameManager.instance.GameLoop();
-            Debug.Log(tick);
+            //Debug.Log(tick);
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-public class Mechanic : Employee
-{
-    private bool occupied;
+public class Mechanic : Employee{
+    Attraction target;
 
+    
+    
+    private bool occupied;
     public Mechanic()
     {
         this.price=300;

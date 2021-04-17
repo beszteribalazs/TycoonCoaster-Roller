@@ -115,7 +115,8 @@ public class Visitor : MonoBehaviour{
         agent = GetComponent<NavMeshAgent>();
         lastFramePosition = transform.position;
         transform.parent = GameObject.Find("Visitors").transform;
-        ChangeSpeed(TimeManager.instance.GameSpeed);
+        //ChangeSpeed(TimeManager.instance.GameSpeed);
+        agent.speed = TimeManager.instance.GameSpeed;
 
         /*foreach (Attraction attraction in GameManager.instance.ReachableAttractions){
             Debug.Log(attraction);
@@ -188,7 +189,7 @@ public class Visitor : MonoBehaviour{
     void TryToEnterBuilding(){
         goingToAttraction = false;
         // if target is full
-        if (target.peopleInside.Count >= target.Type.capacity){
+        if (target.peopleInside.Count >= target.TotalCapacity){
             // go to a random road then go to a random building
             GoToRandomRoad();
         }
@@ -215,10 +216,10 @@ public class Visitor : MonoBehaviour{
         target.peopleInside.Add(this);
         previousBuilding = target;
         mesh.SetActive(false);
-        Invoke(nameof(LeaveBuilding), 2f);
+        Invoke(nameof(LeaveBuilding), 10000f);
     }
 
-    void LeaveBuilding(){
+    public void LeaveBuilding(){
         target.peopleInside.Remove(this);
         mesh.SetActive(true);
         GoToRandomBuilding();
@@ -270,7 +271,7 @@ public class Visitor : MonoBehaviour{
     }
 
 
-    public Vector3 GetMouseWorldPosition(){
+    /* Vector3 GetMouseWorldPosition(){
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out var hitInfo, 1000f, (1 << 8))){
             return hitInfo.point;
@@ -279,7 +280,7 @@ public class Visitor : MonoBehaviour{
             //DO NOT BUILD
             throw new MouseOutOfMapException("Invalid position!");
         }
-    }
+    }*/
 
 
     List<Attraction> CalculateReachablePositions(){

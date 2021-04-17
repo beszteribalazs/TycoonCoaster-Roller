@@ -17,7 +17,8 @@ MonoBehaviour:
   price: 16000
   sellMultiplier: 0.5
   baseIncome: 1000
-  breakChance: 0.15
+  breakChance: 1
+  type: 0
   width: 7
   height: 7
   prefab: {fileID: 4863732021162573958, guid: 59d77c9f11ba0c247b1d5e868037c57f, type: 3}

@@ -49,6 +49,7 @@ MonoBehaviour:
   gridPositionlist: []
   visual: {fileID: 0}
   _broke: 0
+  brokeVisual: {fileID: 3974829633086379776}
   peopleInside: []
 --- !u!1 &5703961159912274446
 GameObject:

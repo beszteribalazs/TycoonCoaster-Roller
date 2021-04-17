@@ -6,7 +6,9 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour{
-    [SerializeField] public BuildingSystem buildingSystem;
+    public BuildingSystem buildingSystem;
+    [SerializeField] Spawner spawner;
+    
     public static GameManager instance;
     private int width;
     private int height;
@@ -27,6 +29,9 @@ public class GameManager : MonoBehaviour{
     private List<Mechanic> mechanics;
     private List<Visitor> visitors;
 
+    int totalMechanics;
+    int availableMechanics;
+    
     //public int GameSpeed => (int)gameSpeed / 10;
 
     public List<Attraction> Attractions{
@@ -71,6 +76,12 @@ public class GameManager : MonoBehaviour{
             }
         }
     }*/
+
+    public void RepairAttraction(Attraction target){
+        if (NavigationManager.instance.IsTargetReachable(target)){
+            spawner.SpawnMechanic()
+        }
+    }
 
     public void GameLoop(){
         int countSecond = TimeManager.instance.Tick;
@@ -198,12 +209,16 @@ public class GameManager : MonoBehaviour{
 
     private void UpdateProperties(){
         foreach (Building building in this.buildingSystem.Buildings){
-            this.money -= building.Upkeep;
-            this.money += building.Income;
+            if (building.Type.type == BuildingTypeSO.Type.Attraction){
+                Attraction current = (Attraction)building;
+                this.money -= current.Upkeep;
+                this.money += current.Income;
 
-            float rand_float = Random.Range(0f, 1f);
-            if (rand_float < building.BreakChance){
-                building.Broke = true;
+                float rand_float = Random.Range(0f, 1f);
+                if (rand_float < current.BreakChance){
+                    //building.Broke = true;
+                    current.BreakBuilding();
+                }    
             }
         }
 
@@ -252,6 +267,9 @@ public class GameManager : MonoBehaviour{
     public void ChangeSpeed(float number){
         gameIsActive = true;
         //this.gameSpeed = number * 10f;
+        if (number > 0){
+            TimeManager.instance.Paused = false;    
+        }
         TimeManager.instance.GameSpeed = (int)(number * 10);
         EventManager.instance.SpeedChanged((int)number);
     }
