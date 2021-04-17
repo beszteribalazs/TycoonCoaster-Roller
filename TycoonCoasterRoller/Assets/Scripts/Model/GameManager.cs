@@ -16,18 +16,18 @@ public class GameManager : MonoBehaviour{
     private float trashLevel;
     private float trashPercentage;
     private float totalCapacity;
-    private float gameSpeed;
+    //private float gameSpeed;
     private int dayCount;
     private int gameHour;
     private int gameSecond;
-    private float countSecond;
-    private float helpSecond;
+    //private float countSecond;
+    //private float helpSecond;
     private bool gameIsActive;
     private List<Janitor> janitors;
     private List<Mechanic> mechanics;
     private List<Visitor> visitors;
 
-    public int GameSpeed => (int)gameSpeed / 10;
+    //public int GameSpeed => (int)gameSpeed / 10;
 
     public List<Attraction> Attractions{
         get{
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour{
         this.totalHappiness = 1f;
         this.trashLevel = 0f;
         this.trashPercentage = 0f;
-        this.gameSpeed = 10f;
+        //this.gameSpeed = 10f;
         this.dayCount = 0;
         this.gameIsActive = true;
         this.janitors = new List<Janitor>();
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour{
         EventManager.instance.SpeedChanged(1);
     }
 
-    void Update(){
+    /*void Update(){
         if (gameIsActive){
             helpSecond = helpSecond + Time.deltaTime;
             if (helpSecond >= (1 / gameSpeed)){
@@ -70,11 +70,11 @@ public class GameManager : MonoBehaviour{
                 helpSecond = 0;
             }
         }
-    }
+    }*/
 
-    private void GameLoop(){
-        this.countSecond++;
-        this.gameSecond++;
+    public void GameLoop(){
+        int countSecond = TimeManager.instance.Tick;
+        gameSecond++;
 
         //evening-daytime
         if (countSecond >= 0 && countSecond < 720){ }
@@ -236,19 +236,23 @@ public class GameManager : MonoBehaviour{
     private void UpdateWeather(){ }
 
     public void Resume(){
-        this.gameSpeed = 10f;
+        //this.gameSpeed = 10f;
+        TimeManager.instance.GameSpeed = 10;
         this.gameIsActive = true;
+        TimeManager.instance.Paused = false;
         EventManager.instance.SpeedChanged(1);
     }
 
     public void Pause(){
         this.gameIsActive = false;
+        TimeManager.instance.Paused = true;
         EventManager.instance.SpeedChanged(0);
     }
 
     public void ChangeSpeed(float number){
         gameIsActive = true;
-        this.gameSpeed = number * 10f;
+        //this.gameSpeed = number * 10f;
+        TimeManager.instance.GameSpeed = (int)(number * 10);
         EventManager.instance.SpeedChanged((int)number);
     }
 
@@ -281,5 +285,5 @@ public class GameManager : MonoBehaviour{
 
     public List<Mechanic> Mechanics => mechanics;
 
-    public float CountSecond => countSecond;
+    //public float CountSecond => countSecond;
 }

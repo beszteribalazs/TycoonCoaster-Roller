@@ -115,7 +115,7 @@ public class Visitor : MonoBehaviour{
         agent = GetComponent<NavMeshAgent>();
         lastFramePosition = transform.position;
         transform.parent = GameObject.Find("Visitors").transform;
-        ChangeSpeed(GameManager.instance.GameSpeed);
+        ChangeSpeed(TimeManager.instance.GameSpeed);
 
         /*foreach (Attraction attraction in GameManager.instance.ReachableAttractions){
             Debug.Log(attraction);

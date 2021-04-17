@@ -78,11 +78,15 @@ public class Attraction : Building{
     public float CurrentDailyIncome => Income * 24f * 60f;
     public override float BreakChance => buildingType.breakChance;
 
-    public int TotalCapacity => buildingType.capacity;
+    public int TotalCapacity => _broke ? 0 : buildingType.capacity;
     public int CurrentVisitorCount => peopleInside.Count;
 
     public int Level => level;
 
+
+    public void BreakBuilding(){
+        //visitorok kiküldése
+    }
 
     public override bool Broke{
         get => _broke;
