@@ -6,7 +6,9 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour{
-    [SerializeField] public BuildingSystem buildingSystem;
+    public BuildingSystem buildingSystem;
+    [SerializeField] Spawner spawner;
+    
     public static GameManager instance;
     private int width;
     private int height;
@@ -16,18 +18,23 @@ public class GameManager : MonoBehaviour{
     private float trashLevel;
     private float trashPercentage;
     private float totalCapacity;
-    private float gameSpeed;
+    
+    //private float gameSpeed;
     private int dayCount;
     private int gameHour;
     private int gameSecond;
-    private float countSecond;
-    private float helpSecond;
+    //private float countSecond;
+    //private float helpSecond;
     private bool gameIsActive;
     private List<Janitor> janitors;
-    private List<Mechanic> mechanics;
-    private List<Visitor> visitors;
 
-    public int GameSpeed => (int)gameSpeed / 10;
+    public int totalMechanics = 0;
+    public int availableMechanics = 0;
+    float mechanicSalary;
+        
+    int janitorCount = 0;
+    
+    //public int GameSpeed => (int)gameSpeed / 10;
 
     public List<Attraction> Attractions{
         get{
@@ -44,6 +51,7 @@ public class GameManager : MonoBehaviour{
 
     private void Awake(){
         instance = this;
+        mechanicSalary = 300 * 0.1f / 24 / 60;
     }
 
     void Start(){
@@ -53,16 +61,14 @@ public class GameManager : MonoBehaviour{
         this.totalHappiness = 1f;
         this.trashLevel = 0f;
         this.trashPercentage = 0f;
-        this.gameSpeed = 10f;
+        //this.gameSpeed = 10f;
         this.dayCount = 0;
         this.gameIsActive = true;
         this.janitors = new List<Janitor>();
-        this.mechanics = new List<Mechanic>();
-        this.visitors = new List<Visitor>();
         EventManager.instance.SpeedChanged(1);
     }
 
-    void Update(){
+    /*void Update(){
         if (gameIsActive){
             helpSecond = helpSecond + Time.deltaTime;
             if (helpSecond >= (1 / gameSpeed)){
@@ -70,11 +76,22 @@ public class GameManager : MonoBehaviour{
                 helpSecond = 0;
             }
         }
+    }*/
+
+
+    public void RepairAttraction(Attraction target){
+        if (availableMechanics > 0 && NavigationManager.instance.IsTargetReachable(target)){
+            GameObject obj = spawner.SpawnMechanic(buildingSystem.entryPoint.position + new Vector3(1, 0, 1) * (buildingSystem.CellSize / 2));
+            Mechanic mechanic = obj.GetComponent<Mechanic>();
+            mechanic.Repair(target);
+            target.beingRepaired = true;
+            availableMechanics--;
+        }
     }
 
-    private void GameLoop(){
-        this.countSecond++;
-        this.gameSecond++;
+    public void GameLoop(){
+        int countSecond = TimeManager.instance.Tick;
+        gameSecond++;
 
         //evening-daytime
         if (countSecond >= 0 && countSecond < 720){ }
@@ -116,7 +133,7 @@ public class GameManager : MonoBehaviour{
         this.totalCapacity = this.totalCapacity - building.Type.capacity;
     }
 
-    public bool RepairBuilding(Attraction building){
+    /*public bool RepairBuilding(Attraction building){
         Mechanic helperMechanic = null;
         foreach (Mechanic mechanic in this.mechanics){
             if (mechanic.Occupied == false){
@@ -131,12 +148,15 @@ public class GameManager : MonoBehaviour{
         }
 
         return false;
-    }
+    }*/
 
     public bool BuyJanitor(){
         if (this.money >= 150f){
             this.money = this.money - 150f;
-            this.janitors.Add(new Janitor());
+            GameObject obj = spawner.SpawnJanitor(buildingSystem.entryPoint.position + new Vector3(1, 0, 1) * (buildingSystem.CellSize / 2));
+            Janitor janitor = obj.GetComponent<Janitor>();
+            janitors.Add(janitor);
+            janitorCount++;
             return true;
         }
 
@@ -146,7 +166,8 @@ public class GameManager : MonoBehaviour{
     public bool BuyMechanic(){
         if (this.money >= 300f){
             this.money = this.money - 300f;
-            this.mechanics.Add(new Mechanic());
+            totalMechanics++;
+            availableMechanics++;
             return true;
         }
 
@@ -155,29 +176,21 @@ public class GameManager : MonoBehaviour{
 
     public bool RemoveJanitor(){
         if (this.janitors.Count > 0){
-            this.janitors.RemoveAt(this.janitors.Count - 1);
+            janitors[0].Sell();
+            janitors.Remove(janitors[0]);
             return true;
         }
+        
 
         return false;
     }
 
     public bool RemoveMechanic(){
-        if (this.mechanics.Count > 0){
-            Mechanic helperMechanic = null;
-            foreach (Mechanic mechanic in this.mechanics){
-                if (mechanic.Occupied == false){
-                    helperMechanic = mechanic;
-                    break;
-                }
-            }
-
-            if (helperMechanic != null){
-                this.mechanics.Remove(helperMechanic);
-                return true;
-            }
+        if (availableMechanics > 0){
+            totalMechanics--;
+            availableMechanics--;
+            return true;
         }
-
         return false;
     }
 
@@ -200,12 +213,16 @@ public class GameManager : MonoBehaviour{
 
     private void UpdateProperties(){
         foreach (Building building in this.buildingSystem.Buildings){
-            this.money -= building.Upkeep;
-            this.money += building.Income;
+            if (building.Type.type == BuildingTypeSO.Type.Attraction){
+                Attraction current = (Attraction)building;
+                this.money -= current.Upkeep;
+                this.money += current.Income;
 
-            float rand_float = Random.Range(0f, 1f);
-            if (rand_float < building.BreakChance){
-                building.Broke = true;
+                float rand_float = Random.Range(0f, 1f);
+                if (rand_float < current.BreakChance){
+                    //building.Broke = true;
+                    current.BreakBuilding();
+                }    
             }
         }
 
@@ -213,13 +230,15 @@ public class GameManager : MonoBehaviour{
             this.money -= janitor.Salary;
         }
 
-        foreach (Mechanic mechanic in this.mechanics){
+        this.money -= (mechanicSalary * totalMechanics);
+        /*foreach (Mechanic mechanic in this.mechanics){
             this.money -= mechanic.Salary;
-        }
+        }*/
 
-        foreach (Visitor visitor in this.visitors){
+        //TODO visitorok számának számolása
+        /*foreach (Visitor visitor in this.visitors){
             this.trashLevel += 0.2f / 24f / 60f;
-        }
+        }*/
 
         if (this.trashLevel > this.totalCapacity){
             this.trashLevel = this.totalCapacity;
@@ -238,19 +257,26 @@ public class GameManager : MonoBehaviour{
     private void UpdateWeather(){ }
 
     public void Resume(){
-        this.gameSpeed = 10f;
+        //this.gameSpeed = 10f;
+        TimeManager.instance.GameSpeed = 10;
         this.gameIsActive = true;
+        TimeManager.instance.Paused = false;
         EventManager.instance.SpeedChanged(1);
     }
 
     public void Pause(){
         this.gameIsActive = false;
+        TimeManager.instance.Paused = true;
         EventManager.instance.SpeedChanged(0);
     }
 
     public void ChangeSpeed(float number){
         gameIsActive = true;
-        this.gameSpeed = number * 10f;
+        //this.gameSpeed = number * 10f;
+        if (number > 0){
+            TimeManager.instance.Paused = false;    
+        }
+        TimeManager.instance.GameSpeed = (int)(number * 10);
         EventManager.instance.SpeedChanged((int)number);
     }
 
@@ -281,9 +307,7 @@ public class GameManager : MonoBehaviour{
 
     public List<Janitor> Janitors => janitors;
 
-    public List<Mechanic> Mechanics => mechanics;
+    //public List<Mechanic> Mechanics => mechanics;
 
-    public float CountSecond => countSecond;
-    
-    public float TotalCapacity => totalCapacity;
+    //public float CountSecond => countSecond;
 }

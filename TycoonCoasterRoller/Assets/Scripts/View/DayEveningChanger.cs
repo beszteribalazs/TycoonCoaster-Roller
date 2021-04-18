@@ -15,6 +15,6 @@ public class DayEveningChanger : MonoBehaviour
 
     void Update()
     {
-        directionalLight.intensity=curve.Evaluate(Mathf.Lerp(0, 1, (float)GameManager.instance.CountSecond/1440));
+        directionalLight.intensity=curve.Evaluate(Mathf.Lerp(0, 1, (float)(TimeManager.instance.Tick % 1440)/1440));
     }
 }

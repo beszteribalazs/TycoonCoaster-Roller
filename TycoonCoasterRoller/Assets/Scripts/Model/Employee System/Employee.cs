@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using UnityEngine;
 
-public class Employee
+public class Employee : Person
 {
     protected float price;
     protected float salary;
