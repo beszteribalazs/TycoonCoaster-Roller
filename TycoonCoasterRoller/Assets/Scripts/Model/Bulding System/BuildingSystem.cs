@@ -283,6 +283,30 @@ public class BuildingSystem : MonoBehaviour
             case 15:
                 ChangeRoadDirection(roadX, BuildingTypeSO.Direction.Down, x, z);
                 break;
+            case 16:
+                ChangeRoadDirection(roadX, BuildingTypeSO.Direction.Down, x, z);
+                break;
+            case 17:
+                ChangeRoadDirection(roadX, BuildingTypeSO.Direction.Down, x, z);
+                break;
+            case 18:
+                ChangeRoadDirection(roadTurn, BuildingTypeSO.Direction.Down, x, z);
+                break;
+            case 19:
+                ChangeRoadDirection(roadTurn, BuildingTypeSO.Direction.Left, x, z);
+                break;
+            case 20:
+                ChangeRoadDirection(roadT, BuildingTypeSO.Direction.Down, x, z);
+                break;
+            case 21:
+                ChangeRoadDirection(roadT, BuildingTypeSO.Direction.Up, x, z);
+                break;
+            case 22:
+                ChangeRoadDirection(roadT, BuildingTypeSO.Direction.Left, x, z);
+                break;
+            case 23:
+                ChangeRoadDirection(roadStraight, BuildingTypeSO.Direction.Down, x, z);
+                break;
             default:
                 Debug.LogError("MEGBASZOMANYADATHASZAR");
                 break;

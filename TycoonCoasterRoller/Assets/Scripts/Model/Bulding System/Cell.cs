@@ -53,72 +53,115 @@ public class Cell
                 }
             }
 
+            int startX;
+            int startZ;
+            grid.XZFromWorldPosition(
+                BuildingSystem.instance.entryPoint.position + Vector3.forward * BuildingSystem.instance.CellSize,
+                out startX, out startZ);
 
-            if (roads["up"] && roads["down"] == false && roads["left"] == false && roads["right"] == false) //fel
+            if (this.x==startX && this.y==startZ)
             {
-                return 1;
+                roads["down"] = true;
+                if (roads["up"] == false && roads["down"] && roads["left"] == false && roads["right"] == false)//le
+                {
+                    return 16;
+                }
+                else if (roads["up"] && roads["down"] && roads["left"] && roads["right"]) //fel,le,jobbra,balra
+                {
+                    return 17;
+                }
+                else if (roads["up"] == false && roads["down"] && roads["left"] == false && roads["right"]) //le,jobbra
+                {
+                    return 18;
+                }
+                else if (roads["up"] == false && roads["down"] && roads["left"] && roads["right"] == false) //le,balra
+                {
+                    return 19;
+                }
+                else if (roads["up"] && roads["down"] && roads["left"] == false && roads["right"]) //fel,le,jobbra
+                {
+                    return 20;
+                }
+                else if (roads["up"] && roads["down"] && roads["left"] && roads["right"] == false) //fel,le,balra
+                {
+                    return 21;
+                }
+                else if (roads["up"] == false && roads["down"] && roads["left"] && roads["right"]) //balra,jobbra
+                {
+                    return 22;
+                }
+                if (roads["up"] && roads["down"] && roads["left"] == false && roads["right"] == false)//fel,le
+                {
+                    return 23;
+                }
             }
-            else if (roads["up"] == false && roads["down"] && roads["left"] == false && roads["right"] == false) //le
+            else
             {
-                return 3;
+                if (roads["up"] && roads["down"] == false && roads["left"] == false && roads["right"] == false) //fel
+                {
+                    return 1;
+                }
+                else if (roads["up"] == false && roads["down"] && roads["left"] == false && roads["right"] == false) //le
+                {
+                    return 3;
+                }
+                else if (roads["up"] == false && roads["down"] == false && roads["left"] && roads["right"] == false) //balra
+                { 
+                    return 4;
+                }
+                else if (roads["up"] == false && roads["down"] == false && roads["left"] == false && roads["right"]) //jobbra
+                {
+                    return 2;
+                }
+                else if (roads["up"] && roads["down"] && roads["left"] == false && roads["right"] == false) //fel,le
+                {
+                    return 10;
+                }
+                else if (roads["up"] && roads["down"] == false && roads["left"] && roads["right"] == false) //fel,balra
+                {
+                    return 8;
+                }
+                else if (roads["up"] && roads["down"] == false && roads["left"] == false && roads["right"]) //fel,jobbra
+                {
+                    return 5;
+                }
+                else if (roads["up"] == false && roads["down"] && roads["left"] && roads["right"] == false) //le,balra
+                {
+                    return 7;
+                }
+                else if (roads["up"] == false && roads["down"] && roads["left"] == false && roads["right"]) //le,jobbra
+                {
+                    return 6;
+                }
+                else if (roads["up"] == false && roads["down"] == false && roads["left"] && roads["right"]) //balra,jobbra
+                {
+                    return 9;
+                }
+                else if (roads["up"] && roads["down"] && roads["left"] && roads["right"] == false) // fel,le,balra
+                {
+                    return 14;
+                }
+                else if (roads["up"] && roads["down"] && roads["left"] == false && roads["right"]) //fel,le,jobbra
+                {
+                    return 12;
+                }
+                else if (roads["up"] && roads["down"] == false && roads["left"] && roads["right"]) //fel,balra,jobbra
+                {
+                    return 11;
+                }
+                else if (roads["up"] == false && roads["down"] && roads["left"] && roads["right"]) //le,balra,jobbra
+                {
+                    return 13;
+                }
+                else if (roads["up"] && roads["down"] && roads["left"] && roads["right"]) //fel,le,jobbra,balra
+                {
+                    return 15;
+                }
+                else if (roads["up"] == false && roads["down"] == false && roads["left"] == false && roads["right"] == false)
+                {
+                    return 0;
+                }
             }
-            else if (roads["up"] == false && roads["down"] == false && roads["left"] && roads["right"] == false) //balra
-            {
-                return 4;
-            }
-            else if (roads["up"] == false && roads["down"] == false && roads["left"] == false && roads["right"]) //jobbra
-            {
-                return 2;
-            }
-            else if (roads["up"] && roads["down"] && roads["left"] == false && roads["right"] == false) //fel,le
-            {
-                return 10;
-            }
-            else if (roads["up"] && roads["down"] == false && roads["left"] && roads["right"] == false) //fel,balra
-            {
-                return 8;
-            }
-            else if (roads["up"] && roads["down"] == false && roads["left"] == false && roads["right"]) //fel,jobbra
-            {
-                return 5;
-            }
-            else if (roads["up"] == false && roads["down"] && roads["left"] && roads["right"] == false) //le,balra
-            {
-                return 7;
-            }
-            else if (roads["up"] == false && roads["down"] && roads["left"] == false && roads["right"]) //le,jobbra
-            {
-                return 6;
-            }
-            else if (roads["up"] == false && roads["down"] == false && roads["left"] && roads["right"]) //balra,jobbra
-            {
-                return 9;
-            }
-            else if (roads["up"] && roads["down"] && roads["left"] && roads["right"] == false) // fel,le,balra
-            {
-                return 14;
-            }
-            else if (roads["up"] && roads["down"] && roads["left"] == false && roads["right"]) //fel,le,jobbra
-            {
-                return 12;
-            }
-            else if (roads["up"] && roads["down"] == false && roads["left"] && roads["right"]) //fel,balra,jobbra
-            {
-                return 11;
-            }
-            else if (roads["up"] == false && roads["down"] && roads["left"] && roads["right"]) //le,balra,jobbra
-            {
-                return 13;
-            }
-            else if (roads["up"] && roads["down"] && roads["left"] && roads["right"]) //fel,le,jobbra,balra
-            {
-                return 15;
-            }
-            else if (roads["up"] == false && roads["down"] == false && roads["left"] == false && roads["right"] == false)
-            {
-                return 0;
-            }
-            
             return -666;
         }
     }
