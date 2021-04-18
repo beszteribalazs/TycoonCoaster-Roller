@@ -151,11 +151,18 @@ public class BuildingSystem : MonoBehaviour
             }
             else if (currentMode == ClickMode.Destroy)
             {
+                int x, z;
+                grid.XZFromWorldPosition(GetMouseWorldPosition(), out x, out z);
                 if (Input.GetMouseButton(0))
                 {
                     if (selectedBuildingSO == null)
                     {
-                        SellBuilding();
+                        if ( (lastX != x) || (lastZ != z) )
+                        {
+                            SellBuilding();
+                            lastX = x;
+                            lastZ = z;
+                        }
                     }
                     else
                     {
