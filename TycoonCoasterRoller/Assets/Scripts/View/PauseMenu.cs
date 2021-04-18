@@ -9,8 +9,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject buyMenu;
     [SerializeField] GameObject insperctorMenu;
     [SerializeField] GameObject pauseMenuUi;
-
-    // Update is called once per frame
+    
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !buyMenu.activeSelf && !insperctorMenu.activeSelf && GameManager.instance.buildingSystem.currentMode==BuildingSystem.ClickMode.Normal)

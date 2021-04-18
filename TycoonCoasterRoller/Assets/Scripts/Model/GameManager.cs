@@ -114,6 +114,7 @@ public class GameManager : MonoBehaviour{
 
     public void BuyBuilding(BuildingTypeSO type){
         this.money = this.money - type.price;
+        this.totalCapacity = this.totalCapacity + type.capacity;
     }
 
     public bool UpgradeBuilding(Attraction building){
@@ -129,6 +130,7 @@ public class GameManager : MonoBehaviour{
     public void SellBuilding(Building building){
         this.money = this.money + building.SellPrice;
         EventManager.instance.SoldBuilding(building.SellPrice);
+        this.totalCapacity = this.totalCapacity - building.Type.capacity;
     }
 
     /*public bool RepairBuilding(Attraction building){

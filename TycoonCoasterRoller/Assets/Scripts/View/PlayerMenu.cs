@@ -7,8 +7,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class PlayerMenu : MonoBehaviour
 {
-    public Slider mainSlider;
-    public TMP_Text fieldSizeText;
+    [SerializeField] Slider mainSlider;
+    [SerializeField] TMP_Text fieldSizeText;
     private int size;
     
     public void PlayGame()
