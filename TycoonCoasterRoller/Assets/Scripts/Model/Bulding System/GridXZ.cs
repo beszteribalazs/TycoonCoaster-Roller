@@ -9,6 +9,9 @@ public class GridXZ{
     Cell[,] gridArray;
     Vector3 originPosition;
 
+    public int Width => width;
+    public int Height => height;
+    
     public GridXZ(int width, int height, float cellSize, Vector3 originPosition){
         this.width = width;
         this.height = height;
@@ -54,6 +57,8 @@ public class GridXZ{
     public float GetCellSize(){
         return cellSize;
     }
+    
+    
 
     public Vector3 GetWorldPosition(int x, int z){
         return new Vector3(x, 0, z) * cellSize + originPosition;

@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class InspectorMenu : MonoBehaviour
-{
+public class InspectorMenu : MonoBehaviour{
     public static InspectorMenu instance;
-    
+
     Attraction selectedBuilding;
 
     [SerializeField] GameObject display;
@@ -22,69 +22,80 @@ public class InspectorMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI repairPrice;
     [SerializeField] TextMeshProUGUI netIncome;
     [SerializeField] Transform previewModel;
+    [SerializeField] Button repairButton;
     Transform previewModelObject;
-    
-    void Awake()
-    {
+
+    bool inspectorOpen = false;
+
+    void Awake(){
         instance = this;
     }
-    
-    void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
+
+    void Update(){
+        if (Input.GetKeyUp(KeyCode.Escape)){
             CloseDisplay();
         }
+
+        if (inspectorOpen){
+            DisplayDetails(selectedBuilding);
+        }
     }
-    
-    public void DisplayDetails(Attraction building)
-    {
+
+    public void DisplayDetails(Attraction building){
         buyMenu.SetActive(false);
         BuySelect.instance.SetCheck();
         selectedBuilding = building;
         display.gameObject.SetActive(true);
         nameText.text = building.Name;
         level.text = "Level: " + building.Level;
-        capacity.text = "Capacity: " + building.CurrentVisitors + "/" + building.TotalCapacity;
-        upkeep.text = "Daily Upkeep: -" + Math.Round(building.DailyUpkeep, 0) + "$";
-        income.text = "Daily Income: " + Math.Round(building.DailyIncome, 0) + "$";
-        netIncome.text = "Net Income: " + Math.Round(building.DailyIncome - building.DailyUpkeep, 0) + "$";
+        capacity.text = "Capacity: " + building.CurrentVisitorCount + "/" + building.TotalCapacity;
+        upkeep.text = "Upkeep: -" + Math.Round(building.DailyUpkeep, 0) + "$";
+        income.text = "Income: " + Math.Round(building.CurrentDailyIncome, 0) + "$";
+        netIncome.text = "Net Income: " + Math.Round(building.CurrentDailyIncome - building.DailyUpkeep, 0) + "$";
         upgradePrice.text = Math.Round(building.UpgradePrice, 0) + "$";
-        repairPrice.text = "nincs:c $";
+        repairPrice.text = "9999$";
         if (previewModelObject != null){
             Destroy(previewModelObject.gameObject);
         }
+
         previewModelObject = Instantiate(building.Type.uiPrefab, previewModel);
+        //GameManager.instance.Pause();
+
+
+        if (selectedBuilding.Broke){
+            repairButton.interactable = true;
+        }
+        else{
+            repairButton.interactable = false;
+        }
+
+        if (selectedBuilding.beingRepaired){
+            repairButton.interactable = false;
+        }
+
+        inspectorOpen = true;
     }
 
-    public void UpgradeBuilding()
-    {
-        if (GameManager.instance.UpgradeBuilding(selectedBuilding))
-        {
+    public void UpgradeBuilding(){
+        if (GameManager.instance.UpgradeBuilding(selectedBuilding)){
             //Refresh UI
             DisplayDetails(selectedBuilding);
         }
-        else
-        {
+        else{
             ErrorHandler.instance.NoMoneyError();
         }
     }
 
-    public void ReapirBuilding()
-    {
-        /*if (GameManager.instance.RepairBuilding()){
-   
-        }
-        else
-        {
-            ErrorHandler.instance.NoMoneyError();
-        }*/
+    public void ReapirBuilding(){
+        
+        GameManager.instance.RepairAttraction(selectedBuilding);
+        CloseDisplay();
     }
 
-
-    public void CloseDisplay()
-    {
+    public void CloseDisplay(){
         selectedBuilding = null;
         display.gameObject.SetActive(false);
+        //GameManager.instance.Resume();
+        inspectorOpen = false;
     }
 }

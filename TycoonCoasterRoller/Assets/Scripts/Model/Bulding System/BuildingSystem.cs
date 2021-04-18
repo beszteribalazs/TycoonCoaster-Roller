@@ -409,6 +409,17 @@ public class BuildingSystem : MonoBehaviour
                     grid.GetCell(gridPositions.x, gridPositions.y).SetBuilding(placedBuilding);
                 }
 
+                /*
+                string debug = "";
+                for (int i = 0; i < grid.Width; i++){
+                    for (int y = 0; y < grid.Height; y++){
+                        debug += grid.GetCell(i, y).GetBuilding() + " ";
+                    }
+
+                    debug += "\n";
+                }
+                Debug.Log(debug);*/
+                
                 GameManager.instance.BuyBuilding(selectedBuildingSO);
 
 

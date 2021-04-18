@@ -10,6 +10,12 @@ public class EventManager : MonoBehaviour{
         instance = this;
     }
 
+    public event Action<int> onSpeedChanged;
+
+    public void SpeedChanged(int speedMultiplier){
+        onSpeedChanged?.Invoke(speedMultiplier);
+    }
+    
     public event Action onSelectedBuildingChanged;
     public void SelectedBuildingChanged(){
         onSelectedBuildingChanged?.Invoke();
