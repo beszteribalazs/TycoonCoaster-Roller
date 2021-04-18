@@ -253,9 +253,6 @@ public class BuildingSystem : MonoBehaviour
                 grid.GetCell(x,z).SetBuilding(placedBuilding);
                 placedBuildings.Add(placedBuilding);
                 break;
-            default:
-                Debug.LogError("NEMJO LOL");
-                break;
         }
     }
 
