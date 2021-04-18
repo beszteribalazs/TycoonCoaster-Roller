@@ -28,7 +28,7 @@ public class TimeManager : MonoBehaviour{
     void Awake(){
         instance = this;
         tick = 0;
-        gameSpeed = 1;
+        gameSpeed = 10;
     }
 
     void Update(){

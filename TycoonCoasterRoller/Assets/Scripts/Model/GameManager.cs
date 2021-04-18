@@ -77,9 +77,13 @@ public class GameManager : MonoBehaviour{
         }
     }*/
 
+
     public void RepairAttraction(Attraction target){
         if (NavigationManager.instance.IsTargetReachable(target)){
-            spawner.SpawnMechanic()
+            GameObject obj = spawner.SpawnMechanic(buildingSystem.entryPoint.position + new Vector3(1, 0, 1) * (buildingSystem.CellSize / 2));
+            Mechanic mechanic = obj.GetComponent<Mechanic>();
+            mechanic.Repair(target);
+            availableMechanics--;
         }
     }
 
@@ -125,7 +129,7 @@ public class GameManager : MonoBehaviour{
         EventManager.instance.SoldBuilding(building.SellPrice);
     }
 
-    public bool RepairBuilding(Attraction building){
+    /*public bool RepairBuilding(Attraction building){
         Mechanic helperMechanic = null;
         foreach (Mechanic mechanic in this.mechanics){
             if (mechanic.Occupied == false){
@@ -140,7 +144,7 @@ public class GameManager : MonoBehaviour{
         }
 
         return false;
-    }
+    }*/
 
     public bool BuyJanitor(){
         if (this.money >= 150f){

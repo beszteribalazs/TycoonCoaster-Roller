@@ -1,15 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject newPrefab; //prefab to spawn
+    [SerializeField] GameObject visitorPrefab; //prefab to spawn
+    [SerializeField] GameObject mechanicPrefab;
+    [SerializeField] GameObject janitorPrefab;
     public GameObject prefabParent; //parent gameobject of the prefab
+
 
     public GameObject SpawnVisitor(Vector3 pos)
     {
-        GameObject newNPC = Instantiate(newPrefab, pos, Quaternion.identity);
+        GameObject newNPC = Instantiate(visitorPrefab, pos, Quaternion.identity);
         return newNPC;
         if (prefabParent != null) //Check if parent is set
         {
@@ -18,7 +23,7 @@ public class Spawner : MonoBehaviour
     }
 
     public GameObject SpawnMechanic(Vector3 pos){
-        GameObject newNPC = Instantiate(newPrefab, pos, Quaternion.identity);
+        GameObject newNPC = Instantiate(mechanicPrefab, pos, Quaternion.identity);
         return newNPC;
     }
 }

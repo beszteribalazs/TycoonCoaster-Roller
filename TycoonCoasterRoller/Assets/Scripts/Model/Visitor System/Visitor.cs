@@ -5,26 +5,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public class Visitor : MonoBehaviour{
-    [SerializeField] GameObject mesh;
-    NavMeshAgent agent;
-    List<Cell> reachableCells;
-    List<Road> reachableRoads;
-
+public class Visitor : Person{
     Attraction previousBuilding = null;
 
-
-    [SerializeField] float visitDistance = 3f;
-    bool goingToAttraction = false;
-    bool goingToRoad = false;
-    bool wantsToLeave = false;
-    bool leaving = false;
-    Vector3 targetPosition;
-    Attraction target;
-    Road roadTarget;
-
-    void Awake(){
-        EventManager.instance.onSpeedChanged += ChangeSpeed;
+    protected override void Awake(){
+        base.Awake();
         EventManager.instance.onMapChanged += RecheckNavigationTarget;
     }
 
@@ -57,83 +42,16 @@ public class Visitor : MonoBehaviour{
         }
     }
 
-    void TryToLeavePark(){
-        // Find first cell from spawn
-        int x;
-        int z;
-        BuildingSystem.instance.grid.XZFromWorldPosition(BuildingSystem.instance.entryPoint.position + Vector3.forward * BuildingSystem.instance.CellSize, out x, out z);
 
-        // check if first cell has something
-        if (BuildingSystem.instance.grid.GetCell(x, z).GetBuilding() != null){
-            // if first cell is road, check if reachable
-            if (BuildingSystem.instance.grid.GetCell(x, z).GetBuilding().Type.type == BuildingTypeSO.Type.Road){
-                Road exitRoad = (Road) BuildingSystem.instance.grid.GetCell(x, z).GetBuilding();
-                roadTarget = exitRoad;
-                CalculateReachablePositions();
-                if (reachableRoads.Contains(exitRoad)){
-                    agent.SetDestination(exitRoad.Position + new Vector3(0, 0, -BuildingSystem.instance.CellSize));
-                    targetPosition = exitRoad.Position + new Vector3(0, 0, -BuildingSystem.instance.CellSize);
-                    leaving = true;
-                }
-                // can't exit, wander randomly
-                else{
-                    GoToRandomRoad();
-                }
-            }
-            // can't exit, wander randomly
-            else{
-                GoToRandomRoad();
-            }
-        }
-        // can't exit, wander randomly
-        else{
-            GoToRandomRoad();
-        }
-    }
-
-    void ChangeSpeed(int multiplier){
-        switch (multiplier){
-            case 0:
-                agent.speed = 0;
-                break;
-            case 1:
-                agent.speed = 10;
-                break;
-            case 2:
-                agent.speed = 20;
-                break;
-            case 3:
-                agent.speed = 30;
-                break;
-            default:
-                Debug.LogError("Wrong game speed multiplier! -> " + multiplier);
-                break;
-        }
-    }
-
-    void Start(){
-        agent = GetComponent<NavMeshAgent>();
-        lastFramePosition = transform.position;
+    protected override void Start(){
+        base.Start();
         transform.parent = GameObject.Find("Visitors").transform;
-        //ChangeSpeed(TimeManager.instance.GameSpeed);
-        agent.speed = TimeManager.instance.GameSpeed;
-
-        /*foreach (Attraction attraction in GameManager.instance.ReachableAttractions){
-            Debug.Log(attraction);
-        }*/
-
         GoToRandomBuilding();
     }
 
-    Vector3 velocity;
-    Vector3 lastFramePosition;
 
-    void FixedUpdate(){
-        velocity = transform.position - lastFramePosition;
-        lastFramePosition = transform.position;
-    }
-
-    void Update(){
+    protected override void Update(){
+        base.Update();
         /*if (Input.GetKeyDown(KeyCode.C)){
             agent.SetDestination(GetMouseWorldPosition());
         }*/
@@ -141,13 +59,7 @@ public class Visitor : MonoBehaviour{
         /*if (Input.GetKeyDown(KeyCode.V)){
             GoToRandomBuilding();
         }*/
-
-        // Rotate visitor in direction of movement
-        if (velocity != Vector3.zero){
-            Quaternion newRotation = Quaternion.Euler(0, 90, 0) * Quaternion.LookRotation(velocity, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, Time.deltaTime * 720);
-        }
-
+        
 
         if (leaving){
             if ((transform.position - targetPosition).magnitude <= 0.1f){
@@ -155,7 +67,8 @@ public class Visitor : MonoBehaviour{
                 EventManager.instance.onMapChanged -= RecheckNavigationTarget;
                 Destroy(gameObject);
             }
-        }else if (goingToRoad && wantsToLeave){
+        }
+        else if (goingToRoad && wantsToLeave){
             if ((transform.position - targetPosition).magnitude <= visitDistance){
                 goingToRoad = false;
                 TryToLeavePark();
@@ -199,17 +112,6 @@ public class Visitor : MonoBehaviour{
         }
     }
 
-    void GoToRandomRoad(){
-        CalculateReachablePositions();
-        if (reachableRoads.Count > 0){
-            roadTarget = reachableRoads[Random.Range(0, reachableRoads.Count)];
-            targetPosition = roadTarget.Position;
-            agent.SetDestination(roadTarget.Position);
-            //Debug.Log(targetRoad.Position);
-            goingToRoad = true;
-            leaving = false;
-        }
-    }
 
     void EnterBuilding(){
         goingToAttraction = false;
@@ -268,120 +170,5 @@ public class Visitor : MonoBehaviour{
             agent.SetDestination(closestPosition);
             goingToAttraction = true;
         }
-    }
-
-
-    /* Vector3 GetMouseWorldPosition(){
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out var hitInfo, 1000f, (1 << 8))){
-            return hitInfo.point;
-        }
-        else{
-            //DO NOT BUILD
-            throw new MouseOutOfMapException("Invalid position!");
-        }
-    }*/
-
-
-    List<Attraction> CalculateReachablePositions(){
-        List<Attraction> reachable = new List<Attraction>();
-        reachableCells = new List<Cell>();
-        reachableRoads = new List<Road>();
-
-        GridXZ grid = BuildingSystem.instance.grid;
-
-        // find cell person is standing on
-        int x;
-        int z;
-        if (transform.position.x <= grid.Width * grid.GetCellSize() && transform.position.x >= 0 && transform.position.z <= grid.Height * grid.GetCellSize() && transform.position.z >= 0){
-            grid.XZFromWorldPosition(transform.position, out x, out z);
-        }
-        else{
-            // Find first cell from spawn
-            grid.XZFromWorldPosition(BuildingSystem.instance.entryPoint.position + Vector3.forward * BuildingSystem.instance.CellSize, out x, out z);
-        }
-
-        if (grid.GetCell(x, z).GetBuilding() == null){
-            return reachable;
-        }
-
-
-        // if first cell is building, only this building is reachable
-        if (grid.GetCell(x, z).GetBuilding().Type.type == BuildingTypeSO.Type.Attraction){
-            reachable.Add((Attraction) grid.GetCell(x, z).GetBuilding());
-        }
-        // if first cell is decoration, nothing is reachable
-        else if (grid.GetCell(x, z).GetBuilding().Type.type == BuildingTypeSO.Type.Decoration){ }
-        // if first cell is road, start search
-        else if (grid.GetCell(x, z).GetBuilding().Type.type == BuildingTypeSO.Type.Road){
-            List<Cell> visited = new List<Cell>();
-            Stack<Cell> path = new Stack<Cell>();
-            Cell currentCell = grid.GetCell(x, z);
-
-            bool finished = false;
-            while (!finished){
-                /*Debug.Log("CurrentCell: " + currentCell.PositionString + " " + currentCell.GetBuilding());
-                Debug.Log("path: " + path.Count);
-                Debug.Log("visited: " + visited.Count);*/
-
-                // add current to visited
-                if (!visited.Contains(currentCell)){
-                    visited.Add(currentCell);
-                }
-
-                //if current cell is attraction, add to reachable and go back
-                // except if it was the previous building
-                if (currentCell.GetBuilding().Type.type == BuildingTypeSO.Type.Attraction){
-                    if (previousBuilding != currentCell.GetBuilding()){
-                        reachable.Add((Attraction) currentCell.GetBuilding());
-                    }
-
-                    reachableCells.Add(currentCell);
-                    currentCell = path.Pop();
-                } // else search
-                else if (currentCell.GetBuilding().Type.type == BuildingTypeSO.Type.Road){
-                    if (!reachableRoads.Contains((Road) currentCell.GetBuilding())){
-                        reachableRoads.Add((Road) currentCell.GetBuilding());
-                    }
-
-                    // choose random direction
-                    Cell direction = null;
-                    foreach (Cell neighbour in currentCell.Neighbours){
-                        // check if neighbour cell has building
-                        if (neighbour.GetBuilding() != null){
-                            // check if already visited
-                            if (!visited.Contains(neighbour)){
-                                // not visited neighbour exists
-                                direction = neighbour;
-                                break;
-                            }
-                        }
-                    }
-
-                    // if exists
-                    if (direction != null){
-                        // add current to path
-                        // go there
-                        path.Push(currentCell);
-                        currentCell = direction;
-                    } //else
-                    else{
-                        // if path.count > 0
-                        if (path.Count > 0){
-                            // go back
-                            currentCell = path.Pop();
-                        }
-                        else{
-                            finished = true;
-                        }
-                    }
-                }
-                else if (currentCell.GetBuilding().Type.type == BuildingTypeSO.Type.Decoration){
-                    currentCell = path.Pop();
-                }
-            }
-        }
-
-        return reachable;
     }
 }

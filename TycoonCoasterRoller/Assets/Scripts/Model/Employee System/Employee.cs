@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-public class Employee : MonoBehaviour
+public class Employee : Person
 {
     protected float price;
     protected float salary;

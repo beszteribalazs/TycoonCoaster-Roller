@@ -6,7 +6,8 @@ public class Attraction : Building{
     int level;
     [SerializeField] bool _broke = false;
     [SerializeField] Transform brokeVisual;
-    
+    public bool beingRepaired;
+
     public Attraction(){
         this.level = 1;
     }
@@ -82,6 +83,8 @@ public class Attraction : Building{
     public int TotalCapacity => _broke ? 0 : buildingType.capacity;
     public int CurrentVisitorCount => peopleInside.Count;
 
+    public bool Broke => _broke;
+
     public int Level => level;
 
 
@@ -93,5 +96,11 @@ public class Attraction : Building{
             peopleInside[0].LeaveBuilding();
         }
         
+    }
+
+    public void RepairBuilding(){
+        _broke = false;
+        brokeVisual.gameObject.SetActive(false);
+        beingRepaired = false;
     }
 }
