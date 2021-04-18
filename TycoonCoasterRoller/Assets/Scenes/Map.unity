@@ -17977,6 +17977,18 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
+      propertyPath: treeOne
+      value: 
+      objectReference: {fileID: 11400000, guid: e125caa556c0f8443befaeb86cba226b,
+        type: 2}
+    - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
+        type: 3}
+      propertyPath: treeTwo
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ff3c9b1691d408468bcbd80206acc27,
+        type: 2}
+    - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
+        type: 3}
       propertyPath: roadTurn
       value: 
       objectReference: {fileID: 11400000, guid: 77ca99cb49e25ab4f82d7c5544485220,
@@ -17986,6 +17998,12 @@ PrefabInstance:
       propertyPath: gridWidth
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
+        type: 3}
+      propertyPath: treeThree
+      value: 
+      objectReference: {fileID: 11400000, guid: ffa5f22030598974c9e9da0284ab194a,
+        type: 2}
     - target: {fileID: 3096685693714270851, guid: f8ccd033a18e9c84e80422e708c99637,
         type: 3}
       propertyPath: gridHeight
