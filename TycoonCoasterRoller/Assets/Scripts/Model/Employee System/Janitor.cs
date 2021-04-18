@@ -20,7 +20,6 @@ public class Janitor : Employee{
             if ((transform.position - targetPosition).magnitude <= 0.1f){
                 EventManager.instance.onSpeedChanged -= ChangeSpeed;
                 //EventManager.instance.onMapChanged -= RecheckNavigationTarget;
-                GameManager.instance.availableMechanics++;
                 Destroy(gameObject);
             }
         }
