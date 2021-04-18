@@ -73,6 +73,8 @@ public class BuildingSystem : MonoBehaviour
 
     int buildingIndex = 0;
 
+
+    bool startedDragging = false;
     void Update()
     {
         if (!EventSystem.current.IsPointerOverGameObject())
@@ -99,8 +101,34 @@ public class BuildingSystem : MonoBehaviour
                 {
                     SetSelectedBuildingType(null);
                 }
-
+                
                 // Place building
+                if (selectedBuildingSO != null && Input.GetMouseButtonDown(0)){
+                    PlaceBuilding();
+                }
+
+                // Drag road
+                if (selectedBuildingSO != null && Input.GetMouseButton(0) && selectedBuildingSO.type == BuildingTypeSO.Type.Road){
+                    int x, z;
+                    grid.XZFromWorldPosition(GetMouseWorldPosition(), out x, out z);
+                    UpdateRoad(x, z);
+                    foreach (Cell cell in grid.GetCell(x,z).Neighbours)
+                    {
+                        if (cell.GetBuilding() != null && cell.GetBuilding().Type.type == BuildingTypeSO.Type.Road)
+                        {
+                            UpdateRoad(cell.GetX(),cell.GetY());
+                        }
+                    }
+
+                    //startedDragging = true;
+                }
+
+                if (Input.GetMouseButtonUp(0)){
+                    EventManager.instance.MapChanged();
+                }
+                
+                // Drag road
+                /*
                 if (selectedBuildingSO != null && Input.GetMouseButtonDown(0))
                 {
                     //left click
@@ -108,8 +136,6 @@ public class BuildingSystem : MonoBehaviour
                     {
                         int x, z;
                         grid.XZFromWorldPosition(GetMouseWorldPosition(), out x, out z);
-                        if (grid.GetCell(x, z) == null) return;
-                        
                         UpdateRoad(x, z);
                         foreach (Cell cell in grid.GetCell(x,z).Neighbours)
                         {
@@ -123,7 +149,7 @@ public class BuildingSystem : MonoBehaviour
                     {
                         PlaceBuilding();
                     }
-                }
+                }*/
 
 
                 // Hide preview if not enough money
@@ -205,9 +231,6 @@ public class BuildingSystem : MonoBehaviour
 
     void UpdateRoad(int x, int z)
     {
-        if (grid.GetCell(x, z) == null) 
-            return;
-        
         switch (grid.GetCell(x, z).AdjacentRoads)
         {
             case 0:
@@ -309,13 +332,13 @@ public class BuildingSystem : MonoBehaviour
             {
                 grid.GetCell(gridPositions.x, gridPositions.y).SetBuilding(placedBuilding);
             }
-            GameManager.instance.BuyBuilding(road);
+
             if (!Input.GetKey(KeyCode.LeftShift))
             {
                 SetSelectedBuildingType(null);
             }
-            
-            EventManager.instance.MapChanged();
+
+            //EventManager.instance.MapChanged();
             
             placedBuildings.Add(placedBuilding);
         }
