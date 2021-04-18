@@ -9246,6 +9246,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingSystem: {fileID: 1197608044}
   spawner: {fileID: 1439787515}
+  totalMechanics: 0
+  availableMechanics: 0
 --- !u!4 &756077025
 Transform:
   m_ObjectHideFlags: 0
@@ -24495,7 +24497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2067638755}
   m_Layer: 0
-  m_Name: Mehcanics
+  m_Name: Mechanics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

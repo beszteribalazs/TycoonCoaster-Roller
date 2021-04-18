@@ -14,11 +14,7 @@ public class UpperElementsUpdate : MonoBehaviour
     public TMP_Text trash;
     public TMP_Text janitor;
     public TMP_Text mechanic;
-    
-    void Start()
-    {
-        
-    }
+
     
     void Update()
     {
@@ -33,10 +29,7 @@ public class UpperElementsUpdate : MonoBehaviour
         trash.text = GameManager.instance.TrashPercentage*100+"%";
         janitor.text = GameManager.instance.Janitors.Count.ToString();
 
-
-
-        
-        mechanic.text = "KELL"+"/"+GameManager.instance.Mechanics.Count.ToString();
+        mechanic.text = GameManager.instance.availableMechanics + "/"+ GameManager.instance.totalMechanics;
     }
 
 }

@@ -26,4 +26,10 @@ public class Spawner : MonoBehaviour
         GameObject newNPC = Instantiate(mechanicPrefab, pos, Quaternion.identity);
         return newNPC;
     }
+    
+    public GameObject SpawnJanitor(Vector3 pos){
+        GameObject newNPC = Instantiate(janitorPrefab, pos, Quaternion.identity);
+        return newNPC;
+    }
+    
 }
