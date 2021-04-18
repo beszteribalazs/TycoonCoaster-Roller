@@ -120,38 +120,11 @@ public class BuildingSystem : MonoBehaviour
                             UpdateRoad(cell.GetX(),cell.GetY());
                         }
                     }
-
-                    //startedDragging = true;
                 }
 
                 if (Input.GetMouseButtonUp(0)){
                     EventManager.instance.MapChanged();
                 }
-                
-                // Drag road
-                /*
-                if (selectedBuildingSO != null && Input.GetMouseButtonDown(0))
-                {
-                    //left click
-                    if (selectedBuildingSO.type == BuildingTypeSO.Type.Road)
-                    {
-                        int x, z;
-                        grid.XZFromWorldPosition(GetMouseWorldPosition(), out x, out z);
-                        UpdateRoad(x, z);
-                        foreach (Cell cell in grid.GetCell(x,z).Neighbours)
-                        {
-                            if (cell.GetBuilding() != null && cell.GetBuilding().Type.type == BuildingTypeSO.Type.Road)
-                            {
-                                UpdateRoad(cell.GetX(),cell.GetY());
-                            }
-                        }
-                    }
-                    else
-                    {
-                        PlaceBuilding();
-                    }
-                }*/
-
 
                 // Hide preview if not enough money
                 if (Input.GetMouseButtonUp(0) && selectedBuildingSO != null &&
@@ -172,7 +145,7 @@ public class BuildingSystem : MonoBehaviour
             }
             else if (currentMode == ClickMode.Destroy)
             {
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButton(0))
                 {
                     if (selectedBuildingSO == null)
                     {
@@ -191,7 +164,6 @@ public class BuildingSystem : MonoBehaviour
                 }
             }
         }
-
 
         if (Input.GetKeyUp(KeyCode.Escape))
         {
