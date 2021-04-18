@@ -6,11 +6,12 @@ using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class Visitor : Person{
-    Attraction previousBuilding = null;
+
 
     protected override void Awake(){
         base.Awake();
         EventManager.instance.onMapChanged += RecheckNavigationTarget;
+        walkSpeedMultiplier = Random.Range(0.9f, 1.1f);
     }
 
     void RecheckNavigationTarget(){
@@ -118,7 +119,7 @@ public class Visitor : Person{
         target.peopleInside.Add(this);
         previousBuilding = target;
         mesh.SetActive(false);
-        Invoke(nameof(LeaveBuilding), 10000f);
+        //Invoke(nameof(LeaveBuilding), 3f);
     }
 
     public void LeaveBuilding(){

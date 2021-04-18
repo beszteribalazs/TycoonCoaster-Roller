@@ -22,12 +22,15 @@ public class Person : MonoBehaviour{
     protected Road roadTarget;
 
     protected Animator animator;
-
+    protected float walkSpeedMultiplier;
+    protected Attraction previousBuilding = null;
+    
     protected virtual void Awake(){
         mesh = transform.Find("human_mesh").gameObject;
         agent = GetComponent<NavMeshAgent>();
         EventManager.instance.onSpeedChanged += ChangeSpeed;
         animator = GetComponent<Animator>();
+        walkSpeedMultiplier = 1f;
     }
 
     protected virtual void Start(){
@@ -107,16 +110,16 @@ public class Person : MonoBehaviour{
                 animator.speed = 0;
                 break;
             case 1:
-                agent.speed = 10;
-                animator.speed = 1;
+                agent.speed = 10 * walkSpeedMultiplier;
+                animator.speed = 1 * walkSpeedMultiplier;
                 break;
             case 2:
-                agent.speed = 20;
-                animator.speed = 2;
+                agent.speed = 20 * walkSpeedMultiplier;
+                animator.speed = 2 * walkSpeedMultiplier;
                 break;
             case 3:
-                agent.speed = 30;
-                animator.speed = 3;
+                agent.speed = 30 * walkSpeedMultiplier;
+                animator.speed = 3 * walkSpeedMultiplier;
                 break;
             default:
                 Debug.LogError("Wrong game speed multiplier! -> " + multiplier);
@@ -174,9 +177,9 @@ public class Person : MonoBehaviour{
                 //if current cell is attraction, add to reachable and go back
                 // [REMOVED]except if it was the previous building
                 if (currentCell.GetBuilding().Type.type == BuildingTypeSO.Type.Attraction){
-                    //if (previousBuilding != currentCell.GetBuilding()){
+                    if (previousBuilding != currentCell.GetBuilding()){
                     reachable.Add((Attraction) currentCell.GetBuilding());
-                    //}
+                    }
 
                     reachableCells.Add(currentCell);
                     currentCell = path.Pop();

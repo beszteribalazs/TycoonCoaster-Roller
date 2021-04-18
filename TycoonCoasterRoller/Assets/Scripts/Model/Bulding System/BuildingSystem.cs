@@ -446,6 +446,7 @@ public class BuildingSystem : MonoBehaviour
         Building clickedBuilding = clickedCell.GetBuilding();
         if (clickedBuilding != null)
         {
+            //Selling a road
             if (clickedBuilding.Type.type == BuildingTypeSO.Type.Road){
                 int posX, posZ;
                 posX = clickedCell.GetX();
@@ -468,7 +469,22 @@ public class BuildingSystem : MonoBehaviour
                     }
                 }
                 
-                Invoke(nameof(Aaaaa), 0.1f);    
+                Invoke(nameof(MapChanged), 0.1f);    
+            }
+            // Selling an attraction
+            else if (clickedBuilding.Type.type == BuildingTypeSO.Type.Attraction){
+                Attraction clicked = (Attraction) clickedBuilding;
+                clicked.SendOutVisitors();
+                /*List<Vector2Int> destroyedCoordinates = clickedBuilding.GetGridPositionList();
+                foreach (Vector2Int gridPos in destroyedCoordinates)
+                {
+                    grid.GetCell(gridPos.x, gridPos.y).ClearBuilding();
+                }
+
+                placedBuildings.Remove(clickedBuilding);
+                GameManager.instance.SellBuilding(clickedBuilding);
+                clickedBuilding.Destroy();
+                Invoke(nameof(MapChanged), 0.1f); */
             }
             else{
                 List<Vector2Int> destroyedCoordinates = clickedBuilding.GetGridPositionList();
@@ -480,12 +496,12 @@ public class BuildingSystem : MonoBehaviour
                 placedBuildings.Remove(clickedBuilding);
                 GameManager.instance.SellBuilding(clickedBuilding);
                 clickedBuilding.Destroy();
-                Invoke(nameof(Aaaaa), 0.1f);    
+                Invoke(nameof(MapChanged), 0.1f);    
             }
         }
     }
 
-    private void Aaaaa()
+    private void MapChanged()
     {
         EventManager.instance.MapChanged();
     }
