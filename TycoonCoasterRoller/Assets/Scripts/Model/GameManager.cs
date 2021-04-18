@@ -162,9 +162,11 @@ public class GameManager : MonoBehaviour{
     public void SwitchMode(){
         if (buildingSystem.currentMode == BuildingSystem.ClickMode.Destroy){
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Normal);
+            Resume();
         }
         else{
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Destroy);
+            Pause();
         }
     }
 

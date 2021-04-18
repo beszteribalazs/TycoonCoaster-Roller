@@ -190,6 +190,7 @@ public class BuildingSystem : MonoBehaviour
                 if (Input.GetMouseButtonDown(1))
                 {
                     currentMode = ClickMode.Normal;
+                    GameManager.instance.Resume();
                     EventManager.instance.ModeChanged(currentMode);
                 }
             }
@@ -199,6 +200,7 @@ public class BuildingSystem : MonoBehaviour
         {
             SetSelectedBuildingType(null);
             currentMode = ClickMode.Normal;
+            GameManager.instance.Resume();
             EventManager.instance.ModeChanged(currentMode);
         }
 
