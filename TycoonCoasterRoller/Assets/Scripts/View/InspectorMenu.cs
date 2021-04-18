@@ -87,7 +87,7 @@ public class InspectorMenu : MonoBehaviour{
     }
 
     public void ReapirBuilding(){
-        selectedBuilding.beingRepaired = true;
+        
         GameManager.instance.RepairAttraction(selectedBuilding);
         CloseDisplay();
     }
