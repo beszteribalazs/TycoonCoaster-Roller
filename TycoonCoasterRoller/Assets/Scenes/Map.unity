@@ -16378,7 +16378,8 @@ MonoBehaviour:
     type: 3}
   mechanicPrefab: {fileID: 9113561252080322206, guid: b7560911f5d439b42baabf577ed4ad8a,
     type: 3}
-  janitorPrefab: {fileID: 0}
+  janitorPrefab: {fileID: 9113561252080322206, guid: 3f5341dd4a51f354f82ee6a58df115de,
+    type: 3}
   prefabParent: {fileID: 6234793233146066051, guid: 2d0d3869de2344841b89946b662c861d,
     type: 3}
 --- !u!1 &1443581293 stripped
