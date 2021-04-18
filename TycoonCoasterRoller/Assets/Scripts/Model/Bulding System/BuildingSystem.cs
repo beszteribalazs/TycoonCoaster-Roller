@@ -111,6 +111,7 @@ public class BuildingSystem : MonoBehaviour
                 if (selectedBuildingSO != null && Input.GetMouseButton(0) && selectedBuildingSO.type == BuildingTypeSO.Type.Road){
                     int x, z;
                     grid.XZFromWorldPosition(GetMouseWorldPosition(), out x, out z);
+                    if (grid.GetCell(x, z) == null) return;
                     UpdateRoad(x, z);
                     foreach (Cell cell in grid.GetCell(x,z).Neighbours)
                     {
@@ -231,6 +232,7 @@ public class BuildingSystem : MonoBehaviour
 
     void UpdateRoad(int x, int z)
     {
+        if (grid.GetCell(x, z) == null) return;
         switch (grid.GetCell(x, z).AdjacentRoads)
         {
             case 0:
