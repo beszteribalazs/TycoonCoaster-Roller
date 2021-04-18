@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
 public class BuildingSystem : MonoBehaviour
 {
@@ -42,6 +43,9 @@ public class BuildingSystem : MonoBehaviour
     [SerializeField] BuildingTypeSO roadTurn;
     [SerializeField] BuildingTypeSO roadT;
     [SerializeField] BuildingTypeSO roadX;
+    [SerializeField] BuildingTypeSO treeOne;
+    [SerializeField] BuildingTypeSO treeTwo;
+    [SerializeField] BuildingTypeSO treeThree;
 
     private int lastX, lastZ;
 
@@ -61,6 +65,19 @@ public class BuildingSystem : MonoBehaviour
 
         selectedBuildingSO = null;
         currentBuildingRotation = BuildingTypeSO.Direction.Down;
+        
+        float spawnChance = 0.05f; // The spawning chance of the trees when the game starts
+        for (int i = 0; i < gridWidth; i++)
+        {
+            for (int j = 0; j < gridHeight; j++)
+            {
+                float randFloat = Random.Range(0f, 1f);
+                if (randFloat < spawnChance)
+                {
+                    spawnTree(i,j);
+                }
+            }
+        }
     }
 
     void Start()
@@ -201,6 +218,45 @@ public class BuildingSystem : MonoBehaviour
                 buildingIndex = 0;
             }
         }*/
+    }
+
+    public void spawnTree(int x, int z)
+    {
+        int randTree = Random.Range(1, 4);
+        BuildingTypeSO.Direction rotation = BuildingTypeSO.Direction.Down;
+        List<Vector2Int> positionList = new List<Vector2Int>();
+        positionList.Add(new Vector2Int(0, 0));
+        Vector2Int rotationOffset;
+        Vector3 worldPosition;
+        Building placedBuilding;
+
+        switch (randTree)
+        {
+            case 1:
+                rotationOffset = treeOne.GetRotationOffset(BuildingTypeSO.Direction.Down);
+                worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
+                placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), rotation, treeOne, positionList);
+                grid.GetCell(x,z).SetBuilding(placedBuilding);
+                placedBuildings.Add(placedBuilding);
+                break;
+            case 2:
+                rotationOffset = treeTwo.GetRotationOffset(BuildingTypeSO.Direction.Down);
+                worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
+                placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), rotation, treeTwo, positionList);
+                grid.GetCell(x,z).SetBuilding(placedBuilding);
+                placedBuildings.Add(placedBuilding);
+                break;
+            case 3:
+                rotationOffset = treeThree.GetRotationOffset(BuildingTypeSO.Direction.Down);
+                worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
+                placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), rotation, treeThree, positionList);
+                grid.GetCell(x,z).SetBuilding(placedBuilding);
+                placedBuildings.Add(placedBuilding);
+                break;
+            default:
+                Debug.LogError("NEMJO LOL");
+                break;
+        }
     }
 
     public void SwitchMode(ClickMode m)
