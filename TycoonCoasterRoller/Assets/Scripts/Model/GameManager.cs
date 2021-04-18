@@ -18,24 +18,16 @@ public class GameManager : MonoBehaviour{
     private float trashLevel;
     private float trashPercentage;
     private float totalCapacity;
-    
-    //private float gameSpeed;
+    private float currentVisitors;
     private int dayCount;
     private int gameHour;
     private int gameSecond;
-    //private float countSecond;
-    //private float helpSecond;
     private bool gameIsActive;
     private List<Janitor> janitors;
-
+    private float mechanicSalary;
     public int totalMechanics = 0;
     public int availableMechanics = 0;
-    float mechanicSalary;
-        
-    int janitorCount = 0;
     
-    //public int GameSpeed => (int)gameSpeed / 10;
-
     public List<Attraction> Attractions{
         get{
             List<Attraction> list = new List<Attraction>();
@@ -61,7 +53,6 @@ public class GameManager : MonoBehaviour{
         this.totalHappiness = 1f;
         this.trashLevel = 0f;
         this.trashPercentage = 0f;
-        //this.gameSpeed = 10f;
         this.dayCount = 0;
         this.gameIsActive = true;
         this.janitors = new List<Janitor>();
@@ -132,31 +123,13 @@ public class GameManager : MonoBehaviour{
         EventManager.instance.SoldBuilding(building.SellPrice);
         this.totalCapacity = this.totalCapacity - building.Type.capacity;
     }
-
-    /*public bool RepairBuilding(Attraction building){
-        Mechanic helperMechanic = null;
-        foreach (Mechanic mechanic in this.mechanics){
-            if (mechanic.Occupied == false){
-                helperMechanic = mechanic;
-                break;
-            }
-        }
-
-        if (helperMechanic != null){
-            building.Repair(helperMechanic);
-            return true;
-        }
-
-        return false;
-    }*/
-
+    
     public bool BuyJanitor(){
         if (this.money >= 150f){
             this.money = this.money - 150f;
             GameObject obj = spawner.SpawnJanitor(buildingSystem.entryPoint.position + new Vector3(1, 0, 1) * (buildingSystem.CellSize / 2));
             Janitor janitor = obj.GetComponent<Janitor>();
             janitors.Add(janitor);
-            janitorCount++;
             return true;
         }
 
@@ -181,7 +154,6 @@ public class GameManager : MonoBehaviour{
             return true;
         }
         
-
         return false;
     }
 
@@ -231,14 +203,6 @@ public class GameManager : MonoBehaviour{
         }
 
         this.money -= (mechanicSalary * totalMechanics);
-        /*foreach (Mechanic mechanic in this.mechanics){
-            this.money -= mechanic.Salary;
-        }*/
-
-        //TODO visitorok számának számolása
-        /*foreach (Visitor visitor in this.visitors){
-            this.trashLevel += 0.2f / 24f / 60f;
-        }*/
 
         if (this.trashLevel > this.totalCapacity){
             this.trashLevel = this.totalCapacity;
@@ -257,7 +221,6 @@ public class GameManager : MonoBehaviour{
     private void UpdateWeather(){ }
 
     public void Resume(){
-        //this.gameSpeed = 10f;
         TimeManager.instance.GameSpeed = 10;
         this.gameIsActive = true;
         TimeManager.instance.Paused = false;
@@ -272,7 +235,6 @@ public class GameManager : MonoBehaviour{
 
     public void ChangeSpeed(float number){
         gameIsActive = true;
-        //this.gameSpeed = number * 10f;
         if (number > 0){
             TimeManager.instance.Paused = false;    
         }
@@ -305,9 +267,10 @@ public class GameManager : MonoBehaviour{
 
     public float Money => money;
 
+    public float TotalCapacity => totalCapacity;
+
+    public float CurrentVisitors => currentVisitors;
+
     public List<Janitor> Janitors => janitors;
 
-    //public List<Mechanic> Mechanics => mechanics;
-
-    //public float CountSecond => countSecond;
 }
