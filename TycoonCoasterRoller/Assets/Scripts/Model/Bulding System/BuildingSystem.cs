@@ -108,6 +108,8 @@ public class BuildingSystem : MonoBehaviour
                     {
                         int x, z;
                         grid.XZFromWorldPosition(GetMouseWorldPosition(), out x, out z);
+                        if (grid.GetCell(x, z) == null) return;
+                        
                         UpdateRoad(x, z);
                         foreach (Cell cell in grid.GetCell(x,z).Neighbours)
                         {
@@ -203,6 +205,9 @@ public class BuildingSystem : MonoBehaviour
 
     void UpdateRoad(int x, int z)
     {
+        if (grid.GetCell(x, z) == null) 
+            return;
+        
         switch (grid.GetCell(x, z).AdjacentRoads)
         {
             case 0:
@@ -304,12 +309,12 @@ public class BuildingSystem : MonoBehaviour
             {
                 grid.GetCell(gridPositions.x, gridPositions.y).SetBuilding(placedBuilding);
             }
-
+            GameManager.instance.BuyBuilding(road);
             if (!Input.GetKey(KeyCode.LeftShift))
             {
                 SetSelectedBuildingType(null);
             }
-
+            
             EventManager.instance.MapChanged();
             
             placedBuildings.Add(placedBuilding);
