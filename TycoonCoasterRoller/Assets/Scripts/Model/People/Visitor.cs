@@ -102,8 +102,8 @@ public class Visitor : Person{
 
     void TryToEnterBuilding(){
         goingToAttraction = false;
-        // if target is full
-        if (target.peopleInside.Count >= target.TotalCapacity){
+        // if target is full or broke
+        if (target.peopleInside.Count >= target.TotalCapacity || target.Broke){
             // go to a random road then go to a random building
             GoToRandomRoad();
         }

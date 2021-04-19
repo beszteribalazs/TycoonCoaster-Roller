@@ -555,17 +555,23 @@ public class BuildingSystem : MonoBehaviour
             // Selling an attraction
             else if (clickedBuilding.Type.type == BuildingTypeSO.Type.Attraction){
                 Attraction clicked = (Attraction) clickedBuilding;
-                clicked.SendOutVisitors();
-                /*List<Vector2Int> destroyedCoordinates = clickedBuilding.GetGridPositionList();
-                foreach (Vector2Int gridPos in destroyedCoordinates)
-                {
-                    grid.GetCell(gridPos.x, gridPos.y).ClearBuilding();
+                if (clicked.Broke){
+                    Debug.LogError("Törött épület eladásánál errort mutatni UwU");
+                    EventManager.instance.BrokeBuildingSold();
                 }
+                else{
+                    clicked.SendOutVisitors();
+                    List<Vector2Int> destroyedCoordinates = clickedBuilding.GetGridPositionList();
+                    foreach (Vector2Int gridPos in destroyedCoordinates)
+                    {
+                        grid.GetCell(gridPos.x, gridPos.y).ClearBuilding();
+                    }
 
-                placedBuildings.Remove(clickedBuilding);
-                GameManager.instance.SellBuilding(clickedBuilding);
-                clickedBuilding.Destroy();
-                Invoke(nameof(MapChanged), 0.1f); */
+                    placedBuildings.Remove(clickedBuilding);
+                    GameManager.instance.SellBuilding(clickedBuilding);
+                    clickedBuilding.Destroy();
+                    Invoke(nameof(MapChanged), 0.1f);    
+                }
             }
             else{
                 List<Vector2Int> destroyedCoordinates = clickedBuilding.GetGridPositionList();
