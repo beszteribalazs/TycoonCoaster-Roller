@@ -61,12 +61,20 @@ public class GameManager : MonoBehaviour{
     }
 
     public void RepairAttraction(Attraction target){
-        if (availableMechanics > 0 && NavigationManager.instance.IsTargetReachable(target)){
-            GameObject obj = spawner.SpawnMechanic(buildingSystem.entryPoint.position + new Vector3(1, 0, 1) * (buildingSystem.CellSize / 2));
-            Mechanic mechanic = obj.GetComponent<Mechanic>();
-            mechanic.Repair(target);
-            target.beingRepaired = true;
-            availableMechanics--;
+        if((target.Value*0.1f)<=this.money)
+        {
+            if (availableMechanics > 0 && NavigationManager.instance.IsTargetReachable(target)){
+                GameObject obj = spawner.SpawnMechanic(buildingSystem.entryPoint.position + new Vector3(1, 0, 1) * (buildingSystem.CellSize / 2));
+                Mechanic mechanic = obj.GetComponent<Mechanic>();
+                mechanic.Repair(target);
+                target.beingRepaired = true;
+                availableMechanics--;
+                this.money = this.money - (target.Value * 0.1f);
+            }
+        }
+        else
+        {
+            EventManager.instance.NoMoney();
         }
     }
 

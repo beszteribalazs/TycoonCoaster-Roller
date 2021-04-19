@@ -37,8 +37,17 @@ public class EventManager : MonoBehaviour{
     }
 
     public event Action onBrokeBuildingSold;
-
     public void BrokeBuildingSold(){
         onBrokeBuildingSold?.Invoke();
     }
+    
+    public event Action onNoMoney;
+
+    public void NoMoney()
+    {
+        onNoMoney?.Invoke();
+    }
+
+
+
 }
