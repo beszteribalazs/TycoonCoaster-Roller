@@ -309,8 +309,8 @@ public class BuildingSystem : MonoBehaviour
     public void SwitchMode(ClickMode m){
         previousMode = currentMode;
         if (previousMode == ClickMode.Destroy && m != ClickMode.Destroy){
-            Invoke(nameof(MapChanged), 0.05f);
-            //EventManager.instance.MapChanged();
+            //Invoke(nameof(MapChanged), 0.05f);
+            EventManager.instance.MapChanged();
         }
         currentMode = m;
         EventManager.instance.ModeChanged(m);
