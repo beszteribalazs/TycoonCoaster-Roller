@@ -60,19 +60,15 @@ public class InspectorMenu : MonoBehaviour{
 
         previewModelObject = Instantiate(building.Type.uiPrefab, previewModel);
 
-        if (selectedBuilding.Broke){
+        if (!selectedBuilding.Broke){
+            repairButton.interactable = false;
+        }
+        else if(selectedBuilding.beingRepaired || GameManager.instance.availableMechanics <= 0){
+            repairButton.interactable = false;
+        }
+        else
+        {
             repairButton.interactable = true;
-        }
-        else{
-            repairButton.interactable = false;
-        }
-
-        if (selectedBuilding.beingRepaired){
-            repairButton.interactable = false;
-        }
-
-        if (GameManager.instance.availableMechanics <= 0){
-            repairButton.interactable = false;
         }
 
         inspectorOpen = true;
