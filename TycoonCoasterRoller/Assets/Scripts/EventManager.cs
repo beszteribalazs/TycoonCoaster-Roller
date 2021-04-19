@@ -35,4 +35,19 @@ public class EventManager : MonoBehaviour{
     public void SoldBuilding(float sellPrice){
         onBuildingSold?.Invoke(sellPrice);
     }
+
+    public event Action onBrokeBuildingSold;
+    public void BrokeBuildingSold(){
+        onBrokeBuildingSold?.Invoke();
+    }
+    
+    public event Action onNoMoney;
+
+    public void NoMoney()
+    {
+        onNoMoney?.Invoke();
+    }
+
+
+
 }

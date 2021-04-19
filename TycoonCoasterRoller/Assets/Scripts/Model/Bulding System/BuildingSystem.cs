@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
@@ -25,8 +26,7 @@ public class BuildingSystem : MonoBehaviour
     [SerializeField] float cellSize = 3f;
 
     public float CellSize => cellSize;
-
-    //[SerializeField] List<BuildingTypeSO> placableBuildings;
+    
     [SerializeField] Transform groundVisualPrefab;
     [SerializeField] Transform entryPointPrefab;
 
@@ -38,7 +38,7 @@ public class BuildingSystem : MonoBehaviour
 
     public ClickMode currentMode;
 
-    //public List<Building> Buildings => grid.GetBuildingList();
+
     public List<Building> Buildings => placedBuildings;
     [SerializeField] BuildingTypeSO roadStraight;
     [SerializeField] BuildingTypeSO roadTurn;
@@ -52,6 +52,7 @@ public class BuildingSystem : MonoBehaviour
 
     void Awake()
     {
+        EventManager.instance.onModeChanged += ResetLastClickedTile;
         instance = this;
         gridWidth = MapSizeController.mapSize;
         gridHeight = MapSizeController.mapSize;
@@ -66,7 +67,7 @@ public class BuildingSystem : MonoBehaviour
 
         selectedBuildingSO = null;
         currentBuildingRotation = BuildingTypeSO.Direction.Down;
-        
+
         float spawnChance = 0.05f; // The spawning chance of the trees when the game starts
         for (int i = 0; i < gridWidth; i++)
         {
@@ -75,10 +76,16 @@ public class BuildingSystem : MonoBehaviour
                 float randFloat = Random.Range(0f, 1f);
                 if (randFloat < spawnChance)
                 {
-                    spawnTree(i,j);
+                    spawnTree(i, j);
                 }
             }
         }
+    }
+
+    void ResetLastClickedTile(ClickMode cm)
+    {
+        lastX = -1;
+        lastZ = -1;
     }
 
     void Start()
@@ -88,11 +95,7 @@ public class BuildingSystem : MonoBehaviour
         lastX = -1;
         lastZ = -1;
     }
-
-    int buildingIndex = 0;
-
-
-    bool startedDragging = false;
+    
     void Update()
     {
         if (!EventSystem.current.IsPointerOverGameObject())
@@ -102,12 +105,10 @@ public class BuildingSystem : MonoBehaviour
                 // Select placed building
                 if (Input.GetMouseButtonDown(0) && selectedBuildingSO == null)
                 {
-                    Debug.Log("NORMAL");
                     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo,
                         1000f,
                         (1 << 9)))
                     {
-                        //Debug.Log(hitInfo.collider.transform.parent.name);
                         if (!EventSystem.current.IsPointerOverGameObject())
                         {
                             InspectorMenu.instance.DisplayDetails(hitInfo.collider.transform.parent
@@ -120,13 +121,15 @@ public class BuildingSystem : MonoBehaviour
                 {
                     SetSelectedBuildingType(null);
                 }
-                
+
                 // Place building
-                if (selectedBuildingSO != null && Input.GetMouseButtonDown(0)){
+                if (selectedBuildingSO != null && Input.GetMouseButtonDown(0))
+                {
                     PlaceBuilding();
                 }
-                
-                if (Input.GetMouseButtonUp(0)){
+
+                if (Input.GetMouseButtonUp(0))
+                {
                     EventManager.instance.MapChanged();
                 }
 
@@ -146,6 +149,16 @@ public class BuildingSystem : MonoBehaviour
                 {
                     currentBuildingRotation = BuildingTypeSO.GetNextDirectionRight(currentBuildingRotation);
                 }
+
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    SetSelectedBuildingType(null);
+                }
+
+                if (Input.GetKeyDown(KeyCode.B))
+                {
+                    SetSelectedBuildingType(null);
+                }
             }
             else if (currentMode == ClickMode.Destroy)
             {
@@ -155,11 +168,11 @@ public class BuildingSystem : MonoBehaviour
                 {
                     if (selectedBuildingSO == null)
                     {
-                        if ( (lastX != x) || (lastZ != z) )
+                        if ((lastX != x) || (lastZ != z))
                         {
-                            SellBuilding();
                             lastX = x;
                             lastZ = z;
+                            SellBuilding();
                         }
                     }
                     else
@@ -170,18 +183,34 @@ public class BuildingSystem : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(1))
                 {
-                    currentMode = ClickMode.Normal;
-                    GameManager.instance.Resume();
+                    SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchMode();
+                    EventManager.instance.ModeChanged(currentMode);
+                }
+
+                if (Input.GetKeyUp(KeyCode.Escape))
+                {
+                    SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchMode();
+                    EventManager.instance.ModeChanged(currentMode);
+                }
+
+                if (Input.GetKeyDown(KeyCode.B))
+                {
+                    SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchMode();
                     EventManager.instance.ModeChanged(currentMode);
                 }
             }
             else if (currentMode == ClickMode.Road)
             {
-                if (selectedBuildingSO != null && Input.GetMouseButton(0) && selectedBuildingSO.type == BuildingTypeSO.Type.Road){
+                if (selectedBuildingSO != null && Input.GetMouseButton(0) &&
+                    selectedBuildingSO.type == BuildingTypeSO.Type.Road)
+                {
                     int x, z;
                     grid.XZFromWorldPosition(GetMouseWorldPosition(), out x, out z);
                     if (grid.GetCell(x, z) == null) return;
-                    if ( (lastX != x) || (lastZ != z) )
+                    if ((lastX != x) || (lastZ != z))
                     {
                         if (grid.GetCell(x, z).GetBuilding() == null)
                         {
@@ -191,61 +220,51 @@ public class BuildingSystem : MonoBehaviour
                         lastX = x;
                         lastZ = z;
                         UpdateRoad(x, z);
-                        foreach (Cell cell in grid.GetCell(x,z).Neighbours)
+                        foreach (Cell cell in grid.GetCell(x, z).Neighbours)
                         {
                             if (cell.GetBuilding() != null && cell.GetBuilding().Type.type == BuildingTypeSO.Type.Road)
                             {
-                                UpdateRoad(cell.GetX(),cell.GetY());
+                                UpdateRoad(cell.GetX(), cell.GetY());
                             }
                         }
                     }
                 }
 
-                if (Input.GetMouseButtonUp(0)){
+                if (Input.GetMouseButtonUp(0))
+                {
                     EventManager.instance.MapChanged();
                 }
-                
+
                 if (Input.GetMouseButton(0) && selectedBuildingSO != null &&
                     GameManager.instance.Money < selectedBuildingSO.price)
                 {
-                    currentMode = ClickMode.Normal;
                     SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchRoadMode();
+                    EventManager.instance.ModeChanged(currentMode);
                 }
-                
+
                 if (Input.GetMouseButtonDown(1))
                 {
-                    Debug.Log("JAJISTENEM");
                     SetSelectedBuildingType(null);
-                    currentMode = ClickMode.Normal;
+                    GameManager.instance.SwitchRoadMode();
+                    EventManager.instance.ModeChanged(currentMode);
+                }
+
+                if (Input.GetKeyUp(KeyCode.Escape))
+                {
+                    SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchRoadMode();
+                    EventManager.instance.ModeChanged(currentMode);
+                }
+
+                if (Input.GetKeyDown(KeyCode.B))
+                {
+                    SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchRoadMode();
                     EventManager.instance.ModeChanged(currentMode);
                 }
             }
         }
-
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            SetSelectedBuildingType(null);
-            currentMode = ClickMode.Normal;
-            GameManager.instance.Resume();
-            EventManager.instance.ModeChanged(currentMode);
-        }
-
-        if (Input.GetKeyUp(KeyCode.B))
-        {
-            SetSelectedBuildingType(null);
-            currentMode = ClickMode.Normal;
-            EventManager.instance.ModeChanged(currentMode);
-        }
-
-        //Cycle buildings
-        /*if (Input.GetKeyDown(KeyCode.Tab)){
-            selectedBuildingSO = placableBuildings[buildingIndex];
-            EventManager.instance.SelectedBuildingChanged();
-            buildingIndex++;
-            if (buildingIndex >= placableBuildings.Count){
-                buildingIndex = 0;
-            }
-        }*/
     }
 
     public void spawnTree(int x, int z)
@@ -262,30 +281,44 @@ public class BuildingSystem : MonoBehaviour
         {
             case 1:
                 rotationOffset = treeOne.GetRotationOffset(BuildingTypeSO.Direction.Down);
-                worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
-                placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), rotation, treeOne, positionList);
-                grid.GetCell(x,z).SetBuilding(placedBuilding);
+                worldPosition = grid.GetWorldPosition(x, z) +
+                                new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
+                placedBuilding =
+                    Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), rotation, treeOne, positionList);
+                grid.GetCell(x, z).SetBuilding(placedBuilding);
                 placedBuildings.Add(placedBuilding);
                 break;
             case 2:
                 rotationOffset = treeTwo.GetRotationOffset(BuildingTypeSO.Direction.Down);
-                worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
-                placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), rotation, treeTwo, positionList);
-                grid.GetCell(x,z).SetBuilding(placedBuilding);
+                worldPosition = grid.GetWorldPosition(x, z) +
+                                new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
+                placedBuilding =
+                    Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), rotation, treeTwo, positionList);
+                grid.GetCell(x, z).SetBuilding(placedBuilding);
                 placedBuildings.Add(placedBuilding);
                 break;
             case 3:
                 rotationOffset = treeThree.GetRotationOffset(BuildingTypeSO.Direction.Down);
-                worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
-                placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), rotation, treeThree, positionList);
-                grid.GetCell(x,z).SetBuilding(placedBuilding);
+                worldPosition = grid.GetWorldPosition(x, z) +
+                                new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
+                placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), rotation, treeThree,
+                    positionList);
+                grid.GetCell(x, z).SetBuilding(placedBuilding);
                 placedBuildings.Add(placedBuilding);
                 break;
         }
     }
 
+    ClickMode previousMode = ClickMode.Normal;
+
     public void SwitchMode(ClickMode m)
     {
+        previousMode = currentMode;
+        if (previousMode == ClickMode.Destroy && m != ClickMode.Destroy)
+        {
+            EventManager.instance.MapChanged();
+        }
+
         currentMode = m;
         EventManager.instance.ModeChanged(m);
     }
@@ -385,7 +418,7 @@ public class BuildingSystem : MonoBehaviour
         Cell currentCell = grid.GetCell(x, z);
         List<Vector2Int> positionList = road.GetPositionList(new Vector2Int(x, z), rotation);
 
-        if (currentCell.GetBuilding()!=null && currentCell.GetBuilding().Type.type == BuildingTypeSO.Type.Road)
+        if (currentCell.GetBuilding() != null && currentCell.GetBuilding().Type.type == BuildingTypeSO.Type.Road)
         {
             Building building = currentCell.GetBuilding();
             currentCell.ClearBuilding();
@@ -417,9 +450,11 @@ public class BuildingSystem : MonoBehaviour
         if (canBuild)
         {
             Vector2Int rotationOffset = road.GetRotationOffset(rotation);
-            Vector3 worldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
-            Building placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), rotation, road, positionList);
-            
+            Vector3 worldPosition = grid.GetWorldPosition(x, z) +
+                                    new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
+            Building placedBuilding =
+                Building.SpawnBuilding(worldPosition, new Vector2Int(x, z), rotation, road, positionList);
+
             foreach (Vector2Int gridPositions in positionList)
             {
                 grid.GetCell(gridPositions.x, gridPositions.y).SetBuilding(placedBuilding);
@@ -431,10 +466,9 @@ public class BuildingSystem : MonoBehaviour
             }
 
             //EventManager.instance.MapChanged();
-            
+
             placedBuildings.Add(placedBuilding);
         }
-
     }
 
 
@@ -490,19 +524,7 @@ public class BuildingSystem : MonoBehaviour
                     grid.GetCell(gridPositions.x, gridPositions.y).SetBuilding(placedBuilding);
                 }
 
-                /*
-                string debug = "";
-                for (int i = 0; i < grid.Width; i++){
-                    for (int y = 0; y < grid.Height; y++){
-                        debug += grid.GetCell(i, y).GetBuilding() + " ";
-                    }
-
-                    debug += "\n";
-                }
-                Debug.Log(debug);*/
-                
                 GameManager.instance.BuyBuilding(selectedBuildingSO);
-
 
                 if (!Input.GetKey(KeyCode.LeftShift))
                 {
@@ -516,7 +538,6 @@ public class BuildingSystem : MonoBehaviour
         }
         catch (Exception e)
         {
-            //Debug.Log("Mouse out of the map :(");
         }
     }
 
@@ -527,11 +548,13 @@ public class BuildingSystem : MonoBehaviour
         Building clickedBuilding = clickedCell.GetBuilding();
         if (clickedBuilding != null)
         {
-            if (clickedBuilding.Type.type == BuildingTypeSO.Type.Road){
+            //Selling a road
+            if (clickedBuilding.Type.type == BuildingTypeSO.Type.Road)
+            {
                 int posX, posZ;
                 posX = clickedCell.GetX();
                 posZ = clickedCell.GetY();
-                
+
                 List<Vector2Int> destroyedCoordinates = clickedBuilding.GetGridPositionList();
                 foreach (Vector2Int gridPos in destroyedCoordinates)
                 {
@@ -541,17 +564,40 @@ public class BuildingSystem : MonoBehaviour
                 placedBuildings.Remove(clickedBuilding);
                 GameManager.instance.SellBuilding(clickedBuilding);
                 clickedBuilding.Destroy();
-                foreach (Cell cell in grid.GetCell(posX,posZ).Neighbours)
+                foreach (Cell cell in grid.GetCell(posX, posZ).Neighbours)
                 {
                     if (cell.GetBuilding() != null && cell.GetBuilding().Type.type == BuildingTypeSO.Type.Road)
                     {
-                        UpdateRoad(cell.GetX(),cell.GetY());
+                        UpdateRoad(cell.GetX(), cell.GetY());
                     }
                 }
-                
-                Invoke(nameof(Aaaaa), 0.1f);    
             }
-            else{
+            // Selling an attraction
+            else if (clickedBuilding.Type.type == BuildingTypeSO.Type.Attraction)
+            {
+                Attraction clicked = (Attraction) clickedBuilding;
+                if (clicked.Broke)
+                {
+                    EventManager.instance.BrokeBuildingSold();
+                    lastX = -1;
+                    lastZ = -1;
+                }
+                else
+                {
+                    clicked.SendOutVisitors();
+                    List<Vector2Int> destroyedCoordinates = clickedBuilding.GetGridPositionList();
+                    foreach (Vector2Int gridPos in destroyedCoordinates)
+                    {
+                        grid.GetCell(gridPos.x, gridPos.y).ClearBuilding();
+                    }
+
+                    placedBuildings.Remove(clickedBuilding);
+                    GameManager.instance.SellBuilding(clickedBuilding);
+                    clickedBuilding.Destroy();
+                }
+            }
+            else
+            {
                 List<Vector2Int> destroyedCoordinates = clickedBuilding.GetGridPositionList();
                 foreach (Vector2Int gridPos in destroyedCoordinates)
                 {
@@ -561,12 +607,11 @@ public class BuildingSystem : MonoBehaviour
                 placedBuildings.Remove(clickedBuilding);
                 GameManager.instance.SellBuilding(clickedBuilding);
                 clickedBuilding.Destroy();
-                Invoke(nameof(Aaaaa), 0.1f);    
             }
         }
     }
 
-    private void Aaaaa()
+    private void MapChanged()
     {
         EventManager.instance.MapChanged();
     }

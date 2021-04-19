@@ -14,7 +14,11 @@ public class Mechanic : Employee{
         GoToBuilding(targeted);
         //}
     }
-    
+
+    protected override void Awake(){
+        base.Awake();
+    }
+
     protected override void Start(){
         base.Start();
         transform.parent = GameObject.Find("Mechanics").transform;
@@ -62,7 +66,7 @@ public class Mechanic : Employee{
         }
     }
     
-    void GoToBuilding(Attraction targetBuilding){
+    /*void GoToBuilding(Attraction targetBuilding){
         List<Attraction> reachable = CalculateReachablePositions();
 
         if (reachable.Count == 0){
@@ -101,7 +105,7 @@ public class Mechanic : Employee{
             agent.SetDestination(closestPosition);
             goingToAttraction = true;
         }
-    }
+    }*/
 
     void EnterBuilding(){
         goingToAttraction = false;

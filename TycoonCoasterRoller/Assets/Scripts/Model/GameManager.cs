@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -8,11 +8,10 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour{
     public BuildingSystem buildingSystem;
     [SerializeField] Spawner spawner;
-    
+
     public static GameManager instance;
     private int width;
     private int height;
-    private const int REPAIRTIME = 60;
     private float money;
     private float totalHappiness;
     private float trashLevel;
@@ -23,11 +22,12 @@ public class GameManager : MonoBehaviour{
     private int gameHour;
     private int gameSecond;
     private bool gameIsActive;
+    private float beforeSpeed;
     private List<Janitor> janitors;
     private float mechanicSalary;
     public int totalMechanics = 0;
     public int availableMechanics = 0;
-    
+
     public List<Attraction> Attractions{
         get{
             List<Attraction> list = new List<Attraction>();
@@ -56,16 +56,25 @@ public class GameManager : MonoBehaviour{
         this.dayCount = 0;
         this.gameIsActive = true;
         this.janitors = new List<Janitor>();
+        this.beforeSpeed = 1;
         EventManager.instance.SpeedChanged(1);
     }
 
     public void RepairAttraction(Attraction target){
-        if (availableMechanics > 0 && NavigationManager.instance.IsTargetReachable(target)){
-            GameObject obj = spawner.SpawnMechanic(buildingSystem.entryPoint.position + new Vector3(1, 0, 1) * (buildingSystem.CellSize / 2));
-            Mechanic mechanic = obj.GetComponent<Mechanic>();
-            mechanic.Repair(target);
-            target.beingRepaired = true;
-            availableMechanics--;
+        if((target.Value*0.1f)<=this.money)
+        {
+            if (availableMechanics > 0 && NavigationManager.instance.IsTargetReachable(target)){
+                GameObject obj = spawner.SpawnMechanic(buildingSystem.entryPoint.position + new Vector3(1, 0, 1) * (buildingSystem.CellSize / 2));
+                Mechanic mechanic = obj.GetComponent<Mechanic>();
+                mechanic.Repair(target);
+                target.beingRepaired = true;
+                availableMechanics--;
+                this.money = this.money - (target.Value * 0.1f);
+            }
+        }
+        else
+        {
+            EventManager.instance.NoMoney();
         }
     }
 
@@ -112,7 +121,7 @@ public class GameManager : MonoBehaviour{
         EventManager.instance.SoldBuilding(building.SellPrice);
         this.totalCapacity = this.totalCapacity - building.Type.capacity;
     }
-    
+
     public bool BuyJanitor(){
         if (this.money >= 150f){
             this.money = this.money - 150f;
@@ -142,7 +151,7 @@ public class GameManager : MonoBehaviour{
             janitors.Remove(janitors[0]);
             return true;
         }
-        
+
         return false;
     }
 
@@ -152,37 +161,42 @@ public class GameManager : MonoBehaviour{
             availableMechanics--;
             return true;
         }
+
         return false;
     }
 
     public void NormalMode(){
         buildingSystem.SwitchMode(BuildingSystem.ClickMode.Normal);
-        Resume();
+        ChangeSpeed(beforeSpeed/10);
     }
 
     public void SwitchMode(){
         if (buildingSystem.currentMode == BuildingSystem.ClickMode.Destroy){
-            buildingSystem.SwitchMode(BuildingSystem.ClickMode.Normal);
-            Resume();
+            NormalMode();
         }
         else if (buildingSystem.currentMode == BuildingSystem.ClickMode.Normal){
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Destroy);
+            beforeSpeed = TimeManager.instance.GameSpeed;
+            this.gameIsActive = false;
+            TimeManager.instance.Paused = true;
+            EventManager.instance.SpeedChanged(0);
         }
-        else if (buildingSystem.currentMode == BuildingSystem.ClickMode.Road)
-        {
+        else if (buildingSystem.currentMode == BuildingSystem.ClickMode.Road){
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Destroy);
-            Pause();
+            beforeSpeed = TimeManager.instance.GameSpeed;
+            this.gameIsActive = false;
+            TimeManager.instance.Paused = true;
+            EventManager.instance.SpeedChanged(0);
         }
     }
 
-    public void SwitchRoadMode()
-    {
+    public void SwitchRoadMode(){
         if (buildingSystem.currentMode == BuildingSystem.ClickMode.Road){
-            buildingSystem.SwitchMode(BuildingSystem.ClickMode.Normal);
-            buildingSystem.SetSelectedBuildingType(null);
+            NormalMode();
         }
         else{
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Road);
+            ChangeSpeed(beforeSpeed/10);
         }
     }
 
@@ -193,7 +207,7 @@ public class GameManager : MonoBehaviour{
     private void UpdateProperties(){
         foreach (Building building in this.buildingSystem.Buildings){
             if (building.Type.type == BuildingTypeSO.Type.Attraction){
-                Attraction current = (Attraction)building;
+                Attraction current = (Attraction) building;
                 this.money -= current.Upkeep;
                 this.money += current.Income;
 
@@ -201,7 +215,7 @@ public class GameManager : MonoBehaviour{
                 if (rand_float < current.BreakChance){
                     //building.Broke = true;
                     current.BreakBuilding();
-                }    
+                }
             }
         }
 
@@ -232,21 +246,24 @@ public class GameManager : MonoBehaviour{
         this.gameIsActive = true;
         TimeManager.instance.Paused = false;
         EventManager.instance.SpeedChanged(1);
+        beforeSpeed = TimeManager.instance.GameSpeed;
     }
 
     public void Pause(){
         this.gameIsActive = false;
         TimeManager.instance.Paused = true;
         EventManager.instance.SpeedChanged(0);
+        beforeSpeed = TimeManager.instance.GameSpeed;
     }
 
     public void ChangeSpeed(float number){
         gameIsActive = true;
         if (number > 0){
-            TimeManager.instance.Paused = false;    
+            TimeManager.instance.Paused = false;
         }
         TimeManager.instance.GameSpeed = (int)(number * 10);
         EventManager.instance.SpeedChanged((int)number);
+        beforeSpeed = TimeManager.instance.GameSpeed;
     }
 
     public bool ChangeSelectedType(BuildingTypeSO buildingTypeSO){
@@ -276,8 +293,12 @@ public class GameManager : MonoBehaviour{
 
     public float TotalCapacity => totalCapacity;
 
-    public float CurrentVisitors => currentVisitors;
+    public float CurrentVisitors{
+        get => currentVisitors;
+        set => currentVisitors = value;
+    }
 
     public List<Janitor> Janitors => janitors;
 
+    public float BeforeSpeed => beforeSpeed;
 }

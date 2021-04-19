@@ -48,8 +48,8 @@ public class Attraction : Building{
     }*/
 
     public List<Visitor> peopleInside = new List<Visitor>();
-    
-    
+
+
     public void Repair(Mechanic mechanic){
         Debug.Log("REPAIR NOT IMPLEMENTED :(");
     }
@@ -60,21 +60,22 @@ public class Attraction : Building{
 
     public float UpgradePrice => (float) Math.Round((buildingType.price / 2) * Mathf.Pow(level, 1.2f), 2);
 
-    public override float SellPrice{
+    public float Value{
         get{
-            float moneyAmount = buildingType.price;
+            float totalPrice = buildingType.price;
             for (int i = 0; i < level; i++){
-                moneyAmount += (float) Math.Round((buildingType.price / 2) * Mathf.Pow(i, 1.2f), 2);
+                totalPrice += (float) Math.Round((buildingType.price / 2) * Mathf.Pow(i, 1.2f), 2);
             }
 
-            moneyAmount *= 0.5f;
-            return moneyAmount;
+            return totalPrice;
         }
     }
 
+    public override float SellPrice => Value / 2;
+
     public override float Upkeep => DailyUpkeep / 24f / 60f;
     public float DailyUpkeep => Mathf.Pow(DailyIncome, 0.75f);
-    public override float Income => _broke? 0 : DailyIncome / 24f / 60f * ((float)peopleInside.Count / (float)TotalCapacity);
+    public override float Income => _broke ? 0 : DailyIncome / 24f / 60f * ((float) peopleInside.Count / (float) TotalCapacity);
     public float DailyIncome => level * buildingType.baseIncome;
 
     public float CurrentDailyIncome => Income * 24f * 60f;
@@ -92,10 +93,13 @@ public class Attraction : Building{
         _broke = true;
         brokeVisual.gameObject.SetActive(true);
         //visitorok kiküldése
+        SendOutVisitors();
+    }
+
+    public void SendOutVisitors(){
         while (peopleInside.Count > 0){
             peopleInside[0].LeaveBuilding();
         }
-        
     }
 
     public void RepairBuilding(){

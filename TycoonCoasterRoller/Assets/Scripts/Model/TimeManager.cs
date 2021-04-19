@@ -17,7 +17,12 @@ public class TimeManager : MonoBehaviour{
     
     public bool Paused{
         get => paused;
-        set => paused = value;
+        set{
+            paused = value;
+            if (paused){
+                gameSpeed = 0;    
+            }
+        }
     }
 
     public int GameSpeed{

@@ -22,25 +22,39 @@ public class Person : MonoBehaviour{
     protected Road roadTarget;
 
     protected Animator animator;
-
+    protected float walkSpeedMultiplier;
+    protected Attraction previousBuilding = null;
+    
     protected virtual void Awake(){
         mesh = transform.Find("human_mesh").gameObject;
         agent = GetComponent<NavMeshAgent>();
         EventManager.instance.onSpeedChanged += ChangeSpeed;
         animator = GetComponent<Animator>();
+        walkSpeedMultiplier = 1f;
     }
 
     protected virtual void Start(){
         agent = GetComponent<NavMeshAgent>();
         lastFramePosition = transform.position;
-        agent.speed = TimeManager.instance.GameSpeed;
+        //agent.speed = TimeManager.instance.GameSpeed;
+        ChangeSpeed(TimeManager.instance.GameSpeed / 10);
     }
 
     protected virtual void Update(){
+
         // Rotate visitor in direction of movement
         if (velocity != Vector3.zero){
             Quaternion newRotation = Quaternion.Euler(0, 90, 0) * Quaternion.LookRotation(velocity, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, Time.deltaTime * 720);
+        }
+        
+        Debug.DrawLine(transform.position + Vector3.up, targetPosition + Vector3.up, Color.red);
+        
+        Debug.DrawLine(transform.position + Vector3.up, agent.destination + Vector3.up, Color.blue);
+        
+        // 
+        if (goingToRoad && roadTarget == null){
+            GoToRandomRoad();
         }
     }
 
@@ -50,6 +64,47 @@ public class Person : MonoBehaviour{
     void FixedUpdate(){
         velocity = transform.position - lastFramePosition;
         lastFramePosition = transform.position;
+    }
+    
+    protected void GoToBuilding(Attraction targetBuilding){
+        List<Attraction> reachable = CalculateReachablePositions();
+
+        if (reachable.Count == 0){
+            wantsToLeave = true;
+        }
+        else{
+            // choose a random building as target
+            target = targetBuilding;
+
+            // Find first cell from spawn
+            int x;
+            int z;
+            BuildingSystem.instance.grid.XZFromWorldPosition(BuildingSystem.instance.entryPoint.position + Vector3.forward * BuildingSystem.instance.CellSize, out x, out z);
+
+            //find the closest tile (that is reachable)
+            float sqrDistance = Single.MaxValue;
+            Vector3 closestPosition = Vector3.zero;
+            foreach (Vector2Int coords in target.gridPositionlist){
+                //if building has a tile on the root tile, only this tile is reachable so go there
+                if (coords.x == x && coords.y == z){
+                    closestPosition = BuildingSystem.instance.grid.GetCell(coords.x, coords.y).WorldPosition;
+                    break;
+                }
+
+                if (reachableCells.Contains(BuildingSystem.instance.grid.GetCell(coords.x, coords.y))){
+                    float tmpdist = (BuildingSystem.instance.grid.GetCell(coords.x, coords.y).WorldPosition - transform.position).sqrMagnitude;
+                    if (tmpdist < sqrDistance){
+                        sqrDistance = tmpdist;
+                        closestPosition = BuildingSystem.instance.grid.GetCell(coords.x, coords.y).WorldPosition;
+                    }
+                }
+            }
+
+            //Vector3 targetPosition = reachable[target].Position;
+            targetPosition = closestPosition;
+            agent.SetDestination(closestPosition);
+            goingToAttraction = true;
+        }
     }
 
 
@@ -70,6 +125,8 @@ public class Person : MonoBehaviour{
                     agent.SetDestination(exitRoad.Position + new Vector3(0, 0, -BuildingSystem.instance.CellSize));
                     targetPosition = exitRoad.Position + new Vector3(0, 0, -BuildingSystem.instance.CellSize);
                     leaving = true;
+                    goingToAttraction = false;
+                    goingToRoad = false;
                 }
                 // can't exit, wander randomly
                 else{
@@ -96,6 +153,7 @@ public class Person : MonoBehaviour{
             agent.SetDestination(roadTarget.Position);
             //Debug.Log(targetRoad.Position);
             goingToRoad = true;
+            goingToAttraction = false;
             leaving = false;
         }
     }
@@ -107,16 +165,16 @@ public class Person : MonoBehaviour{
                 animator.speed = 0;
                 break;
             case 1:
-                agent.speed = 10;
-                animator.speed = 1;
+                agent.speed = 10 * walkSpeedMultiplier;
+                animator.speed = 1 * walkSpeedMultiplier;
                 break;
             case 2:
-                agent.speed = 20;
-                animator.speed = 2;
+                agent.speed = 20 * walkSpeedMultiplier;
+                animator.speed = 2 * walkSpeedMultiplier;
                 break;
             case 3:
-                agent.speed = 30;
-                animator.speed = 3;
+                agent.speed = 30 * walkSpeedMultiplier;
+                animator.speed = 3 * walkSpeedMultiplier;
                 break;
             default:
                 Debug.LogError("Wrong game speed multiplier! -> " + multiplier);
@@ -143,6 +201,7 @@ public class Person : MonoBehaviour{
             grid.XZFromWorldPosition(BuildingSystem.instance.entryPoint.position + Vector3.forward * BuildingSystem.instance.CellSize, out x, out z);
         }
 
+        
         if (grid.GetCell(x, z).GetBuilding() == null){
             return reachable;
         }
@@ -172,11 +231,11 @@ public class Person : MonoBehaviour{
                 }
 
                 //if current cell is attraction, add to reachable and go back
-                // [REMOVED]except if it was the previous building
+                // except if it was the previous building
                 if (currentCell.GetBuilding().Type.type == BuildingTypeSO.Type.Attraction){
-                    //if (previousBuilding != currentCell.GetBuilding()){
+                    if (previousBuilding != currentCell.GetBuilding()){
                     reachable.Add((Attraction) currentCell.GetBuilding());
-                    //}
+                    }
 
                     reachableCells.Add(currentCell);
                     currentCell = path.Pop();
