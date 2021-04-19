@@ -12490,11 +12490,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 963194228}
-  normalSpeed: 0.4
-  fastSpeed: 1.3
+  normalSpeed: 175
+  fastSpeed: 275
   movementSpeed: 1
   movementTime: 5
-  rotationAmount: 0.75
+  rotationAmount: 100
   zoomAmount: {x: 0, y: -5, z: 5}
   maxZoom: -25
   minZoom: -150

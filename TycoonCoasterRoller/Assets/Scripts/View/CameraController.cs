@@ -94,14 +94,13 @@ public class CameraController : MonoBehaviour
         //fast-normal speed
         if (Input.GetKey(KeyCode.LeftControl))
         {
-            movementSpeed = fastSpeed;
+            movementSpeed = fastSpeed*Time.deltaTime;
         }
         else
         {
-            movementSpeed = normalSpeed;
+            movementSpeed = normalSpeed*Time.deltaTime;
         }
-
-        Vector3 helpVector = transform.TransformPoint(newPosition);
+        
         //movement
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
@@ -122,16 +121,16 @@ public class CameraController : MonoBehaviour
         {
             newPosition += (transform.right * -movementSpeed);
         }
-
+        
         //rotation
         if (Input.GetKey(KeyCode.Q))
         {
-            newRotation *= Quaternion.Euler(Vector3.up * rotationAmount);
+            newRotation *= Quaternion.Euler(Vector3.up * rotationAmount * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.E))
         {
-            newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
+            newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount * Time.deltaTime);
         }
         
         transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
