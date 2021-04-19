@@ -53,28 +53,22 @@ public class InspectorMenu : MonoBehaviour{
         income.text = "Income: " + Math.Round(building.CurrentDailyIncome, 0) + "$";
         netIncome.text = "Net Income: " + Math.Round(building.CurrentDailyIncome - building.DailyUpkeep, 0) + "$";
         upgradePrice.text = Math.Round(building.UpgradePrice, 0) + "$";
-        repairPrice.text = "9999$";
+        repairPrice.text = Math.Round((building.Value*0.1f), 0) + "$";
         if (previewModelObject != null){
             Destroy(previewModelObject.gameObject);
         }
 
         previewModelObject = Instantiate(building.Type.uiPrefab, previewModel);
-        //GameManager.instance.Pause();
 
-
-        if (selectedBuilding.Broke){
+        if (!selectedBuilding.Broke){
+            repairButton.interactable = false;
+        }
+        else if(selectedBuilding.beingRepaired || GameManager.instance.availableMechanics <= 0){
+            repairButton.interactable = false;
+        }
+        else
+        {
             repairButton.interactable = true;
-        }
-        else{
-            repairButton.interactable = false;
-        }
-
-        if (selectedBuilding.beingRepaired){
-            repairButton.interactable = false;
-        }
-
-        if (GameManager.instance.availableMechanics <= 0){
-            repairButton.interactable = false;
         }
 
         inspectorOpen = true;
@@ -90,7 +84,7 @@ public class InspectorMenu : MonoBehaviour{
         }
     }
 
-    public void ReapirBuilding(){
+    public void RepairBuilding(){
         GameManager.instance.RepairAttraction(selectedBuilding);
         CloseDisplay();
     }

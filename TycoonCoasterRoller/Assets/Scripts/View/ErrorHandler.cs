@@ -13,7 +13,9 @@ public class ErrorHandler : MonoBehaviour
     [SerializeField] GameObject noJanitor;
     [SerializeField] GameObject noMechanic;
     [SerializeField] GameObject gotMoney;
+    [SerializeField] GameObject brokenSell;
     [SerializeField] TextMeshProUGUI gotMoneyText;
+    
     Coroutine co;
     
     private void Awake()
@@ -24,6 +26,8 @@ public class ErrorHandler : MonoBehaviour
     private void Start()
     {
         EventManager.instance.onBuildingSold += GotMoney;
+        EventManager.instance.onNoMoney += NoMoneyError;
+        EventManager.instance.onBrokeBuildingSold += BrokenAttractionError;
     }
     
     public void BuyMechanic()
@@ -108,9 +112,19 @@ public class ErrorHandler : MonoBehaviour
         }
         co=StartCoroutine(GotMoneyWait());
     }
+    
+    public void BrokenAttractionError()
+    {
+        if (co != null)
+        {
+            StopCoroutine(co);
+        }
+        co=StartCoroutine(BrokenSellWait());
+    }
 
     IEnumerator NoMoneyWait()
     {
+        brokenSell.SetActive(false);
         gotMoney.SetActive(false);
         noJanitor.SetActive(false);
         noMechanic.SetActive(false);
@@ -121,6 +135,7 @@ public class ErrorHandler : MonoBehaviour
     
     IEnumerator NoMechanicWait()
     {
+        brokenSell.SetActive(false);
         gotMoney.SetActive(false);
         noJanitor.SetActive(false);
         noMoney.SetActive(false);
@@ -131,6 +146,7 @@ public class ErrorHandler : MonoBehaviour
     
     IEnumerator NoJanitorWait()
     {
+        brokenSell.SetActive(false);
         gotMoney.SetActive(false);
         noMechanic.SetActive(false);
         noMoney.SetActive(false);
@@ -141,11 +157,23 @@ public class ErrorHandler : MonoBehaviour
 
     IEnumerator GotMoneyWait()
     {
+        brokenSell.SetActive(false);
         noMechanic.SetActive(false);
         noMoney.SetActive(false);
         noJanitor.SetActive(false);
         gotMoney.SetActive(true);
         yield return new WaitForSeconds(1);
         gotMoney.SetActive(false);
+    }
+    
+    IEnumerator BrokenSellWait()
+    {
+        noMechanic.SetActive(false);
+        noMoney.SetActive(false);
+        noJanitor.SetActive(false);
+        gotMoney.SetActive(false);
+        brokenSell.SetActive(true);
+        yield return new WaitForSeconds(1);
+        brokenSell.SetActive(false);
     }
 }
