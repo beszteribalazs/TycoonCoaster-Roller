@@ -59,17 +59,6 @@ public class GameManager : MonoBehaviour{
         EventManager.instance.SpeedChanged(1);
     }
 
-    /*void Update(){
-        if (gameIsActive){
-            helpSecond = helpSecond + Time.deltaTime;
-            if (helpSecond >= (1 / gameSpeed)){
-                GameLoop();
-                helpSecond = 0;
-            }
-        }
-    }*/
-
-
     public void RepairAttraction(Attraction target){
         if (availableMechanics > 0 && NavigationManager.instance.IsTargetReachable(target)){
             GameObject obj = spawner.SpawnMechanic(buildingSystem.entryPoint.position + new Vector3(1, 0, 1) * (buildingSystem.CellSize / 2));
@@ -168,14 +157,17 @@ public class GameManager : MonoBehaviour{
 
     public void NormalMode(){
         buildingSystem.SwitchMode(BuildingSystem.ClickMode.Normal);
+        Resume();
     }
 
     public void SwitchMode(){
         if (buildingSystem.currentMode == BuildingSystem.ClickMode.Destroy){
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Normal);
+            Resume();
         }
-        else{
+        else if(buildingSystem.currentMode == BuildingSystem.ClickMode.Normal){
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Destroy);
+            Pause();
         }
     }
 
