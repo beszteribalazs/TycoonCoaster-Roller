@@ -157,6 +157,7 @@ public class GameManager : MonoBehaviour{
 
     public void NormalMode(){
         buildingSystem.SwitchMode(BuildingSystem.ClickMode.Normal);
+        Resume();
     }
 
     public void SwitchMode(){
@@ -164,7 +165,7 @@ public class GameManager : MonoBehaviour{
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Normal);
             Resume();
         }
-        else{
+        else if(buildingSystem.currentMode == BuildingSystem.ClickMode.Normal){
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Destroy);
             Pause();
         }
