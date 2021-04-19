@@ -65,6 +65,7 @@ public class Visitor : Person{
             if ((transform.position - targetPosition).magnitude <= 0.1f){
                 EventManager.instance.onSpeedChanged -= ChangeSpeed;
                 EventManager.instance.onMapChanged -= RecheckNavigationTarget;
+                GameManager.instance.CurrentVisitors--;
                 Destroy(gameObject);
             }
         }
