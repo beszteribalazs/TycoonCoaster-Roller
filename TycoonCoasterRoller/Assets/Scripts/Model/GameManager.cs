@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour{
     public BuildingSystem buildingSystem;
     [SerializeField] Spawner spawner;
-    
+
     public static GameManager instance;
     private int width;
     private int height;
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour{
     private float mechanicSalary;
     public int totalMechanics = 0;
     public int availableMechanics = 0;
-    
+
     public List<Attraction> Attractions{
         get{
             List<Attraction> list = new List<Attraction>();
@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour{
         EventManager.instance.SoldBuilding(building.SellPrice);
         this.totalCapacity = this.totalCapacity - building.Type.capacity;
     }
-    
+
     public bool BuyJanitor(){
         if (this.money >= 150f){
             this.money = this.money - 150f;
@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour{
             janitors.Remove(janitors[0]);
             return true;
         }
-        
+
         return false;
     }
 
@@ -152,6 +152,7 @@ public class GameManager : MonoBehaviour{
             availableMechanics--;
             return true;
         }
+
         return false;
     }
 
@@ -168,15 +169,13 @@ public class GameManager : MonoBehaviour{
         else if (buildingSystem.currentMode == BuildingSystem.ClickMode.Normal){
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Destroy);
         }
-        else if (buildingSystem.currentMode == BuildingSystem.ClickMode.Road)
-        {
+        else if (buildingSystem.currentMode == BuildingSystem.ClickMode.Road){
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Destroy);
             Pause();
         }
     }
 
-    public void SwitchRoadMode()
-    {
+    public void SwitchRoadMode(){
         if (buildingSystem.currentMode == BuildingSystem.ClickMode.Road){
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Normal);
             buildingSystem.SetSelectedBuildingType(null);
@@ -193,7 +192,7 @@ public class GameManager : MonoBehaviour{
     private void UpdateProperties(){
         foreach (Building building in this.buildingSystem.Buildings){
             if (building.Type.type == BuildingTypeSO.Type.Attraction){
-                Attraction current = (Attraction)building;
+                Attraction current = (Attraction) building;
                 this.money -= current.Upkeep;
                 this.money += current.Income;
 
@@ -201,7 +200,7 @@ public class GameManager : MonoBehaviour{
                 if (rand_float < current.BreakChance){
                     //building.Broke = true;
                     current.BreakBuilding();
-                }    
+                }
             }
         }
 
@@ -243,10 +242,11 @@ public class GameManager : MonoBehaviour{
     public void ChangeSpeed(float number){
         gameIsActive = true;
         if (number > 0){
-            TimeManager.instance.Paused = false;    
+            TimeManager.instance.Paused = false;
         }
-        TimeManager.instance.GameSpeed = (int)(number * 10);
-        EventManager.instance.SpeedChanged((int)number);
+
+        TimeManager.instance.GameSpeed = (int) (number * 10);
+        EventManager.instance.SpeedChanged((int) number);
     }
 
     public bool ChangeSelectedType(BuildingTypeSO buildingTypeSO){
@@ -276,8 +276,10 @@ public class GameManager : MonoBehaviour{
 
     public float TotalCapacity => totalCapacity;
 
-    public float CurrentVisitors => currentVisitors;
+    public float CurrentVisitors{
+        get => currentVisitors;
+        set => currentVisitors = value;
+    }
 
     public List<Janitor> Janitors => janitors;
-
 }
