@@ -8,7 +8,6 @@ public class BuySelect : MonoBehaviour
 {
     public static BuySelect instance;
     [SerializeField] GameObject buyMenu;
-    [SerializeField] GameObject inspectorMenu;
     [SerializeField] GameObject pauseMenu;
     public bool check;
     
@@ -26,7 +25,7 @@ public class BuySelect : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B) && !pauseMenu.activeSelf)
         {
-            inspectorMenu.SetActive(false);
+            InspectorMenu.instance.CloseDisplay();
             buyMenu.SetActive(check);
             check = !check;
         }

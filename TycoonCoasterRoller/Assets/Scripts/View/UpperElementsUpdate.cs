@@ -27,8 +27,8 @@ public class UpperElementsUpdate : MonoBehaviour
         happiness.text = GameManager.instance.TotalHappiness*100+"%";
         trash.text = GameManager.instance.TrashPercentage*100+"%";
         janitor.text = GameManager.instance.Janitors.Count.ToString();
-
         mechanic.text = GameManager.instance.availableMechanics + "/"+ GameManager.instance.totalMechanics;
+        visitors.text= GameManager.instance.CurrentVisitors +"/" + GameManager.instance.TotalCapacity;
     }
 
 }
