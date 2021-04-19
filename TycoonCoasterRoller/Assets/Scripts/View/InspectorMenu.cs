@@ -59,8 +59,6 @@ public class InspectorMenu : MonoBehaviour{
         }
 
         previewModelObject = Instantiate(building.Type.uiPrefab, previewModel);
-        //GameManager.instance.Pause();
-
 
         if (selectedBuilding.Broke){
             repairButton.interactable = true;
@@ -90,7 +88,7 @@ public class InspectorMenu : MonoBehaviour{
         }
     }
 
-    public void ReapirBuilding(){
+    public void RepairBuilding(){
         GameManager.instance.RepairAttraction(selectedBuilding);
         CloseDisplay();
     }
