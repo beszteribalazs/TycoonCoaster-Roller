@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour{
     public static GameManager instance;
     private int width;
     private int height;
-    private const int REPAIRTIME = 60;
     private float money;
     private float totalHappiness;
     private float trashLevel;
