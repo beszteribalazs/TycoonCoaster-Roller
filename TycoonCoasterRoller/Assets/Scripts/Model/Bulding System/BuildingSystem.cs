@@ -50,8 +50,8 @@ public class BuildingSystem : MonoBehaviour
 
     private int lastX, lastZ;
 
-    void Awake()
-    {
+    void Awake(){
+        EventManager.instance.onModeChanged += ResetLastClickedTile;
         instance = this;
         gridWidth = MapSizeController.mapSize;
         gridHeight = MapSizeController.mapSize;
@@ -79,6 +79,11 @@ public class BuildingSystem : MonoBehaviour
                 }
             }
         }
+    }
+
+    void ResetLastClickedTile(ClickMode cm){
+        lastX = -1;
+        lastZ = -1;
     }
 
     void Start()

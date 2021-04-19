@@ -36,7 +36,8 @@ public class Person : MonoBehaviour{
     protected virtual void Start(){
         agent = GetComponent<NavMeshAgent>();
         lastFramePosition = transform.position;
-        agent.speed = TimeManager.instance.GameSpeed;
+        //agent.speed = TimeManager.instance.GameSpeed;
+        ChangeSpeed(0);
     }
 
     protected virtual void Update(){

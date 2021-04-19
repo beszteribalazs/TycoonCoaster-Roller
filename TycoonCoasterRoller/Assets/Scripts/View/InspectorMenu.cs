@@ -73,6 +73,10 @@ public class InspectorMenu : MonoBehaviour{
             repairButton.interactable = false;
         }
 
+        if (GameManager.instance.availableMechanics <= 0){
+            repairButton.interactable = false;
+        }
+
         inspectorOpen = true;
     }
 
