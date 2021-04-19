@@ -26,7 +26,7 @@ public class BuildingSystem : MonoBehaviour
     [SerializeField] float cellSize = 3f;
 
     public float CellSize => cellSize;
-    
+
     [SerializeField] Transform groundVisualPrefab;
     [SerializeField] Transform entryPointPrefab;
 
@@ -95,7 +95,7 @@ public class BuildingSystem : MonoBehaviour
         lastX = -1;
         lastZ = -1;
     }
-    
+
     void Update()
     {
         if (!EventSystem.current.IsPointerOverGameObject())
@@ -407,7 +407,6 @@ public class BuildingSystem : MonoBehaviour
                 ChangeRoadDirection(roadStraight, BuildingTypeSO.Direction.Down, x, z);
                 break;
             default:
-                Debug.LogError("MEGBASZOMANYADATHASZAR");
                 break;
         }
     }
@@ -436,7 +435,6 @@ public class BuildingSystem : MonoBehaviour
                 if (!grid.GetCell(gridPosition.x, gridPosition.y).IsEmpty())
                 {
                     canBuild = false;
-                    //Debug.Log("Placing on (" + x + "," + z + ") would collide with another building");
                     break;
                 }
             }
@@ -465,8 +463,6 @@ public class BuildingSystem : MonoBehaviour
                 SetSelectedBuildingType(null);
             }
 
-            //EventManager.instance.MapChanged();
-
             placedBuildings.Add(placedBuilding);
         }
     }
@@ -493,7 +489,6 @@ public class BuildingSystem : MonoBehaviour
                     if (!grid.GetCell(gridPosition.x, gridPosition.y).IsEmpty())
                     {
                         canBuild = false;
-                        //Debug.Log("Placing on (" + x + "," + z + ") would collide with another building");
                         break;
                     }
                 }
@@ -518,7 +513,6 @@ public class BuildingSystem : MonoBehaviour
                 Building placedBuilding = Building.SpawnBuilding(worldPosition, new Vector2Int(x, z),
                     currentBuildingRotation, selectedBuildingSO, positionList);
 
-                //placedBuilding.RemovePreviewBox();
                 foreach (Vector2Int gridPositions in positionList)
                 {
                     grid.GetCell(gridPositions.x, gridPositions.y).SetBuilding(placedBuilding);
@@ -637,7 +631,6 @@ public class BuildingSystem : MonoBehaviour
         }
         else
         {
-            //DO NOT BUILD
             throw new MouseOutOfMapException("Invalid position!");
         }
     }
@@ -667,7 +660,6 @@ public class BuildingSystem : MonoBehaviour
         }
         else
         {
-            //DO NOT BUILD
             throw new MouseOutOfMapException("Invalid position!");
         }
     }
