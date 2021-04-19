@@ -10,10 +10,14 @@ public class Visitor : Person{
 
     protected override void Awake(){
         base.Awake();
-        EventManager.instance.onMapChanged += RecheckNavigationTarget;
+        EventManager.instance.onMapChanged += DelayedRecheck;
         walkSpeedMultiplier = Random.Range(0.9f, 1.1f);
     }
 
+    void DelayedRecheck(){
+        Invoke(nameof(RecheckNavigationTarget), 0.1f);
+    }
+    
     void RecheckNavigationTarget(){
 
 
@@ -33,6 +37,9 @@ public class Visitor : Person{
             // if cant reach target, choose a new one
             if (!reachable.Contains(target)){
                 GoToRandomBuilding();
+            }
+            else{
+                GoToBuilding(target);
             }
         }
         // if going to road
@@ -84,7 +91,7 @@ public class Visitor : Person{
         if (leaving){
             if ((transform.position - targetPosition).magnitude <= 0.1f){
                 EventManager.instance.onSpeedChanged -= ChangeSpeed;
-                EventManager.instance.onMapChanged -= RecheckNavigationTarget;
+                EventManager.instance.onMapChanged -= DelayedRecheck;
                 GameManager.instance.CurrentVisitors--;
                 Destroy(gameObject);
             }
