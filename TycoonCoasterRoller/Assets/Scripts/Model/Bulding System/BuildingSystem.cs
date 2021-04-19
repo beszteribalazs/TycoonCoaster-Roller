@@ -10,7 +10,8 @@ public class BuildingSystem : MonoBehaviour
     public enum ClickMode
     {
         Normal,
-        Destroy
+        Destroy,
+        Road
     }
 
     public static BuildingSystem instance;
@@ -101,6 +102,7 @@ public class BuildingSystem : MonoBehaviour
                 // Select placed building
                 if (Input.GetMouseButtonDown(0) && selectedBuildingSO == null)
                 {
+                    Debug.Log("NORMAL");
                     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo,
                         1000f,
                         (1 << 9)))
@@ -123,28 +125,7 @@ public class BuildingSystem : MonoBehaviour
                 if (selectedBuildingSO != null && Input.GetMouseButtonDown(0)){
                     PlaceBuilding();
                 }
-
-                // Drag road
-                if (selectedBuildingSO != null && Input.GetMouseButton(0) && selectedBuildingSO.type == BuildingTypeSO.Type.Road){
-                    int x, z;
-                    grid.XZFromWorldPosition(GetMouseWorldPosition(), out x, out z);
-                    if (grid.GetCell(x, z) == null) return;
-                    if ( (lastX != x) || (lastZ != z) )
-                    {
-                        GameManager.instance.BuyBuilding(roadStraight);
-                        lastX = x;
-                        lastZ = z;
-                        UpdateRoad(x, z);
-                        foreach (Cell cell in grid.GetCell(x,z).Neighbours)
-                        {
-                            if (cell.GetBuilding() != null && cell.GetBuilding().Type.type == BuildingTypeSO.Type.Road)
-                            {
-                                UpdateRoad(cell.GetX(),cell.GetY());
-                            }
-                        }
-                    }
-                }
-
+                
                 if (Input.GetMouseButtonUp(0)){
                     EventManager.instance.MapChanged();
                 }
@@ -190,6 +171,52 @@ public class BuildingSystem : MonoBehaviour
                 if (Input.GetMouseButtonDown(1))
                 {
                     currentMode = ClickMode.Normal;
+                    GameManager.instance.Resume();
+                    EventManager.instance.ModeChanged(currentMode);
+                }
+            }
+            else if (currentMode == ClickMode.Road)
+            {
+                if (selectedBuildingSO != null && Input.GetMouseButton(0) && selectedBuildingSO.type == BuildingTypeSO.Type.Road){
+                    int x, z;
+                    grid.XZFromWorldPosition(GetMouseWorldPosition(), out x, out z);
+                    if (grid.GetCell(x, z) == null) return;
+                    if ( (lastX != x) || (lastZ != z) )
+                    {
+                        if (grid.GetCell(x, z).GetBuilding() == null)
+                        {
+                            GameManager.instance.BuyBuilding(roadStraight);
+                        }
+
+                        lastX = x;
+                        lastZ = z;
+                        UpdateRoad(x, z);
+                        foreach (Cell cell in grid.GetCell(x,z).Neighbours)
+                        {
+                            if (cell.GetBuilding() != null && cell.GetBuilding().Type.type == BuildingTypeSO.Type.Road)
+                            {
+                                UpdateRoad(cell.GetX(),cell.GetY());
+                            }
+                        }
+                    }
+                }
+
+                if (Input.GetMouseButtonUp(0)){
+                    EventManager.instance.MapChanged();
+                }
+                
+                if (Input.GetMouseButton(0) && selectedBuildingSO != null &&
+                    GameManager.instance.Money < selectedBuildingSO.price)
+                {
+                    currentMode = ClickMode.Normal;
+                    SetSelectedBuildingType(null);
+                }
+                
+                if (Input.GetMouseButtonDown(1))
+                {
+                    Debug.Log("JAJISTENEM");
+                    SetSelectedBuildingType(null);
+                    currentMode = ClickMode.Normal;
                     EventManager.instance.ModeChanged(currentMode);
                 }
             }
@@ -199,6 +226,7 @@ public class BuildingSystem : MonoBehaviour
         {
             SetSelectedBuildingType(null);
             currentMode = ClickMode.Normal;
+            GameManager.instance.Resume();
             EventManager.instance.ModeChanged(currentMode);
         }
 
@@ -397,7 +425,7 @@ public class BuildingSystem : MonoBehaviour
                 grid.GetCell(gridPositions.x, gridPositions.y).SetBuilding(placedBuilding);
             }
 
-            if (!Input.GetKey(KeyCode.LeftShift))
+            if (!Input.GetMouseButton(0))
             {
                 SetSelectedBuildingType(null);
             }

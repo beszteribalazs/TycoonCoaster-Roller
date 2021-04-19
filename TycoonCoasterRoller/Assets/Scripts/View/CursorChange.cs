@@ -22,10 +22,15 @@ public class CursorChange : MonoBehaviour
             Cursor.SetCursor(null, Vector2.zero, cursorMode);
             image.SetActive(false);
         }
-        else
+        else if( obj == BuildingSystem.ClickMode.Destroy)
         {
             Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
             image.SetActive(true);
+        }
+        else if (obj == BuildingSystem.ClickMode.Road)
+        {
+            Cursor.SetCursor(null, Vector2.zero, cursorMode);
+            image.SetActive(false);
         }
     }
 }

@@ -25,6 +25,10 @@ public class BuySelect : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B) && !pauseMenu.activeSelf)
         {
+            if (GameManager.instance.buildingSystem.currentMode == BuildingSystem.ClickMode.Destroy)
+            {
+                GameManager.instance.Resume();
+            }
             InspectorMenu.instance.CloseDisplay();
             buyMenu.SetActive(check);
             check = !check;
