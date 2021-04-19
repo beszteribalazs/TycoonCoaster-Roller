@@ -583,8 +583,6 @@ public class BuildingSystem : MonoBehaviour
                 Attraction clicked = (Attraction) clickedBuilding;
                 if (clicked.Broke)
                 {
-                    lastX = -1;
-                    lastZ = -1;
                     EventManager.instance.BrokeBuildingSold();
                 }
                 else{
