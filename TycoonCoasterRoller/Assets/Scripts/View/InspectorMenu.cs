@@ -53,7 +53,7 @@ public class InspectorMenu : MonoBehaviour{
         income.text = "Income: " + Math.Round(building.CurrentDailyIncome, 0) + "$";
         netIncome.text = "Net Income: " + Math.Round(building.CurrentDailyIncome - building.DailyUpkeep, 0) + "$";
         upgradePrice.text = Math.Round(building.UpgradePrice, 0) + "$";
-        repairPrice.text = "9999$";
+        repairPrice.text = Math.Round((building.Value*0.1f), 0) + "$";
         if (previewModelObject != null){
             Destroy(previewModelObject.gameObject);
         }
