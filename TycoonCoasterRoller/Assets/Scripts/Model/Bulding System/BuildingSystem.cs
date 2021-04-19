@@ -131,7 +131,11 @@ public class BuildingSystem : MonoBehaviour
                     if (grid.GetCell(x, z) == null) return;
                     if ( (lastX != x) || (lastZ != z) )
                     {
-                        GameManager.instance.BuyBuilding(roadStraight);
+                        if (grid.GetCell(x, z).GetBuilding() == null)
+                        {
+                            GameManager.instance.BuyBuilding(roadStraight);
+                        }
+
                         lastX = x;
                         lastZ = z;
                         UpdateRoad(x, z);
@@ -143,6 +147,7 @@ public class BuildingSystem : MonoBehaviour
                             }
                         }
                     }
+
                 }
 
                 if (Input.GetMouseButtonUp(0)){
