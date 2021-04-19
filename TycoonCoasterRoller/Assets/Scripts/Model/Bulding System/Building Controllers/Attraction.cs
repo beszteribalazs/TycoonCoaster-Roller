@@ -12,41 +12,6 @@ public class Attraction : Building{
         this.level = 1;
     }
 
-    /*public bool HasRoad{
-        get{
-            //For every building cell
-            bool roadFound = false;
-            foreach (Vector2Int cellPos in gridPositionlist){
-                //Check if neighbour cell is road
-                GridXZ g = BuildingSystem.instance.grid;
-
-                if (g.GetCell(cellPos.x + 1, cellPos.y).GetBuilding() != null && g.GetCell(cellPos.x + 1, cellPos.y).GetBuilding().Type.type == BuildingTypeSO.Type.Road){
-                    roadFound = true;
-                    break;
-                }
-
-                if (g.GetCell(cellPos.x - 1, cellPos.y).GetBuilding() != null && g.GetCell(cellPos.x - 1, cellPos.y).GetBuilding().Type.type == BuildingTypeSO.Type.Road){
-                    roadFound = true;
-                    break;
-                }
-
-                if (g.GetCell(cellPos.x, cellPos.y + 1).GetBuilding() != null && g.GetCell(cellPos.x, cellPos.y + 1).GetBuilding().Type.type == BuildingTypeSO.Type.Road){
-                    roadFound = true;
-                    break;
-                }
-
-                if (g.GetCell(cellPos.x, cellPos.y - 1).GetBuilding() != null && g.GetCell(cellPos.x, cellPos.y - 1).GetBuilding().Type.type == BuildingTypeSO.Type.Road){
-                    roadFound = true;
-                    break;
-                }
-
-                //Debug.Log(cellPos + "neighbour: " + BuildingSystem.instance.grid.GetCell(cellPos.x + 1, cellPos.y).GetBuilding());
-            }
-
-            return roadFound;
-        }
-    }*/
-
     public List<Visitor> peopleInside = new List<Visitor>();
 
 
@@ -73,6 +38,8 @@ public class Attraction : Building{
 
     public override float SellPrice => Value / 2;
 
+    public int RepairTickDuration => gridPositionlist.Count * 15;
+    
     public override float Upkeep => DailyUpkeep / 24f / 60f;
     public float DailyUpkeep => Mathf.Pow(DailyIncome, 0.75f);
     public override float Income => _broke ? 0 : DailyIncome / 24f / 60f * ((float) peopleInside.Count / (float) TotalCapacity);

@@ -48,9 +48,9 @@ public class Person : MonoBehaviour{
             transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, Time.deltaTime * 720);
         }
         
-        Debug.DrawLine(transform.position + Vector3.up, targetPosition + Vector3.up, Color.red);
+        //Debug.DrawLine(transform.position + Vector3.up, targetPosition + Vector3.up, Color.red);
         
-        Debug.DrawLine(transform.position + Vector3.up, agent.destination + Vector3.up, Color.blue);
+        //Debug.DrawLine(transform.position + Vector3.up, agent.destination + Vector3.up, Color.blue);
         
         // 
         if (goingToRoad && roadTarget == null){
