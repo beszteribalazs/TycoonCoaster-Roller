@@ -165,9 +165,24 @@ public class GameManager : MonoBehaviour{
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Normal);
             Resume();
         }
-        else if(buildingSystem.currentMode == BuildingSystem.ClickMode.Normal){
+        else if (buildingSystem.currentMode == BuildingSystem.ClickMode.Normal){
+            buildingSystem.SwitchMode(BuildingSystem.ClickMode.Destroy);
+        }
+        else if (buildingSystem.currentMode == BuildingSystem.ClickMode.Road)
+        {
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Destroy);
             Pause();
+        }
+    }
+
+    public void SwitchRoadMode()
+    {
+        if (buildingSystem.currentMode == BuildingSystem.ClickMode.Road){
+            buildingSystem.SwitchMode(BuildingSystem.ClickMode.Normal);
+            buildingSystem.SetSelectedBuildingType(null);
+        }
+        else{
+            buildingSystem.SwitchMode(BuildingSystem.ClickMode.Road);
         }
     }
 
