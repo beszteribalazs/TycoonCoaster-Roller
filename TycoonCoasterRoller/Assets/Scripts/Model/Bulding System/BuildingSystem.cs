@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
@@ -151,6 +152,17 @@ public class BuildingSystem : MonoBehaviour
                 {
                     currentBuildingRotation = BuildingTypeSO.GetNextDirectionRight(currentBuildingRotation);
                 }
+                
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    SetSelectedBuildingType(null);
+                }
+                
+                if (Input.GetKeyDown(KeyCode.B))
+                {
+                    SetSelectedBuildingType(null);
+                }
+                
             }
             else if (currentMode == ClickMode.Destroy)
             {
@@ -175,8 +187,22 @@ public class BuildingSystem : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(1))
                 {
-                    currentMode = ClickMode.Normal;
-                    GameManager.instance.Resume();
+                    SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchMode();
+                    EventManager.instance.ModeChanged(currentMode);
+                }
+                
+                if (Input.GetKeyUp(KeyCode.Escape))
+                {
+                    SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchMode();
+                    EventManager.instance.ModeChanged(currentMode);
+                }
+                
+                if (Input.GetKeyDown(KeyCode.B))
+                {
+                    SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchMode();
                     EventManager.instance.ModeChanged(currentMode);
                 }
             }
@@ -210,47 +236,36 @@ public class BuildingSystem : MonoBehaviour
                     EventManager.instance.MapChanged();
                 }
                 
-                if (Input.GetMouseButton(0) && selectedBuildingSO != null &&
-                    GameManager.instance.Money < selectedBuildingSO.price)
+                if (Input.GetMouseButton(0) && selectedBuildingSO != null && GameManager.instance.Money < selectedBuildingSO.price)
                 {
-                    currentMode = ClickMode.Normal;
                     SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchRoadMode();
+                    EventManager.instance.ModeChanged(currentMode);
                 }
                 
                 if (Input.GetMouseButtonDown(1))
                 {
-                    Debug.Log("JAJISTENEM");
                     SetSelectedBuildingType(null);
-                    currentMode = ClickMode.Normal;
+                    GameManager.instance.SwitchRoadMode();
+                    EventManager.instance.ModeChanged(currentMode);
+                }
+                
+                if (Input.GetKeyUp(KeyCode.Escape))
+                {
+                    SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchRoadMode();
+                    EventManager.instance.ModeChanged(currentMode);
+                }
+                
+                if (Input.GetKeyDown(KeyCode.B))
+                {
+                    SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchRoadMode();
                     EventManager.instance.ModeChanged(currentMode);
                 }
             }
         }
-
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            SetSelectedBuildingType(null);
-            currentMode = ClickMode.Normal;
-            GameManager.instance.Resume();
-            EventManager.instance.ModeChanged(currentMode);
-        }
-
-        if (Input.GetKeyUp(KeyCode.B))
-        {
-            SetSelectedBuildingType(null);
-            currentMode = ClickMode.Normal;
-            EventManager.instance.ModeChanged(currentMode);
-        }
-
-        //Cycle buildings
-        /*if (Input.GetKeyDown(KeyCode.Tab)){
-            selectedBuildingSO = placableBuildings[buildingIndex];
-            EventManager.instance.SelectedBuildingChanged();
-            buildingIndex++;
-            if (buildingIndex >= placableBuildings.Count){
-                buildingIndex = 0;
-            }
-        }*/
+        
     }
 
     public void spawnTree(int x, int z)
