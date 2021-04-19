@@ -26,8 +26,7 @@ public class BuildingSystem : MonoBehaviour
     [SerializeField] float cellSize = 3f;
 
     public float CellSize => cellSize;
-
-    //[SerializeField] List<BuildingTypeSO> placableBuildings;
+    
     [SerializeField] Transform groundVisualPrefab;
     [SerializeField] Transform entryPointPrefab;
 
@@ -39,7 +38,7 @@ public class BuildingSystem : MonoBehaviour
 
     public ClickMode currentMode;
 
-    //public List<Building> Buildings => grid.GetBuildingList();
+
     public List<Building> Buildings => placedBuildings;
     [SerializeField] BuildingTypeSO roadStraight;
     [SerializeField] BuildingTypeSO roadTurn;
