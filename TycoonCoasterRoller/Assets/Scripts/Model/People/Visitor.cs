@@ -10,10 +10,14 @@ public class Visitor : Person{
 
     protected override void Awake(){
         base.Awake();
-        EventManager.instance.onMapChanged += RecheckNavigationTarget;
+        EventManager.instance.onMapChanged += DelayedRecheck;
         walkSpeedMultiplier = Random.Range(0.9f, 1.1f);
     }
 
+    void DelayedRecheck(){
+        Invoke(nameof(RecheckNavigationTarget), 0.1f);
+    }
+    
     void RecheckNavigationTarget(){
 
 
@@ -33,6 +37,9 @@ public class Visitor : Person{
             // if cant reach target, choose a new one
             if (!reachable.Contains(target)){
                 GoToRandomBuilding();
+            }
+            else{
+                GoToBuilding(target);
             }
         }
         // if going to road
@@ -60,7 +67,10 @@ public class Visitor : Person{
         GoToRandomBuilding();
     }
 
-
+    bool inBuilding = false;
+    int tickToStay = 30;
+    int enterTime;
+    
     protected override void Update(){
         base.Update();
         /*if (Input.GetKeyDown(KeyCode.C)){
@@ -70,12 +80,19 @@ public class Visitor : Person{
         /*if (Input.GetKeyDown(KeyCode.V)){
             GoToRandomBuilding();
         }*/
-        
+
+
+        if (inBuilding){
+            if (TimeManager.instance.Tick - enterTime >= tickToStay){
+                LeaveBuilding();
+            }
+        }
 
         if (leaving){
             if ((transform.position - targetPosition).magnitude <= 0.1f){
                 EventManager.instance.onSpeedChanged -= ChangeSpeed;
-                EventManager.instance.onMapChanged -= RecheckNavigationTarget;
+                EventManager.instance.onMapChanged -= DelayedRecheck;
+                GameManager.instance.CurrentVisitors--;
                 Destroy(gameObject);
             }
         }
@@ -124,15 +141,20 @@ public class Visitor : Person{
     }
 
 
+
+    
     void EnterBuilding(){
         goingToAttraction = false;
         target.peopleInside.Add(this);
         previousBuilding = target;
         mesh.SetActive(false);
-        //Invoke(nameof(LeaveBuilding), 3f);
+        inBuilding = true;
+        enterTime = TimeManager.instance.Tick;
+        //Invoke(nameof(LeaveBuilding), 10000f);
     }
 
     public void LeaveBuilding(){
+        inBuilding = false;
         target.peopleInside.Remove(this);
         mesh.SetActive(true);
         GoToRandomBuilding();

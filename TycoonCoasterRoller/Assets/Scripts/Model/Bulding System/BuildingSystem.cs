@@ -175,6 +175,7 @@ public class BuildingSystem : MonoBehaviour
                         if ( (lastX != x) || (lastZ != z) )
                         {
                             SellBuilding();
+                            //EventManager.instance.MapChanged();
                             lastX = x;
                             lastZ = z;
                         }
@@ -304,8 +305,13 @@ public class BuildingSystem : MonoBehaviour
         }
     }
 
-    public void SwitchMode(ClickMode m)
-    {
+    ClickMode previousMode = ClickMode.Normal;
+    public void SwitchMode(ClickMode m){
+        previousMode = currentMode;
+        if (previousMode == ClickMode.Destroy && m != ClickMode.Destroy){
+            //Invoke(nameof(MapChanged), 0.05f);
+            EventManager.instance.MapChanged();
+        }
         currentMode = m;
         EventManager.instance.ModeChanged(m);
     }
@@ -570,7 +576,7 @@ public class BuildingSystem : MonoBehaviour
                     }
                 }
                 
-                Invoke(nameof(MapChanged), 0.1f);    
+                //Invoke(nameof(MapChanged), 0.1f);    
             }
             // Selling an attraction
             else if (clickedBuilding.Type.type == BuildingTypeSO.Type.Attraction){
@@ -590,7 +596,7 @@ public class BuildingSystem : MonoBehaviour
                     placedBuildings.Remove(clickedBuilding);
                     GameManager.instance.SellBuilding(clickedBuilding);
                     clickedBuilding.Destroy();
-                    Invoke(nameof(MapChanged), 0.1f);    
+                    //Invoke(nameof(MapChanged), 0.1f);    
                 }
             }
             else{
@@ -603,7 +609,7 @@ public class BuildingSystem : MonoBehaviour
                 placedBuildings.Remove(clickedBuilding);
                 GameManager.instance.SellBuilding(clickedBuilding);
                 clickedBuilding.Destroy();
-                Invoke(nameof(MapChanged), 0.1f);    
+                //Invoke(nameof(MapChanged), 0.1f);    
             }
         }
     }
