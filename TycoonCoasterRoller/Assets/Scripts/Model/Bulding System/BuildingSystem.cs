@@ -581,8 +581,10 @@ public class BuildingSystem : MonoBehaviour
             // Selling an attraction
             else if (clickedBuilding.Type.type == BuildingTypeSO.Type.Attraction){
                 Attraction clicked = (Attraction) clickedBuilding;
-                if (clicked.Broke){
-                    Debug.LogError("Törött épület eladásánál errort mutatni UwU");
+                if (clicked.Broke)
+                {
+                    lastX = -1;
+                    lastZ = -1;
                     EventManager.instance.BrokeBuildingSold();
                 }
                 else{

@@ -16456,7 +16456,7 @@ MonoBehaviour:
   noJanitor: {fileID: 214798651}
   noMechanic: {fileID: 268842582}
   gotMoney: {fileID: 1006410269}
-  brokenSell: {fileID: 0}
+  brokenSell: {fileID: 138377160}
   gotMoneyText: {fileID: 1006410271}
 --- !u!114 &1585249612
 MonoBehaviour:
@@ -19920,9 +19920,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.2392157, g: 0.32941177, b: 0.30980393, a: 0.92156863}
-    m_HighlightedColor: {r: 0.3705797, g: 0.4056604, b: 0.33868816, a: 0.92156863}
+    m_HighlightedColor: {r: 0.36862746, g: 0.48627454, b: 0.3372549, a: 0.92156863}
     m_PressedColor: {r: 0.36862746, g: 0.4862745, b: 0.3372549, a: 0.92156863}
-    m_SelectedColor: {r: 0.36862746, g: 0.4666667, b: 0.3372549, a: 0.92156863}
+    m_SelectedColor: {r: 0.36862746, g: 0.48627454, b: 0.3372549, a: 0.92156863}
     m_DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.92156863}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.3
@@ -20951,7 +20951,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.2392157, g: 0.32941177, b: 0.30980393, a: 0.92156863}
-    m_HighlightedColor: {r: 0.3705797, g: 0.4056604, b: 0.33868816, a: 0.92156863}
+    m_HighlightedColor: {r: 0.36862746, g: 0.48627454, b: 0.3372549, a: 0.92156863}
     m_PressedColor: {r: 0.36862746, g: 0.4862745, b: 0.3372549, a: 0.92156863}
     m_SelectedColor: {r: 0.36862746, g: 0.4666667, b: 0.3372549, a: 0.92156863}
     m_DisabledColor: {r: 0.36862746, g: 0.4039216, b: 0.3372549, a: 0.92156863}
@@ -22845,7 +22845,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.2392157, g: 0.32941177, b: 0.30980393, a: 0.92156863}
-    m_HighlightedColor: {r: 0.3705797, g: 0.4056604, b: 0.33868816, a: 0.92156863}
+    m_HighlightedColor: {r: 0.36862746, g: 0.48627454, b: 0.3372549, a: 0.92156863}
     m_PressedColor: {r: 0.36862746, g: 0.4862745, b: 0.3372549, a: 0.92156863}
     m_SelectedColor: {r: 0.36862746, g: 0.4666667, b: 0.3372549, a: 0.92156863}
     m_DisabledColor: {r: 0.36862746, g: 0.4039216, b: 0.3372549, a: 0.92156863}
