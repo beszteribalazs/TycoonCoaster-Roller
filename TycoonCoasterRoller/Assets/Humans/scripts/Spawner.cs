@@ -16,10 +16,6 @@ public class Spawner : MonoBehaviour
     {
         GameObject newNPC = Instantiate(visitorPrefab, pos, Quaternion.identity);
         return newNPC;
-        if (prefabParent != null) //Check if parent is set
-        {
-            //newNPC.transform.parent = prefabParent.transform; //Move into to parent gameobject
-        }
     }
 
     public GameObject SpawnMechanic(Vector3 pos){
