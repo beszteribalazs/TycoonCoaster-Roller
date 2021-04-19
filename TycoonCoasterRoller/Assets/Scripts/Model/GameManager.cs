@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour{
         this.dayCount = 0;
         this.gameIsActive = true;
         this.janitors = new List<Janitor>();
+        this.beforeSpeed = 1;
         EventManager.instance.SpeedChanged(1);
     }
 
@@ -168,13 +169,17 @@ public class GameManager : MonoBehaviour{
         else if (buildingSystem.currentMode == BuildingSystem.ClickMode.Normal){
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Destroy);
             beforeSpeed = TimeManager.instance.GameSpeed;
-            Pause();
+            this.gameIsActive = false;
+            TimeManager.instance.Paused = true;
+            EventManager.instance.SpeedChanged(0);
         }
         else if (buildingSystem.currentMode == BuildingSystem.ClickMode.Road)
         {
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Destroy);
             beforeSpeed = TimeManager.instance.GameSpeed;
-            Pause();
+            this.gameIsActive = false;
+            TimeManager.instance.Paused = true;
+            EventManager.instance.SpeedChanged(0);
         }
     }
 
@@ -235,12 +240,14 @@ public class GameManager : MonoBehaviour{
         this.gameIsActive = true;
         TimeManager.instance.Paused = false;
         EventManager.instance.SpeedChanged(1);
+        beforeSpeed = TimeManager.instance.GameSpeed;
     }
 
     public void Pause(){
         this.gameIsActive = false;
         TimeManager.instance.Paused = true;
         EventManager.instance.SpeedChanged(0);
+        beforeSpeed = TimeManager.instance.GameSpeed;
     }
 
     public void ChangeSpeed(float number){
@@ -250,6 +257,7 @@ public class GameManager : MonoBehaviour{
         }
         TimeManager.instance.GameSpeed = (int)(number * 10);
         EventManager.instance.SpeedChanged((int)number);
+        beforeSpeed = TimeManager.instance.GameSpeed;
     }
 
     public bool ChangeSelectedType(BuildingTypeSO buildingTypeSO){
