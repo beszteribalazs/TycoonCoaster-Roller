@@ -11,6 +11,14 @@ public class Employee : Person
 
     protected Employee() { }
 
+    protected override void Awake(){
+        base.Awake();
+    }
+
+    protected override void Start(){
+        base.Start();
+    }
+
     public float Salary
     {
         get => salary;

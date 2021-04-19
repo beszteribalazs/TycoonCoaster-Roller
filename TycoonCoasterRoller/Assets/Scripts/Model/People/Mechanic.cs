@@ -14,7 +14,11 @@ public class Mechanic : Employee{
         GoToBuilding(targeted);
         //}
     }
-    
+
+    protected override void Awake(){
+        base.Awake();
+    }
+
     protected override void Start(){
         base.Start();
         transform.parent = GameObject.Find("Mechanics").transform;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
@@ -50,8 +51,8 @@ public class BuildingSystem : MonoBehaviour
 
     private int lastX, lastZ;
 
-    void Awake()
-    {
+    void Awake(){
+        EventManager.instance.onModeChanged += ResetLastClickedTile;
         instance = this;
         gridWidth = MapSizeController.mapSize;
         gridHeight = MapSizeController.mapSize;
@@ -79,6 +80,11 @@ public class BuildingSystem : MonoBehaviour
                 }
             }
         }
+    }
+
+    void ResetLastClickedTile(ClickMode cm){
+        lastX = -1;
+        lastZ = -1;
     }
 
     void Start()
@@ -146,6 +152,17 @@ public class BuildingSystem : MonoBehaviour
                 {
                     currentBuildingRotation = BuildingTypeSO.GetNextDirectionRight(currentBuildingRotation);
                 }
+                
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    SetSelectedBuildingType(null);
+                }
+                
+                if (Input.GetKeyDown(KeyCode.B))
+                {
+                    SetSelectedBuildingType(null);
+                }
+                
             }
             else if (currentMode == ClickMode.Destroy)
             {
@@ -170,8 +187,22 @@ public class BuildingSystem : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(1))
                 {
-                    currentMode = ClickMode.Normal;
-                    GameManager.instance.Resume();
+                    SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchMode();
+                    EventManager.instance.ModeChanged(currentMode);
+                }
+                
+                if (Input.GetKeyUp(KeyCode.Escape))
+                {
+                    SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchMode();
+                    EventManager.instance.ModeChanged(currentMode);
+                }
+                
+                if (Input.GetKeyDown(KeyCode.B))
+                {
+                    SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchMode();
                     EventManager.instance.ModeChanged(currentMode);
                 }
             }
@@ -205,47 +236,36 @@ public class BuildingSystem : MonoBehaviour
                     EventManager.instance.MapChanged();
                 }
                 
-                if (Input.GetMouseButton(0) && selectedBuildingSO != null &&
-                    GameManager.instance.Money < selectedBuildingSO.price)
+                if (Input.GetMouseButton(0) && selectedBuildingSO != null && GameManager.instance.Money < selectedBuildingSO.price)
                 {
-                    currentMode = ClickMode.Normal;
                     SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchRoadMode();
+                    EventManager.instance.ModeChanged(currentMode);
                 }
                 
                 if (Input.GetMouseButtonDown(1))
                 {
-                    Debug.Log("JAJISTENEM");
                     SetSelectedBuildingType(null);
-                    currentMode = ClickMode.Normal;
+                    GameManager.instance.SwitchRoadMode();
+                    EventManager.instance.ModeChanged(currentMode);
+                }
+                
+                if (Input.GetKeyUp(KeyCode.Escape))
+                {
+                    SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchRoadMode();
+                    EventManager.instance.ModeChanged(currentMode);
+                }
+                
+                if (Input.GetKeyDown(KeyCode.B))
+                {
+                    SetSelectedBuildingType(null);
+                    GameManager.instance.SwitchRoadMode();
                     EventManager.instance.ModeChanged(currentMode);
                 }
             }
         }
-
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            SetSelectedBuildingType(null);
-            currentMode = ClickMode.Normal;
-            GameManager.instance.Resume();
-            EventManager.instance.ModeChanged(currentMode);
-        }
-
-        if (Input.GetKeyUp(KeyCode.B))
-        {
-            SetSelectedBuildingType(null);
-            currentMode = ClickMode.Normal;
-            EventManager.instance.ModeChanged(currentMode);
-        }
-
-        //Cycle buildings
-        /*if (Input.GetKeyDown(KeyCode.Tab)){
-            selectedBuildingSO = placableBuildings[buildingIndex];
-            EventManager.instance.SelectedBuildingChanged();
-            buildingIndex++;
-            if (buildingIndex >= placableBuildings.Count){
-                buildingIndex = 0;
-            }
-        }*/
+        
     }
 
     public void spawnTree(int x, int z)
@@ -527,6 +547,7 @@ public class BuildingSystem : MonoBehaviour
         Building clickedBuilding = clickedCell.GetBuilding();
         if (clickedBuilding != null)
         {
+            //Selling a road
             if (clickedBuilding.Type.type == BuildingTypeSO.Type.Road){
                 int posX, posZ;
                 posX = clickedCell.GetX();
@@ -549,7 +570,28 @@ public class BuildingSystem : MonoBehaviour
                     }
                 }
                 
-                Invoke(nameof(Aaaaa), 0.1f);    
+                Invoke(nameof(MapChanged), 0.1f);    
+            }
+            // Selling an attraction
+            else if (clickedBuilding.Type.type == BuildingTypeSO.Type.Attraction){
+                Attraction clicked = (Attraction) clickedBuilding;
+                if (clicked.Broke){
+                    Debug.LogError("Törött épület eladásánál errort mutatni UwU");
+                    EventManager.instance.BrokeBuildingSold();
+                }
+                else{
+                    clicked.SendOutVisitors();
+                    List<Vector2Int> destroyedCoordinates = clickedBuilding.GetGridPositionList();
+                    foreach (Vector2Int gridPos in destroyedCoordinates)
+                    {
+                        grid.GetCell(gridPos.x, gridPos.y).ClearBuilding();
+                    }
+
+                    placedBuildings.Remove(clickedBuilding);
+                    GameManager.instance.SellBuilding(clickedBuilding);
+                    clickedBuilding.Destroy();
+                    Invoke(nameof(MapChanged), 0.1f);    
+                }
             }
             else{
                 List<Vector2Int> destroyedCoordinates = clickedBuilding.GetGridPositionList();
@@ -561,12 +603,12 @@ public class BuildingSystem : MonoBehaviour
                 placedBuildings.Remove(clickedBuilding);
                 GameManager.instance.SellBuilding(clickedBuilding);
                 clickedBuilding.Destroy();
-                Invoke(nameof(Aaaaa), 0.1f);    
+                Invoke(nameof(MapChanged), 0.1f);    
             }
         }
     }
 
-    private void Aaaaa()
+    private void MapChanged()
     {
         EventManager.instance.MapChanged();
     }

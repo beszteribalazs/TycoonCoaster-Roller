@@ -92,10 +92,13 @@ public class Attraction : Building{
         _broke = true;
         brokeVisual.gameObject.SetActive(true);
         //visitorok kiküldése
+        SendOutVisitors();
+    }
+
+    public void SendOutVisitors(){
         while (peopleInside.Count > 0){
             peopleInside[0].LeaveBuilding();
         }
-        
     }
 
     public void RepairBuilding(){

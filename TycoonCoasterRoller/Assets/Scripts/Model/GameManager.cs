@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour{
     private int gameHour;
     private int gameSecond;
     private bool gameIsActive;
+    private float beforeSpeed;
     private List<Janitor> janitors;
     private float mechanicSalary;
     public int totalMechanics = 0;
@@ -158,30 +159,32 @@ public class GameManager : MonoBehaviour{
 
     public void NormalMode(){
         buildingSystem.SwitchMode(BuildingSystem.ClickMode.Normal);
-        Resume();
+        ChangeSpeed(beforeSpeed/10);
     }
 
     public void SwitchMode(){
         if (buildingSystem.currentMode == BuildingSystem.ClickMode.Destroy){
-            buildingSystem.SwitchMode(BuildingSystem.ClickMode.Normal);
-            Resume();
+            NormalMode();
         }
         else if (buildingSystem.currentMode == BuildingSystem.ClickMode.Normal){
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Destroy);
+            beforeSpeed = TimeManager.instance.GameSpeed;
+            Pause();
         }
         else if (buildingSystem.currentMode == BuildingSystem.ClickMode.Road){
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Destroy);
+            beforeSpeed = TimeManager.instance.GameSpeed;
             Pause();
         }
     }
 
     public void SwitchRoadMode(){
         if (buildingSystem.currentMode == BuildingSystem.ClickMode.Road){
-            buildingSystem.SwitchMode(BuildingSystem.ClickMode.Normal);
-            buildingSystem.SetSelectedBuildingType(null);
+            NormalMode();
         }
         else{
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Road);
+            ChangeSpeed(beforeSpeed/10);
         }
     }
 
@@ -282,4 +285,6 @@ public class GameManager : MonoBehaviour{
     }
 
     public List<Janitor> Janitors => janitors;
+
+    public float BeforeSpeed => beforeSpeed;
 }

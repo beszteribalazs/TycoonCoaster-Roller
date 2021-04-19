@@ -31,21 +31,12 @@ public class ButtonSwitch : MonoBehaviour
             twoX.interactable = true;
             threeX.interactable = true;
         }
-    }
-
-    public void RoadModeFromDestroyMode()
-    {
-        if (GameManager.instance.buildingSystem.currentMode == BuildingSystem.ClickMode.Destroy)
+        else if (clickMode == BuildingSystem.ClickMode.Road)
         {
-            GameManager.instance.NormalMode();
-        }
-    }
-    
-    public void BuyMenuFromDestroyMode()
-    {
-        if (GameManager.instance.buildingSystem.currentMode == BuildingSystem.ClickMode.Destroy)
-        {
-            GameManager.instance.NormalMode();
+            stop.interactable = true;
+            resume.interactable = true;
+            twoX.interactable = true;
+            threeX.interactable = true;
         }
     }
 }
