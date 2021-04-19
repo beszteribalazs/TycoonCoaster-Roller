@@ -100,6 +100,7 @@ public class Person : MonoBehaviour{
             agent.SetDestination(roadTarget.Position);
             //Debug.Log(targetRoad.Position);
             goingToRoad = true;
+            goingToAttraction = false;
             leaving = false;
         }
     }
@@ -147,6 +148,7 @@ public class Person : MonoBehaviour{
             grid.XZFromWorldPosition(BuildingSystem.instance.entryPoint.position + Vector3.forward * BuildingSystem.instance.CellSize, out x, out z);
         }
 
+        
         if (grid.GetCell(x, z).GetBuilding() == null){
             return reachable;
         }
