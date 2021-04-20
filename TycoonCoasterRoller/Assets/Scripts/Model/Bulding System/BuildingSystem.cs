@@ -123,18 +123,13 @@ public class BuildingSystem : MonoBehaviour
                 {
                     SetSelectedBuildingType(null);
                 }
-
+                
                 // Place building
                 if (selectedBuildingSO != null && Input.GetMouseButtonDown(0))
                 {
                     PlaceBuilding();
                 }
-
-                if (Input.GetMouseButtonUp(0))
-                {
-                    EventManager.instance.MapChanged();
-                }
-
+                
                 // Hide preview if not enough money
                 if (Input.GetMouseButtonUp(0) && selectedBuildingSO != null &&
                     GameManager.instance.Money < selectedBuildingSO.price)
@@ -538,10 +533,9 @@ public class BuildingSystem : MonoBehaviour
                 {
                     SetSelectedBuildingType(null);
                 }
-
-
-                EventManager.instance.MapChanged();
+                
                 placedBuildings.Add(placedBuilding);
+                EventManager.instance.MapChanged();
             }
         }
         catch (Exception e)
