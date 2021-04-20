@@ -103,7 +103,7 @@ public class Visitor : Person{
         }
 
         if (leaving){
-            if ((transform.position - targetPosition).magnitude <= 0.1f){
+            if ((transform.position - targetPosition).magnitude <= 1f){
                 EventManager.instance.onSpeedChanged -= ChangeSpeed;
                 EventManager.instance.onMapChanged -= DelayedRecheck;
                 GameManager.instance.CurrentVisitors--;
