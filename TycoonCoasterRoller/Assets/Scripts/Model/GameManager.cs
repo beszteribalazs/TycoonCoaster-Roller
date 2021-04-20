@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour{
     private float totalHappiness;
     private float trashLevel;
     private float trashPercentage;
-    private float totalCapacity;
     private float currentVisitors;
     private int dayCount;
     private int gameHour;
@@ -28,10 +27,18 @@ public class GameManager : MonoBehaviour{
     public int totalMechanics = 0;
     public int availableMechanics = 0;
 
+    public int storedJanitors = 0;
+
+    void Update(){
+        if (storedJanitors > 0){
+            spawner.SpawnJanitor(buildingSystem.entryPoint.position + new Vector3(1, 0, 1) * (buildingSystem.CellSize / 2));
+            storedJanitors--;
+        }
+    }
+
     private void Awake(){
         instance = this;
         mechanicSalary = 300 * 0.1f / 24 / 60;
-        EventManager.instance.onMapChanged += CalculateCapacity;
     }
 
     void Start(){
@@ -52,7 +59,7 @@ public class GameManager : MonoBehaviour{
     public void RepairAttraction(Attraction target){
         if ((target.Value * 0.1f) <= this.money){
             if (availableMechanics > 0){
-                if (NavigationManager.instance.ReachableAttractions().Contains(target)){
+                if (NavigationManager.instance.reachableAttractions.Contains(target)){
                     GameObject obj = spawner.SpawnMechanic(buildingSystem.entryPoint.position + new Vector3(1, 0, 1) * (buildingSystem.CellSize / 2));
                     Mechanic mechanic = obj.GetComponent<Mechanic>();
                     mechanic.Repair(target);
@@ -218,15 +225,15 @@ public class GameManager : MonoBehaviour{
 
         this.money -= (mechanicSalary * totalMechanics);
 
-        if (this.trashLevel > this.totalCapacity){
-            this.trashLevel = this.totalCapacity;
+        if (this.trashLevel > this.TotalCapacity){
+            this.trashLevel = this.TotalCapacity;
         }
 
-        if (this.totalCapacity == 0){
+        if (this.TotalCapacity == 0){
             this.trashPercentage = 0;
         }
         else{
-            this.trashPercentage = this.trashLevel / this.totalCapacity;
+            this.trashPercentage = this.trashLevel / this.TotalCapacity;
         }
 
         this.totalHappiness = 1f - this.trashPercentage;
@@ -285,18 +292,7 @@ public class GameManager : MonoBehaviour{
 
     public float Money => money;
 
-    public float TotalCapacity => totalCapacity;
-
-    void CalculateCapacity(){
-        totalCapacity = 0;
-        List<Attraction> reachable = NavigationManager.instance.ReachableAttractions();
-        foreach (Attraction building in buildingSystem.Attractions){
-            //Attraction attraction = (Attraction) building;
-            if (reachable.Contains(building)){
-                totalCapacity += building.Type.capacity;
-            }
-        }
-    }
+    public float TotalCapacity => NavigationManager.instance.reachableCapacity;
 
     public float CurrentVisitors{
         get => currentVisitors;

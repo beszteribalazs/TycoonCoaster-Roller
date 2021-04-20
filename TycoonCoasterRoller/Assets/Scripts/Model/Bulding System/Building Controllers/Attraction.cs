@@ -59,6 +59,7 @@ public class Attraction : Building{
     public void BreakBuilding(){
         _broke = true;
         brokeVisual.gameObject.SetActive(true);
+        EventManager.instance.MapChanged();
         //visitorok kiküldése
         SendOutVisitors();
     }

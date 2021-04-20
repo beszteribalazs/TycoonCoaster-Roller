@@ -36,11 +36,17 @@ public class Mechanic : Employee{
                 LeaveBuilding();
             }
         }
+
+        if (!IsOnNavMesh()){
+            EventManager.instance.onSpeedChanged -= ChangeSpeed;
+            GameManager.instance.availableMechanics++;
+            targeted.beingRepaired = false;
+            Destroy(gameObject);
+        }
         
         if (leaving){
-            if ((transform.position - targetPosition).magnitude <= 0.1f){
+            if ((transform.position - targetPosition).magnitude <= 1f){
                 EventManager.instance.onSpeedChanged -= ChangeSpeed;
-                //EventManager.instance.onMapChanged -= RecheckNavigationTarget;
                 GameManager.instance.availableMechanics++;
                 Destroy(gameObject);
             }

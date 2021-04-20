@@ -138,6 +138,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 848b29a87e452684ca5c4321538e7aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridPositionlist: []
+  visual: {fileID: 0}
 --- !u!1001 &7312617292538301160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -209,6 +211,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 69c6e116ab2711647b8fc70241830fab,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69c6e116ab2711647b8fc70241830fab, type: 3}

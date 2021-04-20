@@ -14,12 +14,15 @@ public class Visitor : Person{
     protected override void Awake(){
         base.Awake();
         EventManager.instance.onMapChanged += DelayedRecheck;
+        EventManager.instance.onMapChanged += CheckIfReachable;
         walkSpeedMultiplier = Random.Range(0.9f, 1.1f);
     }
 
     protected override void OnDestroy(){
         base.OnDestroy();
         EventManager.instance.onMapChanged -= DelayedRecheck;
+        EventManager.instance.onMapChanged -= CheckIfReachable;
+        GameManager.instance.CurrentVisitors--;
     }
 
     void DelayedRecheck(){
@@ -37,11 +40,8 @@ public class Visitor : Person{
 
         // if going to attraction
         if (goingToAttraction){
-            // recalculate available buildings
-            List<Attraction> reachable = CalculateReachablePositions();
-            //Debug.Log(reachable.Count);
             // if cant reach target, choose a new one
-            if (!reachable.Contains(target)){
+            if (!NavigationManager.instance.reachableAttractions.Contains(target)){
                 GoToRandomBuilding();
             }
             else{
@@ -51,16 +51,14 @@ public class Visitor : Person{
         // if going to road
         else if (goingToRoad){
             // recalculate available roads
-            CalculateReachablePositions();
-            if (!reachableRoads.Contains(roadTarget)){
+            if (!NavigationManager.instance.reachableRoads.Contains(roadTarget)){
                 GoToRandomRoad();
             }
         }
         // if going to exit
         else if (leaving){
             // recalculate available roads
-            CalculateReachablePositions();
-            if (!reachableRoads.Contains(roadTarget)){
+            if (!NavigationManager.instance.reachableRoads.Contains(roadTarget)){
                 GoToRandomRoad();
             }
         }
@@ -86,6 +84,10 @@ public class Visitor : Person{
     protected override void Update(){
         base.Update();
 
+        if (!IsOnNavMesh()){
+            Destroy(gameObject);
+        }
+        
         if (!wantsToLeave){
             if (TimeManager.instance.Tick - enteredPark >= ticksToStayInPark){
                 if (inBuilding){
@@ -106,7 +108,6 @@ public class Visitor : Person{
             if ((transform.position - targetPosition).magnitude <= 1f){
                 EventManager.instance.onSpeedChanged -= ChangeSpeed;
                 EventManager.instance.onMapChanged -= DelayedRecheck;
-                GameManager.instance.CurrentVisitors--;
                 Destroy(gameObject);
             }
         }
@@ -188,14 +189,28 @@ public class Visitor : Person{
         transform.position = BuildingSystem.instance.entryPoint.position;
     }
 
+    void CheckIfReachable(){
+        // find cell person is standing on
+        GridXZ grid = BuildingSystem.instance.grid;
+        int x;
+        int z;
+        if (transform.position.x <= grid.Width * grid.GetCellSize() && transform.position.x >= 0 && transform.position.z <= grid.Height * grid.GetCellSize() && transform.position.z >= 0){
+            grid.XZFromWorldPosition(transform.position, out x, out z);
+            Road road = (Road) grid.GetCell(x, z).GetBuilding();
+            if (road != null && !NavigationManager.instance.reachableRoads.Contains(road)){
+                if (inBuilding){
+                    LeaveBuilding();
+                }
+                Destroy(gameObject);
+            }
+        }
+    }
+    
     void GoToRandomBuilding(){
         /*int target = Random.Range(0, GameManager.instance.ReachableAttractions.Count);
         Vector3 targetPosition = GameManager.instance.ReachableAttractions[target].Position;
         agent.SetDestination(targetPosition);*/
-
-        List<Attraction> reachable = CalculateReachablePositions();
-
-        if (reachable.Count == 0){
+        if (NavigationManager.instance.reachableAttractionCount == 0){
             wantsToLeave = true;
         }
         else{
@@ -204,7 +219,7 @@ public class Visitor : Person{
 
             // choose an enterable building as target
             List<Attraction> enterable = new List<Attraction>();
-            foreach (Attraction attraction in reachable){
+            foreach (Attraction attraction in NavigationManager.instance.reachableAttractions){
                 if (attraction.CurrentVisitorCount < attraction.TotalCapacity){
                     enterable.Add(attraction);
                 }
@@ -233,7 +248,7 @@ public class Visitor : Person{
                     break;
                 }
 
-                if (reachableCells.Contains(BuildingSystem.instance.grid.GetCell(coords.x, coords.y))){
+                if (NavigationManager.instance.reachableCells.Contains(BuildingSystem.instance.grid.GetCell(coords.x, coords.y))){
                     float tmpdist = (BuildingSystem.instance.grid.GetCell(coords.x, coords.y).WorldPosition - transform.position).sqrMagnitude;
                     if (tmpdist < sqrDistance){
                         sqrDistance = tmpdist;

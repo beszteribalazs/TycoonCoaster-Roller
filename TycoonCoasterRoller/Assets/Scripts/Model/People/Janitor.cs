@@ -19,7 +19,25 @@ public class Janitor : Employee{
     protected override void Awake(){
         base.Awake();
         EventManager.instance.onMapChanged += RecheckNavigationTarget;
+        EventManager.instance.onMapChanged += CheckIfReachable;
         walkSpeedMultiplier = Random.Range(0.4f, 0.6f);
+    }
+    
+    void CheckIfReachable(){
+        // find cell person is standing on
+        GridXZ grid = BuildingSystem.instance.grid;
+        int x;
+        int z;
+        if (transform.position.x <= grid.Width * grid.GetCellSize() && transform.position.x >= 0 && transform.position.z <= grid.Height * grid.GetCellSize() && transform.position.z >= 0){
+            grid.XZFromWorldPosition(transform.position, out x, out z);
+            Road road = (Road) grid.GetCell(x, z).GetBuilding();
+            if (road != null && !NavigationManager.instance.reachableRoads.Contains(road)){
+                GameManager.instance.storedJanitors++;
+                Destroy(gameObject);
+                
+                //agent.Warp(BuildingSystem.instance.entryPoint.position);
+            }
+        }
     }
 
     void RecheckNavigationTarget(){
@@ -43,16 +61,14 @@ public class Janitor : Employee{
         // if going to road
         if (goingToRoad){
             // recalculate available roads
-            CalculateReachablePositions();
-            if (!reachableRoads.Contains(roadTarget)){
+            if (!NavigationManager.instance.reachableRoads.Contains(roadTarget)){
                 GoToRandomRoad();
             }
         }
         // if going to exit
         else if (leaving){
             // recalculate available roads
-            CalculateReachablePositions();
-            if (!reachableRoads.Contains(roadTarget)){
+            if (!NavigationManager.instance.reachableRoads.Contains(roadTarget)){
                 GoToRandomRoad();
             }
         }
@@ -64,6 +80,16 @@ public class Janitor : Employee{
     protected override void Update(){
         base.Update();
 
+        if (roadTarget == null){
+            GameManager.instance.storedJanitors++;
+            Destroy(gameObject);   
+        }
+        
+        if (!IsOnNavMesh()){
+            GameManager.instance.storedJanitors++;
+            Destroy(gameObject);
+        }
+        
         if (leaving){
             if ((transform.position - targetPosition).magnitude <= 0.1f){
                 EventManager.instance.onSpeedChanged -= ChangeSpeed;
@@ -98,8 +124,10 @@ public class Janitor : Employee{
         }
     }
 
-    void OnDestroy(){
+    protected override void OnDestroy(){
+        base.OnDestroy();
         EventManager.instance.onMapChanged -= RecheckNavigationTarget;
+        EventManager.instance.onMapChanged -= CheckIfReachable;
     }
 
     public Janitor(){
