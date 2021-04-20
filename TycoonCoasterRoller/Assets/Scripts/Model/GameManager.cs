@@ -57,7 +57,8 @@ public class GameManager : MonoBehaviour{
         this.dayCount = 0;
         this.gameIsActive = true;
         this.janitors = new List<Janitor>();
-        this.beforeSpeed = 1;
+        this.beforeSpeed = 10;
+        TimeManager.instance.GameSpeed = 10;
         EventManager.instance.SpeedChanged(1);
     }
 

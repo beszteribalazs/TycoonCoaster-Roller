@@ -24,7 +24,6 @@ public class Mechanic : Employee{
         transform.parent = GameObject.Find("Mechanics").transform;
     }
 
-
     int repairStartTick;
     bool repairing = false;
     
@@ -83,6 +82,7 @@ public class Mechanic : Employee{
         //target.peopleInside.Add(this);
         //previousBuilding = target;
         mesh.SetActive(false);
+        targeted.transform.Find("Broke").GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/buildingRepairing");
         repairing = true;
         repairStartTick = TimeManager.instance.Tick;
         //Invoke(nameof(LeaveBuilding), 3f);
@@ -92,6 +92,7 @@ public class Mechanic : Employee{
         //target.peopleInside.Remove(this);
         targeted.RepairBuilding();
         targetRepaired = true;
+        targeted.transform.Find("Broke").GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/buildingBroke");
         mesh.SetActive(true);
         //GoToRandomBuilding();
         repairing = false;
