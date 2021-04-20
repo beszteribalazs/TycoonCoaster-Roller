@@ -6,7 +6,10 @@ using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class Visitor : Person{
-
+    int ticksToStayInPark;
+    int enteredPark;
+    int minStayTick = 120;
+    int maxStayTick = 720;
 
     protected override void Awake(){
         base.Awake();
@@ -68,6 +71,8 @@ public class Visitor : Person{
 
     protected override void Start(){
         base.Start();
+        enteredPark = TimeManager.instance.Tick;
+        ticksToStayInPark = Random.Range(minStayTick, maxStayTick);
         transform.parent = GameObject.Find("Visitors").transform;
         GoToRandomBuilding();
     }
@@ -82,7 +87,13 @@ public class Visitor : Person{
     protected override void Update(){
         base.Update();
 
-
+        if (TimeManager.instance.Tick - enteredPark >= ticksToStayInPark){
+            if (inBuilding){
+                LeaveBuilding();
+            }
+            TryToLeavePark();
+        }
+        
         if (inBuilding){
             if (TimeManager.instance.Tick - enterTime >= tickToStay){
                 LeaveBuilding();
@@ -136,7 +147,8 @@ public class Visitor : Person{
         // if target is full or broke
         if (target.peopleInside.Count >= target.TotalCapacity || target.Broke){
             // go to a random road then go to a random building
-            GoToRandomRoad();
+            //GoToRandomRoad();
+            GoToRandomBuilding();
         }
         // enter building
         else{
@@ -144,10 +156,9 @@ public class Visitor : Person{
         }
     }
 
-
-
     
     void EnterBuilding(){
+        tickToStay = Random.Range(30, 181);
         goingToAttraction = false;
         target.peopleInside.Add(this);
         previousBuilding = target;
@@ -181,9 +192,26 @@ public class Visitor : Person{
             wantsToLeave = true;
         }
         else{
+            
+            
             // choose a random building as target
-            target = reachable[Random.Range(0, reachable.Count)];
+            //target = reachable[Random.Range(0, reachable.Count)];
 
+            // choose an enterable building as target
+            List<Attraction> enterable = new List<Attraction>();
+            foreach (Attraction attraction in reachable){
+                if (attraction.CurrentVisitorCount < attraction.TotalCapacity){
+                    enterable.Add(attraction);
+                }
+            }
+
+            if (enterable.Count == 0){
+                TryToLeavePark();
+                return;
+            }
+            target = enterable[Random.Range(0, enterable.Count)];
+            
+            
             // Find first cell from spawn
             int x;
             int z;

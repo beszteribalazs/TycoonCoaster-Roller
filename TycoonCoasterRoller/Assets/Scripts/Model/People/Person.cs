@@ -57,17 +57,9 @@ public class Person : MonoBehaviour{
         if (!IsOnNavMesh()){
             DestroySelf();
         }
-
         animator.speed = velocity.magnitude * 10;
-
-        Debug.DrawLine(transform.position + Vector3.up, targetPosition + Vector3.up, Color.red);
-
-        Debug.DrawLine(transform.position + Vector3.up, agent.destination + Vector3.up, Color.blue);
-
-        // 
-        /*if (goingToRoad && roadTarget == null){
-            GoToRandomRoad();
-        }*/
+        //Debug.DrawLine(transform.position + Vector3.up, targetPosition + Vector3.up, Color.red);
+        //Debug.DrawLine(transform.position + Vector3.up, agent.destination + Vector3.up, Color.blue);
     }
 
     void DestroySelf(){
@@ -136,6 +128,7 @@ public class Person : MonoBehaviour{
 
 
     protected void TryToLeavePark(){
+        wantsToLeave = true;
         // Find first cell from spawn
         int x;
         int z;
