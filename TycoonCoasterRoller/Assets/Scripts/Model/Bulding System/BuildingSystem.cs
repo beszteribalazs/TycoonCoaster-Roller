@@ -425,8 +425,8 @@ public class BuildingSystem : MonoBehaviour
                 r.roadS.SetActive(true);
                 break;
             case 17:
-                r.roadT.SetActive(true);
-                visual.transform.rotation = Quaternion.Euler(0, 90, 0);
+                r.roadX.SetActive(true);
+                //visual.transform.rotation = Quaternion.Euler(0, 90, 0);
                 break;
             case 18:
                 r.roadL.SetActive(true);

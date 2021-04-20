@@ -22,7 +22,7 @@ public class Janitor : Employee{
         EventManager.instance.onMapChanged += CheckIfReachable;
         walkSpeedMultiplier = Random.Range(0.4f, 0.6f);
     }
-    
+
     void CheckIfReachable(){
         // find cell person is standing on
         GridXZ grid = BuildingSystem.instance.grid;
@@ -30,12 +30,18 @@ public class Janitor : Employee{
         int z;
         if (transform.position.x <= grid.Width * grid.GetCellSize() && transform.position.x >= 0 && transform.position.z <= grid.Height * grid.GetCellSize() && transform.position.z >= 0){
             grid.XZFromWorldPosition(transform.position, out x, out z);
-            Road road = (Road) grid.GetCell(x, z).GetBuilding();
-            if (road != null && !NavigationManager.instance.reachableRoads.Contains(road)){
+            if (grid.GetCell(x, z).GetBuilding().Type.type == BuildingTypeSO.Type.Road){
+                Road road = (Road) grid.GetCell(x, z).GetBuilding();
+                if (road != null && !NavigationManager.instance.reachableRoads.Contains(road)){
+                    GameManager.instance.storedJanitors++;
+                    Destroy(gameObject);
+
+                    //agent.Warp(BuildingSystem.instance.entryPoint.position);
+                }
+            }
+            else{
                 GameManager.instance.storedJanitors++;
                 Destroy(gameObject);
-                
-                //agent.Warp(BuildingSystem.instance.entryPoint.position);
             }
         }
     }
@@ -73,7 +79,7 @@ public class Janitor : Employee{
             }
         }
     }
-    
+
     int tickToRetarget = 10;
     int lastRetarget = -1000;
 
@@ -82,14 +88,14 @@ public class Janitor : Employee{
 
         if (roadTarget == null){
             GameManager.instance.storedJanitors++;
-            Destroy(gameObject);   
+            Destroy(gameObject);
         }
-        
+
         if (!IsOnNavMesh()){
             GameManager.instance.storedJanitors++;
             Destroy(gameObject);
         }
-        
+
         if (leaving){
             if ((transform.position - targetPosition).magnitude <= 0.1f){
                 EventManager.instance.onSpeedChanged -= ChangeSpeed;
@@ -117,6 +123,7 @@ public class Janitor : Employee{
                             goingToRoad = false;
                             GoToRandomRoad();
                         }
+
                         lastRetarget = TimeManager.instance.Tick;
                     }
                 }
