@@ -33,6 +33,10 @@ public class BuildingSystem : MonoBehaviour
     public Transform entryPoint;
 
     List<Building> placedBuildings = new List<Building>();
+    List<Attraction> placedAttractions = new List<Attraction>();
+
+    public List<Attraction> Attractions => placedAttractions;
+    
     BuildingTypeSO selectedBuildingSO;
     BuildingTypeSO.Direction currentBuildingRotation;
 
@@ -53,7 +57,7 @@ public class BuildingSystem : MonoBehaviour
     void Awake()
     {
         EventManager.instance.onModeChanged += ResetLastClickedTile;
-        EventManager.instance.onMapChanged += EvictUnreachableBuildings;
+        //EventManager.instance.onMapChanged += EvictUnreachableBuildings;
         
         instance = this;
         gridWidth = MapSizeController.mapSize;
@@ -535,6 +539,9 @@ public class BuildingSystem : MonoBehaviour
                 }
                 
                 placedBuildings.Add(placedBuilding);
+                if (placedBuilding.Type.type == BuildingTypeSO.Type.Attraction){
+                    placedAttractions.Add((Attraction)placedBuilding);
+                }
                 EventManager.instance.MapChanged();
             }
         }
@@ -594,6 +601,7 @@ public class BuildingSystem : MonoBehaviour
                     }
 
                     placedBuildings.Remove(clickedBuilding);
+                    placedAttractions.Remove((Attraction)clickedBuilding);
                     GameManager.instance.SellBuilding(clickedBuilding);
                     clickedBuilding.Destroy();
                 }

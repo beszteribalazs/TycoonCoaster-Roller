@@ -28,19 +28,6 @@ public class GameManager : MonoBehaviour{
     public int totalMechanics = 0;
     public int availableMechanics = 0;
 
-    public List<Attraction> Attractions{
-        get{
-            List<Attraction> list = new List<Attraction>();
-            foreach (Building building in buildingSystem.Buildings){
-                if (building.Type.type == BuildingTypeSO.Type.Attraction){
-                    list.Add((Attraction) building);
-                }
-            }
-
-            return list;
-        }
-    }
-
     private void Awake(){
         instance = this;
         mechanicSalary = 300 * 0.1f / 24 / 60;
@@ -71,7 +58,7 @@ public class GameManager : MonoBehaviour{
                     mechanic.Repair(target);
                     target.beingRepaired = true;
                     availableMechanics--;
-                    this.money = this.money - (target.Value * 0.1f);    
+                    this.money = this.money - (target.Value * 0.1f);
                 }
                 else{
                     EventManager.instance.NoPathToBuilding();
@@ -302,12 +289,11 @@ public class GameManager : MonoBehaviour{
 
     void CalculateCapacity(){
         totalCapacity = 0;
-        foreach (Building building in buildingSystem.Buildings){
-            if (building.Type.type == BuildingTypeSO.Type.Attraction){
-                Attraction attraction = (Attraction) building;
-                if (NavigationManager.instance.ReachableAttractions().Contains(attraction)){
-                    totalCapacity += attraction.Type.capacity;
-                }
+        List<Attraction> reachable = NavigationManager.instance.ReachableAttractions();
+        foreach (Attraction building in buildingSystem.Attractions){
+            //Attraction attraction = (Attraction) building;
+            if (reachable.Contains(building)){
+                totalCapacity += building.Type.capacity;
             }
         }
     }
