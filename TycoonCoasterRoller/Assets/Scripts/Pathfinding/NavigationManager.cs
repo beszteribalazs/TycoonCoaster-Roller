@@ -33,8 +33,7 @@ public class NavigationManager : MonoBehaviour{
         }
     }
 
-    public bool IsTargetReachable(Attraction target){
-        
+    public List<Attraction> ReachableAttractions(){
 
         List<Attraction> reachable = new List<Attraction>();
         //reachableCells = new List<Cell>();
@@ -47,6 +46,11 @@ public class NavigationManager : MonoBehaviour{
         // Find first cell from spawn
         grid.XZFromWorldPosition(BuildingSystem.instance.entryPoint.position + Vector3.forward * BuildingSystem.instance.CellSize, out x, out z);
         
+        // if first cell is empty, nothing is reachable
+        if (grid.GetCell(x, z).GetBuilding() == null){
+            //return false;
+            return reachable;
+        }
         
         // if first cell is building, only this building is reachable
         if (grid.GetCell(x, z).GetBuilding().Type.type == BuildingTypeSO.Type.Attraction){
@@ -113,6 +117,7 @@ public class NavigationManager : MonoBehaviour{
                 }
             }
         }
-        return reachable.Contains(target);
+        //return reachable.Contains(target);
+        return reachable;
     }
 }

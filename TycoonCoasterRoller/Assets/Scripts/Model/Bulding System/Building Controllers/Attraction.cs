@@ -69,6 +69,12 @@ public class Attraction : Building{
         }
     }
 
+    public void EjectVisitors(){
+        while (peopleInside.Count > 0){
+            peopleInside[0].EjectBuilding();
+        }
+    }
+
     public void RepairBuilding(){
         _broke = false;
         brokeVisual.gameObject.SetActive(false);

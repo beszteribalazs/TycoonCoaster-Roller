@@ -14,6 +14,11 @@ public class Visitor : Person{
         walkSpeedMultiplier = Random.Range(0.9f, 1.1f);
     }
 
+    protected override void OnDestroy(){
+        base.OnDestroy();
+        EventManager.instance.onMapChanged -= DelayedRecheck;
+    }
+
     void DelayedRecheck(){
         Invoke(nameof(RecheckNavigationTarget), 0.1f);
     }
@@ -71,15 +76,11 @@ public class Visitor : Person{
     int tickToStay = 30;
     int enterTime;
     
+    
+    int tickToRetarget = 10;
+    int lastRetarget = -1000;
     protected override void Update(){
         base.Update();
-        /*if (Input.GetKeyDown(KeyCode.C)){
-            agent.SetDestination(GetMouseWorldPosition());
-        }*/
-
-        /*if (Input.GetKeyDown(KeyCode.V)){
-            GoToRandomBuilding();
-        }*/
 
 
         if (inBuilding){
@@ -118,9 +119,12 @@ public class Visitor : Person{
                 }
 
                 if (goingToRoad){
-                    if ((transform.position - targetPosition).magnitude <= visitDistance){
-                        goingToRoad = false;
-                        GoToRandomBuilding();
+                    if (TimeManager.instance.Tick - lastRetarget >= tickToRetarget){
+                        if ((transform.position - targetPosition).magnitude <= visitDistance){
+                            goingToRoad = false;
+                            GoToRandomRoad();
+                        }
+                        lastRetarget = TimeManager.instance.Tick;
                     }
                 }
             }
@@ -158,6 +162,12 @@ public class Visitor : Person{
         target.peopleInside.Remove(this);
         mesh.SetActive(true);
         GoToRandomBuilding();
+    }
+
+    public void EjectBuilding(){
+        LeaveBuilding();
+        TryToLeavePark();
+        transform.position = BuildingSystem.instance.entryPoint.position;
     }
 
     void GoToRandomBuilding(){

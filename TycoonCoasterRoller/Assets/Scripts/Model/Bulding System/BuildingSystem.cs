@@ -53,6 +53,8 @@ public class BuildingSystem : MonoBehaviour
     void Awake()
     {
         EventManager.instance.onModeChanged += ResetLastClickedTile;
+        EventManager.instance.onMapChanged += EvictUnreachableBuildings;
+        
         instance = this;
         gridWidth = MapSizeController.mapSize;
         gridHeight = MapSizeController.mapSize;
@@ -262,6 +264,18 @@ public class BuildingSystem : MonoBehaviour
                     SetSelectedBuildingType(null);
                     GameManager.instance.SwitchRoadMode();
                     EventManager.instance.ModeChanged(currentMode);
+                }
+            }
+        }
+    }
+
+    void EvictUnreachableBuildings(){
+        List<Attraction> reachable = NavigationManager.instance.ReachableAttractions();
+        foreach (Building building in placedBuildings){
+            if (building.Type.type == BuildingTypeSO.Type.Attraction){
+                Attraction attraction = (Attraction) building;
+                if (!reachable.Contains(attraction)){
+                    attraction.EjectVisitors();
                 }
             }
         }

@@ -24,13 +24,17 @@ public class Person : MonoBehaviour{
     protected Animator animator;
     protected float walkSpeedMultiplier;
     protected Attraction previousBuilding = null;
-    
+
     protected virtual void Awake(){
         mesh = transform.Find("human_mesh").gameObject;
         agent = GetComponent<NavMeshAgent>();
         EventManager.instance.onSpeedChanged += ChangeSpeed;
         animator = GetComponent<Animator>();
         walkSpeedMultiplier = 1f;
+    }
+
+    protected virtual void OnDestroy(){
+        EventManager.instance.onSpeedChanged -= ChangeSpeed;
     }
 
     protected virtual void Start(){
@@ -40,22 +44,45 @@ public class Person : MonoBehaviour{
         ChangeSpeed(TimeManager.instance.GameSpeed / 10);
     }
 
-    protected virtual void Update(){
+    public bool onNavmesh;
 
+    protected virtual void Update(){
         // Rotate visitor in direction of movement
         if (velocity != Vector3.zero){
             Quaternion newRotation = Quaternion.Euler(0, 90, 0) * Quaternion.LookRotation(velocity, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, Time.deltaTime * 720);
         }
-        
-        //Debug.DrawLine(transform.position + Vector3.up, targetPosition + Vector3.up, Color.red);
-        
-        //Debug.DrawLine(transform.position + Vector3.up, agent.destination + Vector3.up, Color.blue);
-        
-        // 
-        if (goingToRoad && roadTarget == null){
-            GoToRandomRoad();
+
+        onNavmesh = IsOnNavMesh();
+        if (!IsOnNavMesh()){
+            DestroySelf();
         }
+
+        animator.speed = velocity.magnitude * 10;
+
+        Debug.DrawLine(transform.position + Vector3.up, targetPosition + Vector3.up, Color.red);
+
+        Debug.DrawLine(transform.position + Vector3.up, agent.destination + Vector3.up, Color.blue);
+
+        // 
+        /*if (goingToRoad && roadTarget == null){
+            GoToRandomRoad();
+        }*/
+    }
+
+    void DestroySelf(){
+        GameManager.instance.CurrentVisitors--;
+        Destroy(gameObject);
+    }
+    
+    bool IsOnNavMesh(){
+        NavMeshHit hit;
+
+        if (NavMesh.SamplePosition(transform.position, out hit, 2, NavMesh.AllAreas)){
+            return true;
+        }
+
+        return false;
     }
 
     protected Vector3 velocity;
@@ -65,7 +92,7 @@ public class Person : MonoBehaviour{
         velocity = transform.position - lastFramePosition;
         lastFramePosition = transform.position;
     }
-    
+
     protected void GoToBuilding(Attraction targetBuilding){
         List<Attraction> reachable = CalculateReachablePositions();
 
@@ -156,25 +183,31 @@ public class Person : MonoBehaviour{
             goingToAttraction = false;
             leaving = false;
         }
+        else{
+            targetPosition = BuildingSystem.instance.entryPoint.position + new Vector3(1, 0, 1) * BuildingSystem.instance.CellSize;
+            goingToRoad = true;
+            goingToAttraction = false;
+            leaving = false;
+        }
     }
 
     protected void ChangeSpeed(int multiplier){
         switch (multiplier){
             case 0:
                 agent.speed = 0;
-                animator.speed = 0;
+                //animator.speed = 0;
                 break;
             case 1:
                 agent.speed = 10 * walkSpeedMultiplier;
-                animator.speed = 1 * walkSpeedMultiplier;
+                //animator.speed = 1 * walkSpeedMultiplier;
                 break;
             case 2:
                 agent.speed = 20 * walkSpeedMultiplier;
-                animator.speed = 2 * walkSpeedMultiplier;
+                //animator.speed = 2 * walkSpeedMultiplier;
                 break;
             case 3:
                 agent.speed = 30 * walkSpeedMultiplier;
-                animator.speed = 3 * walkSpeedMultiplier;
+                //animator.speed = 3 * walkSpeedMultiplier;
                 break;
             default:
                 Debug.LogError("Wrong game speed multiplier! -> " + multiplier);
@@ -201,7 +234,7 @@ public class Person : MonoBehaviour{
             grid.XZFromWorldPosition(BuildingSystem.instance.entryPoint.position + Vector3.forward * BuildingSystem.instance.CellSize, out x, out z);
         }
 
-        
+
         if (grid.GetCell(x, z).GetBuilding() == null){
             return reachable;
         }
@@ -234,7 +267,7 @@ public class Person : MonoBehaviour{
                 // except if it was the previous building
                 if (currentCell.GetBuilding().Type.type == BuildingTypeSO.Type.Attraction){
                     if (previousBuilding != currentCell.GetBuilding()){
-                    reachable.Add((Attraction) currentCell.GetBuilding());
+                        reachable.Add((Attraction) currentCell.GetBuilding());
                     }
 
                     reachableCells.Add(currentCell);

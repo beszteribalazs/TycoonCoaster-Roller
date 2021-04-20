@@ -5,9 +5,9 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Janitor : Employee{
-
     protected override void Start(){
         base.Start();
+        transform.parent = GameObject.Find("Janitors").transform;
         GoToRandomRoad();
     }
 
@@ -23,8 +23,6 @@ public class Janitor : Employee{
     }
 
     void RecheckNavigationTarget(){
-
-
         int x, z;
         BuildingSystem.instance.grid.XZFromWorldPosition(transform.position, out x, out z);
         if (BuildingSystem.instance.grid.GetCell(x, z) == null){
@@ -32,7 +30,16 @@ public class Janitor : Employee{
             RecheckNavigationTarget();
             return;
         }
-        
+
+        //if on spawn go to random road
+        int firstX, firstZ;
+        BuildingSystem.instance.grid.XZFromWorldPosition(BuildingSystem.instance.entryPoint.position + Vector3.forward * BuildingSystem.instance.CellSize, out firstX, out firstZ);
+        if (!wantsToLeave){
+            if (x == firstX && z == firstZ){
+                GoToRandomRoad();
+            }
+        }
+
         // if going to road
         if (goingToRoad){
             // recalculate available roads
@@ -51,6 +58,9 @@ public class Janitor : Employee{
         }
     }
     
+    int tickToRetarget = 10;
+    int lastRetarget = -1000;
+
     protected override void Update(){
         base.Update();
 
@@ -76,9 +86,12 @@ public class Janitor : Employee{
             }
             else{
                 if (goingToRoad){
-                    if ((transform.position - targetPosition).magnitude <= visitDistance){
-                        goingToRoad = false;
-                        GoToRandomRoad();
+                    if (TimeManager.instance.Tick - lastRetarget >= tickToRetarget){
+                        if ((transform.position - targetPosition).magnitude <= visitDistance){
+                            goingToRoad = false;
+                            GoToRandomRoad();
+                        }
+                        lastRetarget = TimeManager.instance.Tick;
                     }
                 }
             }
