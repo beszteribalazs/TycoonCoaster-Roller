@@ -198,6 +198,7 @@ public class GameManager : MonoBehaviour{
     public void SwitchRoadMode(){
         if (buildingSystem.currentMode == BuildingSystem.ClickMode.Road){
             NormalMode();
+            ResetSelectedBuilding();
         }
         else{
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Road);
