@@ -30,13 +30,19 @@ public class Janitor : Employee{
         int z;
         if (transform.position.x <= grid.Width * grid.GetCellSize() && transform.position.x >= 0 && transform.position.z <= grid.Height * grid.GetCellSize() && transform.position.z >= 0){
             grid.XZFromWorldPosition(transform.position, out x, out z);
-            if (grid.GetCell(x, z).GetBuilding().Type.type == BuildingTypeSO.Type.Road){
-                Road road = (Road) grid.GetCell(x, z).GetBuilding();
-                if (road != null && !NavigationManager.instance.reachableRoads.Contains(road)){
+            if (grid.GetCell(x, z) != null && grid.GetCell(x,z).GetBuilding() != null){
+                if (grid.GetCell(x, z).GetBuilding().Type.type == BuildingTypeSO.Type.Road){
+                    Road road = (Road) grid.GetCell(x, z).GetBuilding();
+                    if (road != null && !NavigationManager.instance.reachableRoads.Contains(road)){
+                        GameManager.instance.storedJanitors++;
+                        Destroy(gameObject);
+
+                        //agent.Warp(BuildingSystem.instance.entryPoint.position);
+                    }
+                }
+                else{
                     GameManager.instance.storedJanitors++;
                     Destroy(gameObject);
-
-                    //agent.Warp(BuildingSystem.instance.entryPoint.position);
                 }
             }
             else{
