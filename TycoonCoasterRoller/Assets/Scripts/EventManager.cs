@@ -42,12 +42,13 @@ public class EventManager : MonoBehaviour{
     }
     
     public event Action onNoMoney;
-
     public void NoMoney()
     {
         onNoMoney?.Invoke();
     }
 
-
-
+    public event Action onNoPathToBuilding;
+    public void NoPathToBuilding(){
+        onNoPathToBuilding?.Invoke();
+    }
 }
