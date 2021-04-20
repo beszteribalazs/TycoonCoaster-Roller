@@ -27,13 +27,13 @@ public class Visitor : Person{
     }
 
     void RecheckNavigationTarget(){
-        int x, z;
+        /*int x, z;
         BuildingSystem.instance.grid.XZFromWorldPosition(transform.position, out x, out z);
         if (BuildingSystem.instance.grid.GetCell(x, z) == null){
             transform.position = BuildingSystem.instance.entryPoint.position + Vector3.one * BuildingSystem.instance.grid.GetCellSize();
             RecheckNavigationTarget();
             return;
-        }
+        }*/
 
         // if going to attraction
         if (goingToAttraction){

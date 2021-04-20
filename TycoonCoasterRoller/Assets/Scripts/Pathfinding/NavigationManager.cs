@@ -20,6 +20,11 @@ public class NavigationManager : MonoBehaviour{
         EventManager.instance.onMapChanged += RebakeMap;
         spawner = GetComponent<Spawner>();
         RebakeMap();
+
+        surface.overrideVoxelSize = true;
+        surface.voxelSize = 0.25f;
+        surface.overrideTileSize = true;
+        surface.tileSize = 64;
     }
 
     private void RebakeMap(){
