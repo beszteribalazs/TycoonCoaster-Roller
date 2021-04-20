@@ -25,10 +25,8 @@ public class Visitor : Person{
     void DelayedRecheck(){
         Invoke(nameof(RecheckNavigationTarget), 0.1f);
     }
-    
+
     void RecheckNavigationTarget(){
-
-
         int x, z;
         BuildingSystem.instance.grid.XZFromWorldPosition(transform.position, out x, out z);
         if (BuildingSystem.instance.grid.GetCell(x, z) == null){
@@ -36,7 +34,7 @@ public class Visitor : Person{
             RecheckNavigationTarget();
             return;
         }
-        
+
         // if going to attraction
         if (goingToAttraction){
             // recalculate available buildings
@@ -80,20 +78,24 @@ public class Visitor : Person{
     bool inBuilding = false;
     int tickToStay = 30;
     int enterTime;
-    
-    
+
+
     int tickToRetarget = 10;
     int lastRetarget = -1000;
+
     protected override void Update(){
         base.Update();
 
-        if (TimeManager.instance.Tick - enteredPark >= ticksToStayInPark){
-            if (inBuilding){
-                LeaveBuilding();
-            }
-            TryToLeavePark();
+        if (!wantsToLeave){
+            if (TimeManager.instance.Tick - enteredPark >= ticksToStayInPark){
+                if (inBuilding){
+                    LeaveBuilding();
+                }
+                TryToLeavePark();
+            }    
         }
         
+
         if (inBuilding){
             if (TimeManager.instance.Tick - enterTime >= tickToStay){
                 LeaveBuilding();
@@ -109,9 +111,13 @@ public class Visitor : Person{
             }
         }
         else if (goingToRoad && wantsToLeave){
-            if ((transform.position - targetPosition).magnitude <= visitDistance){
-                goingToRoad = false;
-                TryToLeavePark();
+            if (TimeManager.instance.Tick - lastRetarget >= tickToRetarget){
+                if ((transform.position - targetPosition).magnitude <= visitDistance){
+                    goingToRoad = false;
+                    TryToLeavePark();
+                }
+
+                lastRetarget = TimeManager.instance.Tick;
             }
         }
         else{
@@ -135,6 +141,7 @@ public class Visitor : Person{
                             goingToRoad = false;
                             GoToRandomRoad();
                         }
+
                         lastRetarget = TimeManager.instance.Tick;
                     }
                 }
@@ -156,7 +163,7 @@ public class Visitor : Person{
         }
     }
 
-    
+
     void EnterBuilding(){
         tickToStay = Random.Range(30, 181);
         goingToAttraction = false;
@@ -192,8 +199,6 @@ public class Visitor : Person{
             wantsToLeave = true;
         }
         else{
-            
-            
             // choose a random building as target
             //target = reachable[Random.Range(0, reachable.Count)];
 
@@ -209,9 +214,10 @@ public class Visitor : Person{
                 TryToLeavePark();
                 return;
             }
+
             target = enterable[Random.Range(0, enterable.Count)];
-            
-            
+
+
             // Find first cell from spawn
             int x;
             int z;
