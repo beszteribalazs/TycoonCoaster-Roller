@@ -1,5 +1,8 @@
 ﻿using System;
 
-public class MouseOutOfMapException : Exception{
-    public MouseOutOfMapException(string message) : base(message){ }
+public class MouseOutOfMapException : Exception
+{
+    public MouseOutOfMapException(string message) : base(message)
+    {
+    }
 }
