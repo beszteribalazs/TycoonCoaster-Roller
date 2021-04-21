@@ -14,7 +14,29 @@ public class Mechanic : Employee{
 
     protected override void Awake(){
         base.Awake();
+        EventManager.instance.onMapChanged += DelayedRecheck;
     }
+
+    void DelayedRecheck(){
+        Invoke(nameof(CheckIfReachable), 0.1f);
+    }
+
+
+    void CheckIfReachable(){
+        // find cell person is standing on
+        GridXZ grid = BuildingSystem.instance.grid;
+        int x;
+        int z;
+        if (transform.position.x <= grid.Width * grid.GetCellSize() && transform.position.x >= 0 &&
+            transform.position.z <= grid.Height * grid.GetCellSize() && transform.position.z >= 0){
+            grid.XZFromWorldPosition(transform.position, out x, out z);
+            Road road = (Road) grid.GetCell(x, z).GetBuilding();
+            if (road != null && !NavigationManager.instance.reachableRoads.Contains(road)){
+                Destroy(gameObject);
+            }
+        }
+    }
+
 
     protected override void Start(){
         base.Start();
@@ -28,9 +50,12 @@ public class Mechanic : Employee{
 
     protected override void OnDestroy(){
         base.OnDestroy();
+        GameManager.instance.availableMechanics++;
+        EventManager.instance.onMapChanged -= DelayedRecheck;
         if (!targetRepaired){
             GameManager.instance.Money += targeted.Value * 0.1f;
             targeted.transform.Find("Broke").GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/buildingBroke");
+            targeted.beingRepaired = false;
         }
     }
 
@@ -45,7 +70,7 @@ public class Mechanic : Employee{
 
         if (!IsOnNavMesh()){
             EventManager.instance.onSpeedChanged -= ChangeSpeed;
-            GameManager.instance.availableMechanics++;
+            //GameManager.instance.availableMechanics++;
             targeted.beingRepaired = false;
             Destroy(gameObject);
         }
@@ -53,7 +78,7 @@ public class Mechanic : Employee{
         if (leaving){
             if ((transform.position - targetPosition).magnitude <= 1f){
                 EventManager.instance.onSpeedChanged -= ChangeSpeed;
-                GameManager.instance.availableMechanics++;
+                //GameManager.instance.availableMechanics++;
                 Destroy(gameObject);
             }
         }

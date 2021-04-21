@@ -31,8 +31,7 @@ public abstract class Building : MonoBehaviour{
         Destroy(this.gameObject);
     }
 
-    public static Building SpawnBuilding(Vector3 worldPosition, Vector2Int gridOrigin,
-        BuildingTypeSO.Direction buildingDirection, BuildingTypeSO buildingType, List<Vector2Int> posList){
+    public static Building SpawnBuilding(Vector3 worldPosition, Vector2Int gridOrigin, BuildingTypeSO.Direction buildingDirection, BuildingTypeSO buildingType, List<Vector2Int> posList){
         Quaternion worldRotation = Quaternion.Euler(0, buildingType.GetRotationAngle(buildingDirection), 0);
         Transform spawnedBuildingTransform = Instantiate(buildingType.prefab, worldPosition, worldRotation);
         Building spawnedBuilding = spawnedBuildingTransform.GetComponent<Building>();
