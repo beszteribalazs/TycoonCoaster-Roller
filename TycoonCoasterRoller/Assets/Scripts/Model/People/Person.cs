@@ -155,7 +155,7 @@ public class Person : MonoBehaviour{
         if (NavigationManager.instance.reachableRoads.Count > 0){
             roadTarget = NavigationManager.instance.reachableRoads[Random.Range(0, NavigationManager.instance.reachableRoads.Count)];
             targetPosition = roadTarget.Position;
-            agent.SetDestination(roadTarget.Position);
+            agent.SetDestination(targetPosition);
             //Debug.Log(targetRoad.Position);
             goingToRoad = true;
             goingToAttraction = false;

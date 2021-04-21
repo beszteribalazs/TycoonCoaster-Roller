@@ -14,19 +14,25 @@ public class Visitor : Person{
     protected override void Awake(){
         base.Awake();
         EventManager.instance.onMapChanged += DelayedRecheck;
-        EventManager.instance.onMapChanged += CheckIfReachable;
+
         walkSpeedMultiplier = Random.Range(0.9f, 1.1f);
     }
 
     protected override void OnDestroy(){
         base.OnDestroy();
         EventManager.instance.onMapChanged -= DelayedRecheck;
-        EventManager.instance.onMapChanged -= CheckIfReachable;
+
         GameManager.instance.CurrentVisitors--;
+        if (inBuilding){
+            inBuilding = false;
+            target.peopleInside.Remove(this);
+            mesh.SetActive(true);
+        }
     }
 
     void DelayedRecheck(){
         Invoke(nameof(RecheckNavigationTarget), 0.1f);
+        Invoke(nameof(CheckIfReachable), 0.1f);
     }
 
     void RecheckNavigationTarget(){
@@ -87,16 +93,17 @@ public class Visitor : Person{
         if (!IsOnNavMesh()){
             Destroy(gameObject);
         }
-        
+
         if (!wantsToLeave){
             if (TimeManager.instance.Tick - enteredPark >= ticksToStayInPark){
                 if (inBuilding){
                     LeaveBuilding();
                 }
+
                 TryToLeavePark();
-            }    
+            }
         }
-        
+
 
         if (inBuilding){
             if (TimeManager.instance.Tick - enterTime >= tickToStay){
@@ -201,11 +208,12 @@ public class Visitor : Person{
                 if (inBuilding){
                     LeaveBuilding();
                 }
+
                 Destroy(gameObject);
             }
         }
     }
-    
+
     void GoToRandomBuilding(){
         /*int target = Random.Range(0, GameManager.instance.ReachableAttractions.Count);
         Vector3 targetPosition = GameManager.instance.ReachableAttractions[target].Position;
@@ -220,7 +228,7 @@ public class Visitor : Person{
             // choose an enterable building as target
             List<Attraction> enterable = new List<Attraction>();
             foreach (Attraction attraction in NavigationManager.instance.reachableAttractions){
-                if (attraction.CurrentVisitorCount < attraction.TotalCapacity){
+                if (attraction.CurrentVisitorCount < attraction.TotalCapacity && attraction != previousBuilding){
                     enterable.Add(attraction);
                 }
             }

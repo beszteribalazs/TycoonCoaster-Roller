@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class Janitor : Employee{
@@ -113,9 +114,14 @@ public class Janitor : Employee{
     int tickToRetarget = 10;
     int lastRetarget = -1000;
 
+    public Vector3 navDestination;
+    
     protected override void Update(){
         base.Update();
 
+
+        navDestination = agent.destination;
+        
         /*if (roadTarget == null){
             agent.Warp(BuildingSystem.instance.entryPoint.position + new Vector3(1, 0, 1) * BuildingSystem.instance.CellSize / 2);
             GoToRandomRoad();

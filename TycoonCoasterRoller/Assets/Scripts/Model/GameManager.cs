@@ -219,12 +219,20 @@ public class GameManager : MonoBehaviour{
             }
         }
 
-        foreach (Janitor janitor in this.janitors){
-            this.money -= janitor.Salary;
-        }
+        
 
         this.money -= (mechanicSalary * totalMechanics);
 
+        //Calculate trash level
+
+        trashLevel += currentVisitors * 0.2f / 24f / 60f;
+
+        foreach (Janitor janitor in this.janitors){
+            this.money -= janitor.Salary;
+            trashLevel -= 0.2f / 24f / 60f * 15;
+        }
+        
+        
         if (this.trashLevel > this.TotalCapacity){
             this.trashLevel = this.TotalCapacity;
         }

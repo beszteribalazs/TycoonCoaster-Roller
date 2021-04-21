@@ -67,9 +67,11 @@ public class Attraction : Building{
     }
 
     public void SendOutVisitors(){
+        //Debug.Log(peopleInside.Count);
         while (peopleInside.Count > 0){
             peopleInside[0].LeaveBuilding();
         }
+        //Debug.Log(peopleInside.Count);
     }
 
     public void EjectVisitors(){
