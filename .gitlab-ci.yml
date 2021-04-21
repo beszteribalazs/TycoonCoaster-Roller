@@ -81,11 +81,11 @@ build-StandaloneLinux64:
   variables:
     BUILD_TARGET: StandaloneLinux64
 
-build-StandaloneOSX:
-  <<: *build
-  image: $IMAGE:$UNITY_VERSION-mac-mono-$IMAGE_VERSION
-  variables:
-    BUILD_TARGET: StandaloneOSX
+#build-StandaloneOSX:
+#  <<: *build
+#  image: $IMAGE:$UNITY_VERSION-mac-mono-$IMAGE_VERSION
+#  variables:
+#    BUILD_TARGET: StandaloneOSX
 
 build-StandaloneWindows64:
   <<: *build
@@ -93,11 +93,11 @@ build-StandaloneWindows64:
   variables:
     BUILD_TARGET: StandaloneWindows64
 
-build-WebGL:
-  <<: *build
-  image: $IMAGE:$UNITY_VERSION-webgl-$IMAGE_VERSION
-  variables:
-    BUILD_TARGET: WebGL
+#build-WebGL:
+#  <<: *build
+#  image: $IMAGE:$UNITY_VERSION-webgl-$IMAGE_VERSION
+#  variables:
+#    BUILD_TARGET: WebGL
 
 workflow:
   rules:
