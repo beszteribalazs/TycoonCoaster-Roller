@@ -33,6 +33,10 @@ public class BuildingSystem : MonoBehaviour
     public Transform entryPoint;
 
     List<Building> placedBuildings = new List<Building>();
+    List<Attraction> placedAttractions = new List<Attraction>();
+
+    public List<Attraction> Attractions => placedAttractions;
+    
     BuildingTypeSO selectedBuildingSO;
     BuildingTypeSO.Direction currentBuildingRotation;
 
@@ -53,6 +57,8 @@ public class BuildingSystem : MonoBehaviour
     void Awake()
     {
         EventManager.instance.onModeChanged += ResetLastClickedTile;
+        //EventManager.instance.onMapChanged += EvictUnreachableBuildings;
+        
         instance = this;
         gridWidth = MapSizeController.mapSize;
         gridHeight = MapSizeController.mapSize;
@@ -121,18 +127,13 @@ public class BuildingSystem : MonoBehaviour
                 {
                     SetSelectedBuildingType(null);
                 }
-
+                
                 // Place building
                 if (selectedBuildingSO != null && Input.GetMouseButtonDown(0))
                 {
                     PlaceBuilding();
                 }
-
-                if (Input.GetMouseButtonUp(0))
-                {
-                    EventManager.instance.MapChanged();
-                }
-
+                
                 // Hide preview if not enough money
                 if (Input.GetMouseButtonUp(0) && selectedBuildingSO != null &&
                     GameManager.instance.Money < selectedBuildingSO.price)
@@ -181,6 +182,10 @@ public class BuildingSystem : MonoBehaviour
                     }
                 }
 
+                if (Input.GetMouseButtonUp(0)){
+                    ResetLastClickedTile(ClickMode.Destroy);
+                }
+                
                 if (Input.GetMouseButtonDown(1))
                 {
                     SetSelectedBuildingType(null);
@@ -210,6 +215,7 @@ public class BuildingSystem : MonoBehaviour
                     int x, z;
                     grid.XZFromWorldPosition(GetMouseWorldPosition(), out x, out z);
                     if (grid.GetCell(x, z) == null) return;
+                    if (grid.GetCell(x, z).GetBuilding() != null) return;
                     if ((lastX != x) || (lastZ != z))
                     {
                         if (grid.GetCell(x, z).GetBuilding() == null)
@@ -262,6 +268,17 @@ public class BuildingSystem : MonoBehaviour
                     SetSelectedBuildingType(null);
                     GameManager.instance.SwitchRoadMode();
                     EventManager.instance.ModeChanged(currentMode);
+                }
+            }
+        }
+    }
+
+    void EvictUnreachableBuildings(){
+        foreach (Building building in placedBuildings){
+            if (building.Type.type == BuildingTypeSO.Type.Attraction){
+                Attraction attraction = (Attraction) building;
+                if (!NavigationManager.instance.reachableAttractions.Contains(attraction)){
+                    attraction.EjectVisitors();
                 }
             }
         }
@@ -332,97 +349,143 @@ public class BuildingSystem : MonoBehaviour
     void UpdateRoad(int x, int z)
     {
         if (grid.GetCell(x, z) == null) return;
+        Road r = (Road) grid.GetCell(x, z).GetBuilding();
+        if (r == null){
+            r = ChangeRoadDirection(roadX, BuildingTypeSO.Direction.Down, x, z);
+        }
+
+        GameObject visual = r.visual.Find("visual").gameObject;
+        r.roadS.SetActive(false);
+        r.roadL.SetActive(false);
+        r.roadT.SetActive(false);
+        r.roadX.SetActive(false);
+        visual.transform.rotation = Quaternion.Euler(0, 0, 0);
+        
         switch (grid.GetCell(x, z).AdjacentRoads)
         {
             case 0:
-                ChangeRoadDirection(roadX, BuildingTypeSO.Direction.Down, x, z);
+                r.roadX.SetActive(true);
                 break;
             case 1:
-                ChangeRoadDirection(roadStraight, BuildingTypeSO.Direction.Down, x, z);
+                r.roadS.SetActive(true);
                 break;
             case 2:
-                ChangeRoadDirection(roadStraight, BuildingTypeSO.Direction.Right, x, z);
+                r.roadS.SetActive(true);
+                visual.transform.rotation = Quaternion.Euler(0, 90, 0);
                 break;
             case 3:
-                ChangeRoadDirection(roadStraight, BuildingTypeSO.Direction.Down, x, z);
+                r.roadS.SetActive(true);
                 break;
             case 4:
-                ChangeRoadDirection(roadStraight, BuildingTypeSO.Direction.Right, x, z);
+                r.roadS.SetActive(true);
+                visual.transform.rotation = Quaternion.Euler(0, 90, 0);
                 break;
             case 5:
-                ChangeRoadDirection(roadTurn, BuildingTypeSO.Direction.Right, x, z);
+                r.roadL.SetActive(true);
+                visual.transform.rotation = Quaternion.Euler(0, 90, 0);
                 break;
             case 6:
-                ChangeRoadDirection(roadTurn, BuildingTypeSO.Direction.Down, x, z);
+                r.roadL.SetActive(true);
+                visual.transform.rotation = Quaternion.Euler(0, 180, 0);
                 break;
             case 7:
-                ChangeRoadDirection(roadTurn, BuildingTypeSO.Direction.Left, x, z);
+                r.roadL.SetActive(true);
+                visual.transform.rotation = Quaternion.Euler(0, -90, 0);
                 break;
             case 8:
-                ChangeRoadDirection(roadTurn, BuildingTypeSO.Direction.Up, x, z);
+                r.roadL.SetActive(true);
+                //visual.transform.rotation = Quaternion.Euler(0, 180, 0);
                 break;
             case 9:
-                ChangeRoadDirection(roadStraight, BuildingTypeSO.Direction.Right, x, z);
+                r.roadS.SetActive(true);
+                visual.transform.rotation = Quaternion.Euler(0, 90, 0);
                 break;
             case 10:
-                ChangeRoadDirection(roadStraight, BuildingTypeSO.Direction.Down, x, z);
+                r.roadS.SetActive(true);
                 break;
             case 11:
-                ChangeRoadDirection(roadT, BuildingTypeSO.Direction.Right, x, z);
+                r.roadT.SetActive(true);
+                visual.transform.rotation = Quaternion.Euler(0, 90, 0);
                 break;
             case 12:
-                ChangeRoadDirection(roadT, BuildingTypeSO.Direction.Down, x, z);
+                r.roadT.SetActive(true);
+                visual.transform.rotation = Quaternion.Euler(0, 180, 0);
                 break;
             case 13:
-                ChangeRoadDirection(roadT, BuildingTypeSO.Direction.Left, x, z);
+                r.roadT.SetActive(true);
+                visual.transform.rotation = Quaternion.Euler(0, -90, 0);
                 break;
             case 14:
-                ChangeRoadDirection(roadT, BuildingTypeSO.Direction.Up, x, z);
+                r.roadT.SetActive(true);
                 break;
             case 15:
-                ChangeRoadDirection(roadX, BuildingTypeSO.Direction.Down, x, z);
+                r.roadX.SetActive(true);
                 break;
             case 16:
-                ChangeRoadDirection(roadX, BuildingTypeSO.Direction.Down, x, z);
+                r.roadS.SetActive(true);
                 break;
             case 17:
-                ChangeRoadDirection(roadX, BuildingTypeSO.Direction.Down, x, z);
+                r.roadX.SetActive(true);
+                //visual.transform.rotation = Quaternion.Euler(0, 90, 0);
                 break;
             case 18:
-                ChangeRoadDirection(roadTurn, BuildingTypeSO.Direction.Down, x, z);
+                r.roadL.SetActive(true);
+                visual.transform.rotation = Quaternion.Euler(0, 180, 0);
                 break;
             case 19:
-                ChangeRoadDirection(roadTurn, BuildingTypeSO.Direction.Left, x, z);
+                r.roadL.SetActive(true);
+                visual.transform.rotation = Quaternion.Euler(0, -90, 0);
                 break;
             case 20:
-                ChangeRoadDirection(roadT, BuildingTypeSO.Direction.Down, x, z);
+                r.roadT.SetActive(true);
+                visual.transform.rotation = Quaternion.Euler(0, 180, 0);
                 break;
             case 21:
-                ChangeRoadDirection(roadT, BuildingTypeSO.Direction.Up, x, z);
+                r.roadT.SetActive(true);
                 break;
             case 22:
-                ChangeRoadDirection(roadT, BuildingTypeSO.Direction.Left, x, z);
+                r.roadT.SetActive(true);
+                visual.transform.rotation = Quaternion.Euler(0, -90, 0);
                 break;
             case 23:
-                ChangeRoadDirection(roadStraight, BuildingTypeSO.Direction.Down, x, z);
+                r.roadS.SetActive(true);
                 break;
             default:
                 break;
         }
+
+        ResetLastClickedTile(ClickMode.Road);
     }
 
 
-    void ChangeRoadDirection(BuildingTypeSO road, BuildingTypeSO.Direction rotation, int x, int z)
+    Road ChangeRoadDirection(BuildingTypeSO road, BuildingTypeSO.Direction rotation, int x, int z)
     {
         Cell currentCell = grid.GetCell(x, z);
         List<Vector2Int> positionList = road.GetPositionList(new Vector2Int(x, z), rotation);
 
-        if (currentCell.GetBuilding() != null && currentCell.GetBuilding().Type.type == BuildingTypeSO.Type.Road)
-        {
-            Building building = currentCell.GetBuilding();
+        if (currentCell.GetBuilding() != null && currentCell.GetBuilding().Type.type == BuildingTypeSO.Type.Road){
+            Road tmp = (Road)currentCell.GetBuilding();
+            tmp.roadS.SetActive(false);
+            tmp.roadL.SetActive(false);
+            tmp.roadT.SetActive(false);
+            tmp.roadX.SetActive(false);
+
+
+            switch (rotation){
+                case BuildingTypeSO.Direction.Down:
+                    break;
+                case BuildingTypeSO.Direction.Left:
+                    break;
+                case BuildingTypeSO.Direction.Up:
+                    break;
+                case BuildingTypeSO.Direction.Right:
+                    break;
+            }
+            
+            /*Building building = currentCell.GetBuilding();
             currentCell.ClearBuilding();
             placedBuildings.Remove(building);
-            building.Destroy();
+            building.Destroy();*/
         }
 
         // Check if all coordinates are empty
@@ -464,7 +527,10 @@ public class BuildingSystem : MonoBehaviour
             }
 
             placedBuildings.Add(placedBuilding);
+            return (Road) placedBuilding;
         }
+
+        return null;
     }
 
 
@@ -524,10 +590,12 @@ public class BuildingSystem : MonoBehaviour
                 {
                     SetSelectedBuildingType(null);
                 }
-
-
-                EventManager.instance.MapChanged();
+                
                 placedBuildings.Add(placedBuilding);
+                if (placedBuilding.Type.type == BuildingTypeSO.Type.Attraction){
+                    placedAttractions.Add((Attraction)placedBuilding);
+                }
+                EventManager.instance.MapChanged();
             }
         }
         catch (Exception e)
@@ -586,6 +654,7 @@ public class BuildingSystem : MonoBehaviour
                     }
 
                     placedBuildings.Remove(clickedBuilding);
+                    placedAttractions.Remove((Attraction)clickedBuilding);
                     GameManager.instance.SellBuilding(clickedBuilding);
                     clickedBuilding.Destroy();
                 }

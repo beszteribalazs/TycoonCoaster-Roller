@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour{
     private float totalHappiness;
     private float trashLevel;
     private float trashPercentage;
-    private float totalCapacity;
     private float currentVisitors;
     private int dayCount;
     private int gameHour;
@@ -28,16 +27,12 @@ public class GameManager : MonoBehaviour{
     public int totalMechanics = 0;
     public int availableMechanics = 0;
 
-    public List<Attraction> Attractions{
-        get{
-            List<Attraction> list = new List<Attraction>();
-            foreach (Building building in buildingSystem.Buildings){
-                if (building.Type.type == BuildingTypeSO.Type.Attraction){
-                    list.Add((Attraction) building);
-                }
-            }
+    public int storedJanitors = 0;
 
-            return list;
+    void Update(){
+        if (storedJanitors > 0){
+            spawner.SpawnJanitor(buildingSystem.entryPoint.position + new Vector3(1, 0, 1) * (buildingSystem.CellSize / 2));
+            storedJanitors--;
         }
     }
 
@@ -56,24 +51,28 @@ public class GameManager : MonoBehaviour{
         this.dayCount = 0;
         this.gameIsActive = true;
         this.janitors = new List<Janitor>();
-        this.beforeSpeed = 1;
+        this.beforeSpeed = 10;
+        TimeManager.instance.GameSpeed = 10;
         EventManager.instance.SpeedChanged(1);
     }
 
     public void RepairAttraction(Attraction target){
-        if((target.Value*0.1f)<=this.money)
-        {
-            if (availableMechanics > 0 && NavigationManager.instance.IsTargetReachable(target)){
-                GameObject obj = spawner.SpawnMechanic(buildingSystem.entryPoint.position + new Vector3(1, 0, 1) * (buildingSystem.CellSize / 2));
-                Mechanic mechanic = obj.GetComponent<Mechanic>();
-                mechanic.Repair(target);
-                target.beingRepaired = true;
-                availableMechanics--;
-                this.money = this.money - (target.Value * 0.1f);
+        if ((target.Value * 0.1f) <= this.money){
+            if (availableMechanics > 0){
+                if (NavigationManager.instance.reachableAttractions.Contains(target)){
+                    GameObject obj = spawner.SpawnMechanic(buildingSystem.entryPoint.position + new Vector3(1, 0, 1) * (buildingSystem.CellSize / 2));
+                    Mechanic mechanic = obj.GetComponent<Mechanic>();
+                    mechanic.Repair(target);
+                    target.beingRepaired = true;
+                    availableMechanics--;
+                    //this.money = this.money - (target.Value * 0.1f);
+                }
+                else{
+                    EventManager.instance.NoPathToBuilding();
+                }
             }
         }
-        else
-        {
+        else{
             EventManager.instance.NoMoney();
         }
     }
@@ -103,7 +102,7 @@ public class GameManager : MonoBehaviour{
 
     public void BuyBuilding(BuildingTypeSO type){
         this.money = this.money - type.price;
-        this.totalCapacity = this.totalCapacity + type.capacity;
+        //this.totalCapacity = this.totalCapacity + type.capacity;
     }
 
     public bool UpgradeBuilding(Attraction building){
@@ -119,7 +118,7 @@ public class GameManager : MonoBehaviour{
     public void SellBuilding(Building building){
         this.money = this.money + building.SellPrice;
         EventManager.instance.SoldBuilding(building.SellPrice);
-        this.totalCapacity = this.totalCapacity - building.Type.capacity;
+        //this.totalCapacity = this.totalCapacity - building.Type.capacity;
     }
 
     public bool BuyJanitor(){
@@ -167,7 +166,7 @@ public class GameManager : MonoBehaviour{
 
     public void NormalMode(){
         buildingSystem.SwitchMode(BuildingSystem.ClickMode.Normal);
-        ChangeSpeed(beforeSpeed/10);
+        ChangeSpeed(beforeSpeed / 10);
     }
 
     public void SwitchMode(){
@@ -193,10 +192,11 @@ public class GameManager : MonoBehaviour{
     public void SwitchRoadMode(){
         if (buildingSystem.currentMode == BuildingSystem.ClickMode.Road){
             NormalMode();
+            ResetSelectedBuilding();
         }
         else{
             buildingSystem.SwitchMode(BuildingSystem.ClickMode.Road);
-            ChangeSpeed(beforeSpeed/10);
+            ChangeSpeed(beforeSpeed / 10);
         }
     }
 
@@ -219,21 +219,32 @@ public class GameManager : MonoBehaviour{
             }
         }
 
-        foreach (Janitor janitor in this.janitors){
-            this.money -= janitor.Salary;
-        }
 
         this.money -= (mechanicSalary * totalMechanics);
 
-        if (this.trashLevel > this.totalCapacity){
-            this.trashLevel = this.totalCapacity;
+        //Calculate trash level
+
+        trashLevel += currentVisitors * 0.2f / 24f / 60f;
+
+        foreach (Janitor janitor in this.janitors){
+            this.money -= janitor.Salary;
+            trashLevel -= 0.2f / 24f / 60f * 15;
         }
 
-        if (this.totalCapacity == 0){
+
+        if (this.trashLevel > this.TotalCapacity){
+            this.trashLevel = this.TotalCapacity;
+        }
+
+        if (trashLevel < 0){
+            trashLevel = 0;
+        }
+
+        if (this.TotalCapacity == 0){
             this.trashPercentage = 0;
         }
         else{
-            this.trashPercentage = this.trashLevel / this.totalCapacity;
+            this.trashPercentage = this.trashLevel / this.TotalCapacity;
         }
 
         this.totalHappiness = 1f - this.trashPercentage;
@@ -261,8 +272,9 @@ public class GameManager : MonoBehaviour{
         if (number > 0){
             TimeManager.instance.Paused = false;
         }
-        TimeManager.instance.GameSpeed = (int)(number * 10);
-        EventManager.instance.SpeedChanged((int)number);
+
+        TimeManager.instance.GameSpeed = (int) (number * 10);
+        EventManager.instance.SpeedChanged((int) number);
         beforeSpeed = TimeManager.instance.GameSpeed;
     }
 
@@ -289,9 +301,12 @@ public class GameManager : MonoBehaviour{
 
     public int GameSecond => gameSecond;
 
-    public float Money => money;
+    public float Money{
+        get => money;
+        set => money = value;
+    }
 
-    public float TotalCapacity => totalCapacity;
+    public float TotalCapacity => NavigationManager.instance.reachableCapacity;
 
     public float CurrentVisitors{
         get => currentVisitors;

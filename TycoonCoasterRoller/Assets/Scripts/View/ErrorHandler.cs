@@ -14,6 +14,7 @@ public class ErrorHandler : MonoBehaviour
     [SerializeField] GameObject noMechanic;
     [SerializeField] GameObject gotMoney;
     [SerializeField] GameObject brokenSell;
+    [SerializeField] GameObject noPath;
     [SerializeField] TextMeshProUGUI gotMoneyText;
     
     Coroutine co;
@@ -28,6 +29,7 @@ public class ErrorHandler : MonoBehaviour
         EventManager.instance.onBuildingSold += GotMoney;
         EventManager.instance.onNoMoney += NoMoneyError;
         EventManager.instance.onBrokeBuildingSold += BrokenAttractionError;
+        EventManager.instance.onNoPathToBuilding += NoPathError;
     }
     
     public void BuyMechanic()
@@ -121,9 +123,19 @@ public class ErrorHandler : MonoBehaviour
         }
         co=StartCoroutine(BrokenSellWait());
     }
+    
+    public void NoPathError()
+    {
+        if (co != null)
+        {
+            StopCoroutine(co);
+        }
+        co=StartCoroutine(NoPathWait());
+    }
 
     IEnumerator NoMoneyWait()
     {
+        noPath.SetActive(false);
         brokenSell.SetActive(false);
         gotMoney.SetActive(false);
         noJanitor.SetActive(false);
@@ -135,6 +147,7 @@ public class ErrorHandler : MonoBehaviour
     
     IEnumerator NoMechanicWait()
     {
+        noPath.SetActive(false);
         brokenSell.SetActive(false);
         gotMoney.SetActive(false);
         noJanitor.SetActive(false);
@@ -146,6 +159,7 @@ public class ErrorHandler : MonoBehaviour
     
     IEnumerator NoJanitorWait()
     {
+        noPath.SetActive(false);
         brokenSell.SetActive(false);
         gotMoney.SetActive(false);
         noMechanic.SetActive(false);
@@ -157,6 +171,7 @@ public class ErrorHandler : MonoBehaviour
 
     IEnumerator GotMoneyWait()
     {
+        noPath.SetActive(false);
         brokenSell.SetActive(false);
         noMechanic.SetActive(false);
         noMoney.SetActive(false);
@@ -168,6 +183,7 @@ public class ErrorHandler : MonoBehaviour
     
     IEnumerator BrokenSellWait()
     {
+        noPath.SetActive(false);
         noMechanic.SetActive(false);
         noMoney.SetActive(false);
         noJanitor.SetActive(false);
@@ -175,5 +191,17 @@ public class ErrorHandler : MonoBehaviour
         brokenSell.SetActive(true);
         yield return new WaitForSeconds(1);
         brokenSell.SetActive(false);
+    }
+    
+    IEnumerator NoPathWait()
+    {
+        noMechanic.SetActive(false);
+        noMoney.SetActive(false);
+        noJanitor.SetActive(false);
+        gotMoney.SetActive(false);
+        brokenSell.SetActive(false);
+        noPath.SetActive(true);
+        yield return new WaitForSeconds(1);
+        noPath.SetActive(false);
     }
 }
