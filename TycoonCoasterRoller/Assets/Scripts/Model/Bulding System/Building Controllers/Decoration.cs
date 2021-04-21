@@ -1,4 +1,5 @@
-﻿public class Decoration : Building{
+﻿public class Decoration : Building
+{
     public override float SellPrice => buildingType.price * 0.5f;
 
     public override float Upkeep => 0;

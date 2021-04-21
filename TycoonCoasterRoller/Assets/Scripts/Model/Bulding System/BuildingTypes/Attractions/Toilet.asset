@@ -17,7 +17,7 @@ MonoBehaviour:
   price: 150
   sellMultiplier: 0.5
   baseIncome: 10
-  breakChance: 1
+  breakChance: 0.2
   type: 0
   width: 1
   height: 1

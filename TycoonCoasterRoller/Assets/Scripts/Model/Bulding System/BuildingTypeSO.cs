@@ -2,14 +2,16 @@
 using UnityEngine;
 
 [CreateAssetMenu()]
-public class BuildingTypeSO : ScriptableObject{
-    public enum Direction{
+public class BuildingTypeSO : ScriptableObject
+{
+    public enum Direction
+    {
         Up,
         Right,
         Down,
         Left
     }
-    
+
     // The 3 types of buildings
     public enum Type
     {
@@ -18,8 +20,10 @@ public class BuildingTypeSO : ScriptableObject{
         Road
     }
 
-    public static Direction GetNextDirectionRight(Direction dir){
-        switch (dir){
+    public static Direction GetNextDirectionRight(Direction dir)
+    {
+        switch (dir)
+        {
             default:
             case Direction.Up: return Direction.Right;
             case Direction.Right: return Direction.Down;
@@ -28,8 +32,10 @@ public class BuildingTypeSO : ScriptableObject{
         }
     }
 
-    public static Direction GetNextDirectionLeft(Direction dir){
-        switch (dir){
+    public static Direction GetNextDirectionLeft(Direction dir)
+    {
+        switch (dir)
+        {
             default:
             case Direction.Up: return Direction.Left;
             case Direction.Right: return Direction.Up;
@@ -44,8 +50,7 @@ public class BuildingTypeSO : ScriptableObject{
     [Header("Game setup")] public float price;
     public float sellMultiplier = 0.5f;
     [Tooltip("Income at level 1")] public float baseIncome;
-    [Range(0f,1f)]
-    public float breakChance;
+    [Range(0f, 1f)] public float breakChance;
     public Type type;
 
     [Header("Map setup")] public int width;
@@ -56,8 +61,10 @@ public class BuildingTypeSO : ScriptableObject{
 
 
     // Calculates new offset on the grid based on rotation
-    public Vector2Int GetRotationOffset(Direction dir){
-        switch (dir){
+    public Vector2Int GetRotationOffset(Direction dir)
+    {
+        switch (dir)
+        {
             default:
             case Direction.Up: return new Vector2Int(0, 0);
             case Direction.Right: return new Vector2Int(0, width);
@@ -66,8 +73,10 @@ public class BuildingTypeSO : ScriptableObject{
         }
     }
 
-    public int GetRotationAngle(Direction dir){
-        switch (dir){
+    public int GetRotationAngle(Direction dir)
+    {
+        switch (dir)
+        {
             default:
             case Direction.Up: return 0;
             case Direction.Right: return 90;
@@ -77,14 +86,18 @@ public class BuildingTypeSO : ScriptableObject{
     }
 
     // Calculates position on the grid based on offset and rotation direction
-    public List<Vector2Int> GetPositionList(Vector2Int offset, Direction dir){
+    public List<Vector2Int> GetPositionList(Vector2Int offset, Direction dir)
+    {
         List<Vector2Int> gridPositionList = new List<Vector2Int>();
-        switch (dir){
+        switch (dir)
+        {
             default:
             case Direction.Down:
             case Direction.Up:
-                for (int x = 0; x < width; x++){
-                    for (int y = 0; y < height; y++){
+                for (int x = 0; x < width; x++)
+                {
+                    for (int y = 0; y < height; y++)
+                    {
                         gridPositionList.Add(offset + new Vector2Int(x, y));
                     }
                 }
@@ -92,8 +105,10 @@ public class BuildingTypeSO : ScriptableObject{
                 break;
             case Direction.Left:
             case Direction.Right:
-                for (int x = 0; x < height; x++){
-                    for (int y = 0; y < width; y++){
+                for (int x = 0; x < height; x++)
+                {
+                    for (int y = 0; y < width; y++)
+                    {
                         gridPositionList.Add(offset + new Vector2Int(x, y));
                     }
                 }

@@ -10,7 +10,9 @@ public class Cell
     Building building;
 
     public string PositionString => "x: " + x + " y: " + y;
-    public Vector3 WorldPosition => new Vector3(x * grid.GetCellSize() + grid.GetCellSize() / 2, 0, y * grid.GetCellSize() + grid.GetCellSize() / 2);
+
+    public Vector3 WorldPosition => new Vector3(x * grid.GetCellSize() + grid.GetCellSize() / 2, 0,
+        y * grid.GetCellSize() + grid.GetCellSize() / 2);
 
     public int AdjacentRoads
     {
@@ -60,10 +62,10 @@ public class Cell
                 BuildingSystem.instance.entryPoint.position + Vector3.forward * BuildingSystem.instance.CellSize,
                 out startX, out startZ);
 
-            if (this.x==startX && this.y==startZ)
+            if (this.x == startX && this.y == startZ)
             {
                 roads["down"] = true;
-                if (roads["up"] == false && roads["down"] && roads["left"] == false && roads["right"] == false)//le
+                if (roads["up"] == false && roads["down"] && roads["left"] == false && roads["right"] == false) //le
                 {
                     return 16;
                 }
@@ -91,7 +93,8 @@ public class Cell
                 {
                     return 22;
                 }
-                if (roads["up"] && roads["down"] && roads["left"] == false && roads["right"] == false)//fel,le
+
+                if (roads["up"] && roads["down"] && roads["left"] == false && roads["right"] == false) //fel,le
                 {
                     return 23;
                 }
@@ -102,15 +105,18 @@ public class Cell
                 {
                     return 1;
                 }
-                else if (roads["up"] == false && roads["down"] && roads["left"] == false && roads["right"] == false) //le
+                else if (roads["up"] == false && roads["down"] && roads["left"] == false &&
+                         roads["right"] == false) //le
                 {
                     return 3;
                 }
-                else if (roads["up"] == false && roads["down"] == false && roads["left"] && roads["right"] == false) //balra
-                { 
+                else if (roads["up"] == false && roads["down"] == false && roads["left"] &&
+                         roads["right"] == false) //balra
+                {
                     return 4;
                 }
-                else if (roads["up"] == false && roads["down"] == false && roads["left"] == false && roads["right"]) //jobbra
+                else if (roads["up"] == false && roads["down"] == false && roads["left"] == false &&
+                         roads["right"]) //jobbra
                 {
                     return 2;
                 }
@@ -134,7 +140,8 @@ public class Cell
                 {
                     return 6;
                 }
-                else if (roads["up"] == false && roads["down"] == false && roads["left"] && roads["right"]) //balra,jobbra
+                else if (roads["up"] == false && roads["down"] == false && roads["left"] && roads["right"]
+                ) //balra,jobbra
                 {
                     return 9;
                 }
@@ -158,11 +165,13 @@ public class Cell
                 {
                     return 15;
                 }
-                else if (roads["up"] == false && roads["down"] == false && roads["left"] == false && roads["right"] == false)
+                else if (roads["up"] == false && roads["down"] == false && roads["left"] == false &&
+                         roads["right"] == false)
                 {
                     return 0;
                 }
             }
+
             return -666;
         }
     }
