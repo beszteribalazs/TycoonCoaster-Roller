@@ -57,7 +57,7 @@ public class Attraction : Building{
 
 
     public void BreakBuilding(){
-        EventManager.instance.MapChanged();
+        //EventManager.instance.MapChanged();
         _broke = true;
         brokeVisual.gameObject.SetActive(true);
         EventManager.instance.MapChanged();
