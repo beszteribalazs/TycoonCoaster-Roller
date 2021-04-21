@@ -5,9 +5,9 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour{
-    [SerializeField] GameObject visitorPrefab; //prefab to spawn
-    [SerializeField] GameObject mechanicPrefab;
-    [SerializeField] GameObject janitorPrefab;
+    public GameObject visitorPrefab; //prefab to spawn
+    public GameObject mechanicPrefab;
+    public GameObject janitorPrefab;
     public GameObject prefabParent; //parent gameobject of the prefab
 
 
