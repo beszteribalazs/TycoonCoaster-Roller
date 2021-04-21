@@ -132,7 +132,7 @@ public class Janitor : Employee{
         }
 
         if (leaving){
-            if ((transform.position - targetPosition).magnitude <= 1f){
+            if ((transform.position - targetPosition).magnitude <= 1f || transform.position.z <= 0){
                 //EventManager.instance.onSpeedChanged -= ChangeSpeed;
                 //EventManager.instance.onMapChanged -= RecheckNavigationTarget;
                 Destroy(gameObject);
