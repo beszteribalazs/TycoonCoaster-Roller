@@ -25,14 +25,15 @@ public class NavigationManager : MonoBehaviour
     void Start()
     {
         surface = GetComponent<NavMeshSurface>();
-        EventManager.instance.onMapChanged += RebakeMap;
-        spawner = GetComponent<Spawner>();
-        RebakeMap();
 
         surface.overrideVoxelSize = true;
         surface.voxelSize = 0.25f;
         surface.overrideTileSize = true;
         surface.tileSize = 64;
+        
+        EventManager.instance.onMapChanged += RebakeMap;
+        spawner = GetComponent<Spawner>();
+        RebakeMap();
     }
 
     private void RebakeMap()
