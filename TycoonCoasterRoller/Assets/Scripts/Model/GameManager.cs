@@ -243,8 +243,10 @@ public class GameManager : MonoBehaviour
         buildingSystem.SetSelectedBuildingType(null);
     }
 
-    private void UpdateProperties()
-    {
+    public bool testMode = false;
+    
+    private void UpdateProperties(){
+        if (testMode) return;    
         foreach (Building building in this.buildingSystem.Buildings)
         {
             if (building.Type.type == BuildingTypeSO.Type.Attraction)
