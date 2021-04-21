@@ -8,7 +8,6 @@ public class BuildingPreview : MonoBehaviour
     [Header("Setup"), SerializeField] BuildingSystem buildingSystem;
     Transform visual;
     BuildingTypeSO buildingType;
-
     Vector3 targetPosition;
 
     void Start()

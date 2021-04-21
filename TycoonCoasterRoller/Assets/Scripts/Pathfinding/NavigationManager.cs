@@ -68,8 +68,6 @@ public class NavigationManager : MonoBehaviour
         // if first cell is empty, nothing is reachable
         if (grid.GetCell(x, z).GetBuilding() == null)
         {
-            //return false;
-            //return reachable;
             return;
         }
 

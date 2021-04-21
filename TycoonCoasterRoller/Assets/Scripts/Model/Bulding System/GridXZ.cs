@@ -31,7 +31,7 @@ public class GridXZ
         }
 
         // Debud: draw grid
-        for (int x = 0; x < gridArray.GetLength(0); x++)
+        /*for (int x = 0; x < gridArray.GetLength(0); x++)
         {
             for (int z = 0; z < gridArray.GetLength(1); z++)
             {
@@ -41,7 +41,7 @@ public class GridXZ
         }
 
         Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 1000f);
-        Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 1000f);
+        Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 1000f);*/
     }
 
     public List<Building> GetBuildingList()
