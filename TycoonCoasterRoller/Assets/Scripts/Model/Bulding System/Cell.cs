@@ -56,12 +56,9 @@ public class Cell
                 }
             }
 
-            int startX;
-            int startZ;
-            grid.XZFromWorldPosition(
-                BuildingSystem.instance.entryPoint.position + Vector3.forward * BuildingSystem.instance.CellSize,
-                out startX, out startZ);
-
+            Cell tmp = grid.GetCell((int)(grid.Width / 2), 0);
+            int startX = tmp.x;
+            int startZ = tmp.y;
             if (this.x == startX && this.y == startZ)
             {
                 roads["down"] = true;
