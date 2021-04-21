@@ -24,8 +24,8 @@ public class UpperElementsUpdate : MonoBehaviour
         time.text = timeString;
         
         money.text = (int)Math.Floor(GameManager.instance.Money)+"$";
-        happiness.text = GameManager.instance.TotalHappiness*100+"%";
-        trash.text = GameManager.instance.TrashPercentage*100+"%";
+        happiness.text = Math.Round(GameManager.instance.TotalHappiness*100,2)+"%";
+        trash.text = Math.Round(GameManager.instance.TrashPercentage*100,2)+"%";
         janitor.text = GameManager.instance.Janitors.Count.ToString();
         mechanic.text = GameManager.instance.availableMechanics + "/"+ GameManager.instance.totalMechanics;
         visitors.text= GameManager.instance.CurrentVisitors +"/" + GameManager.instance.TotalCapacity;
