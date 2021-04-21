@@ -34,10 +34,10 @@ public class Janitor : Employee{
                 if (grid.GetCell(x, z).GetBuilding().Type.type == BuildingTypeSO.Type.Road){
                     Road road = (Road) grid.GetCell(x, z).GetBuilding();
                     if (road != null && !NavigationManager.instance.reachableRoads.Contains(road)){
-                        GameManager.instance.storedJanitors++;
-                        Destroy(gameObject);
+                        //GameManager.instance.storedJanitors++;
+                        //Destroy(gameObject);
 
-                        //agent.Warp(BuildingSystem.instance.entryPoint.position);
+                        agent.Warp(BuildingSystem.instance.entryPoint.position);
                     }
                 }
                 else{
@@ -103,7 +103,7 @@ public class Janitor : Employee{
         }
 
         if (leaving){
-            if ((transform.position - targetPosition).magnitude <= 0.1f){
+            if ((transform.position - targetPosition).magnitude <= 1f){
                 EventManager.instance.onSpeedChanged -= ChangeSpeed;
                 //EventManager.instance.onMapChanged -= RecheckNavigationTarget;
                 Destroy(gameObject);
