@@ -22,7 +22,7 @@ public class BuildingSystem : MonoBehaviour
     [SerializeField] int gridHeight;
     [SerializeField] float cellSize = 3f;
     public float CellSize => cellSize;
-    [SerializeField] Transform groundVisualPrefab;
+    public Transform groundVisualPrefab;
     [SerializeField] Transform entryPointPrefab;
     public Transform entryPoint;
     List<Building> placedBuildings = new List<Building>();
