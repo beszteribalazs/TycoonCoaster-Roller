@@ -131,6 +131,10 @@ public class Janitor : Employee{
             //Destroy(gameObject);
         }
 
+        if (wantsToLeave && transform.position.z <= 0){
+            Destroy(gameObject);
+        }
+        
         if (leaving){
             if ((transform.position - targetPosition).magnitude <= 1f || transform.position.z <= 0){
                 //EventManager.instance.onSpeedChanged -= ChangeSpeed;
