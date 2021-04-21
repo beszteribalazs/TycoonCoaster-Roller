@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
                     mechanic.Repair(target);
                     target.beingRepaired = true;
                     availableMechanics--;
+                    money -= (target.Value * 0.1f);
                 }
                 else
                 {
