@@ -5,73 +5,79 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public class Visitor : Person{
+public class Visitor : Person
+{
     int ticksToStayInPark;
     int enteredPark;
     int minStayTick = 240;
     int maxStayTick = 960;
 
-    protected override void Awake(){
+    protected override void Awake()
+    {
         base.Awake();
         EventManager.instance.onMapChanged += DelayedRecheck;
 
         walkSpeedMultiplier = Random.Range(0.9f, 1.1f);
     }
 
-    protected override void OnDestroy(){
+    protected override void OnDestroy()
+    {
         base.OnDestroy();
         EventManager.instance.onMapChanged -= DelayedRecheck;
 
         GameManager.instance.CurrentVisitors--;
-        if (inBuilding){
+        if (inBuilding)
+        {
             inBuilding = false;
             target.peopleInside.Remove(this);
             mesh.SetActive(true);
         }
     }
 
-    void DelayedRecheck(){
+    void DelayedRecheck()
+    {
         Invoke(nameof(RecheckNavigationTarget), 0.1f);
         Invoke(nameof(CheckIfReachable), 0.1f);
     }
 
-    void RecheckNavigationTarget(){
-        /*int x, z;
-        BuildingSystem.instance.grid.XZFromWorldPosition(transform.position, out x, out z);
-        if (BuildingSystem.instance.grid.GetCell(x, z) == null){
-            transform.position = BuildingSystem.instance.entryPoint.position + Vector3.one * BuildingSystem.instance.grid.GetCellSize();
-            RecheckNavigationTarget();
-            return;
-        }*/
-
+    void RecheckNavigationTarget()
+    {
         // if going to attraction
-        if (goingToAttraction){
+        if (goingToAttraction)
+        {
             // if cant reach target, choose a new one
-            if (!NavigationManager.instance.reachableAttractions.Contains(target)){
+            if (!NavigationManager.instance.reachableAttractions.Contains(target))
+            {
                 GoToRandomBuilding();
             }
-            else{
+            else
+            {
                 GoToBuilding(target);
             }
         }
         // if going to road
-        else if (goingToRoad){
+        else if (goingToRoad)
+        {
             // recalculate available roads
-            if (!NavigationManager.instance.reachableRoads.Contains(roadTarget)){
+            if (!NavigationManager.instance.reachableRoads.Contains(roadTarget))
+            {
                 GoToRandomRoad();
             }
         }
         // if going to exit
-        else if (leaving){
+        else if (leaving)
+        {
             // recalculate available roads
-            if (!NavigationManager.instance.reachableRoads.Contains(roadTarget)){
+            if (!NavigationManager.instance.reachableRoads.Contains(roadTarget))
+            {
                 GoToRandomRoad();
             }
         }
     }
 
 
-    protected override void Start(){
+    protected override void Start()
+    {
         base.Start();
         enteredPark = TimeManager.instance.Tick;
         ticksToStayInPark = Random.Range(minStayTick, maxStayTick);
@@ -87,16 +93,21 @@ public class Visitor : Person{
     int tickToRetarget = 10;
     int lastRetarget = -1000;
 
-    protected override void Update(){
+    protected override void Update()
+    {
         base.Update();
 
-        if (!IsOnNavMesh()){
+        if (!IsOnNavMesh())
+        {
             Destroy(gameObject);
         }
 
-        if (!wantsToLeave){
-            if (TimeManager.instance.Tick - enteredPark >= ticksToStayInPark){
-                if (inBuilding){
+        if (!wantsToLeave)
+        {
+            if (TimeManager.instance.Tick - enteredPark >= ticksToStayInPark)
+            {
+                if (inBuilding)
+                {
                     LeaveBuilding();
                 }
 
@@ -105,22 +116,29 @@ public class Visitor : Person{
         }
 
 
-        if (inBuilding){
-            if (TimeManager.instance.Tick - enterTime >= tickToStay){
+        if (inBuilding)
+        {
+            if (TimeManager.instance.Tick - enterTime >= tickToStay)
+            {
                 LeaveBuilding();
             }
         }
 
-        if (leaving){
-            if ((transform.position - targetPosition).magnitude <= 1f){
+        if (leaving)
+        {
+            if ((transform.position - targetPosition).magnitude <= 1f)
+            {
                 EventManager.instance.onSpeedChanged -= ChangeSpeed;
                 EventManager.instance.onMapChanged -= DelayedRecheck;
                 Destroy(gameObject);
             }
         }
-        else if (goingToRoad && wantsToLeave){
-            if (TimeManager.instance.Tick - lastRetarget >= tickToRetarget){
-                if ((transform.position - targetPosition).magnitude <= visitDistance){
+        else if (goingToRoad && wantsToLeave)
+        {
+            if (TimeManager.instance.Tick - lastRetarget >= tickToRetarget)
+            {
+                if ((transform.position - targetPosition).magnitude <= visitDistance)
+                {
                     goingToRoad = false;
                     TryToLeavePark();
                 }
@@ -128,24 +146,33 @@ public class Visitor : Person{
                 lastRetarget = TimeManager.instance.Tick;
             }
         }
-        else{
-            if (wantsToLeave){
+        else
+        {
+            if (wantsToLeave)
+            {
                 // try leaving
-                if (!leaving){
+                if (!leaving)
+                {
                     TryToLeavePark();
                 }
             }
-            else{
+            else
+            {
                 // Try to enter building if close to it
-                if (goingToAttraction){
-                    if ((transform.position - targetPosition).magnitude <= visitDistance){
+                if (goingToAttraction)
+                {
+                    if ((transform.position - targetPosition).magnitude <= visitDistance)
+                    {
                         TryToEnterBuilding();
                     }
                 }
 
-                if (goingToRoad){
-                    if (TimeManager.instance.Tick - lastRetarget >= tickToRetarget){
-                        if ((transform.position - targetPosition).magnitude <= visitDistance){
+                if (goingToRoad)
+                {
+                    if (TimeManager.instance.Tick - lastRetarget >= tickToRetarget)
+                    {
+                        if ((transform.position - targetPosition).magnitude <= visitDistance)
+                        {
                             goingToRoad = false;
                             GoToRandomRoad();
                         }
@@ -157,22 +184,25 @@ public class Visitor : Person{
         }
     }
 
-    void TryToEnterBuilding(){
+    void TryToEnterBuilding()
+    {
         goingToAttraction = false;
         // if target is full or broke
-        if (target.peopleInside.Count >= target.TotalCapacity || target.Broke){
+        if (target.peopleInside.Count >= target.TotalCapacity || target.Broke)
+        {
             // go to a random road then go to a random building
-            //GoToRandomRoad();
             GoToRandomBuilding();
         }
         // enter building
-        else{
+        else
+        {
             EnterBuilding();
         }
     }
 
 
-    void EnterBuilding(){
+    void EnterBuilding()
+    {
         tickToStay = Random.Range(120, 360);
         goingToAttraction = false;
         target.peopleInside.Add(this);
@@ -180,32 +210,38 @@ public class Visitor : Person{
         mesh.SetActive(false);
         inBuilding = true;
         enterTime = TimeManager.instance.Tick;
-        //Invoke(nameof(LeaveBuilding), 10000f);
     }
 
-    public void LeaveBuilding(){
+    public void LeaveBuilding()
+    {
         inBuilding = false;
         target.peopleInside.Remove(this);
         mesh.SetActive(true);
         GoToRandomBuilding();
     }
 
-    public void EjectBuilding(){
+    public void EjectBuilding()
+    {
         LeaveBuilding();
         TryToLeavePark();
         transform.position = BuildingSystem.instance.entryPoint.position;
     }
 
-    void CheckIfReachable(){
+    void CheckIfReachable()
+    {
         // find cell person is standing on
         GridXZ grid = BuildingSystem.instance.grid;
         int x;
         int z;
-        if (transform.position.x <= grid.Width * grid.GetCellSize() && transform.position.x >= 0 && transform.position.z <= grid.Height * grid.GetCellSize() && transform.position.z >= 0){
+        if (transform.position.x <= grid.Width * grid.GetCellSize() && transform.position.x >= 0 &&
+            transform.position.z <= grid.Height * grid.GetCellSize() && transform.position.z >= 0)
+        {
             grid.XZFromWorldPosition(transform.position, out x, out z);
             Road road = (Road) grid.GetCell(x, z).GetBuilding();
-            if (road != null && !NavigationManager.instance.reachableRoads.Contains(road)){
-                if (inBuilding){
+            if (road != null && !NavigationManager.instance.reachableRoads.Contains(road))
+            {
+                if (inBuilding)
+                {
                     LeaveBuilding();
                 }
 
@@ -214,26 +250,27 @@ public class Visitor : Person{
         }
     }
 
-    void GoToRandomBuilding(){
-        /*int target = Random.Range(0, GameManager.instance.ReachableAttractions.Count);
-        Vector3 targetPosition = GameManager.instance.ReachableAttractions[target].Position;
-        agent.SetDestination(targetPosition);*/
-        if (NavigationManager.instance.reachableAttractionCount == 0){
+    void GoToRandomBuilding()
+    {
+        if (NavigationManager.instance.reachableAttractionCount == 0)
+        {
             wantsToLeave = true;
         }
-        else{
+        else
+        {
             // choose a random building as target
-            //target = reachable[Random.Range(0, reachable.Count)];
-
             // choose an enterable building as target
             List<Attraction> enterable = new List<Attraction>();
-            foreach (Attraction attraction in NavigationManager.instance.reachableAttractions){
-                if (attraction.CurrentVisitorCount < attraction.TotalCapacity && attraction != previousBuilding){
+            foreach (Attraction attraction in NavigationManager.instance.reachableAttractions)
+            {
+                if (attraction.CurrentVisitorCount < attraction.TotalCapacity && attraction != previousBuilding)
+                {
                     enterable.Add(attraction);
                 }
             }
 
-            if (enterable.Count == 0){
+            if (enterable.Count == 0)
+            {
                 TryToLeavePark();
                 return;
             }
@@ -244,33 +281,36 @@ public class Visitor : Person{
             // Find first cell from spawn
             int x;
             int z;
-            BuildingSystem.instance.grid.XZFromWorldPosition(BuildingSystem.instance.entryPoint.position + Vector3.forward * BuildingSystem.instance.CellSize, out x, out z);
+            BuildingSystem.instance.grid.XZFromWorldPosition(
+                BuildingSystem.instance.entryPoint.position + Vector3.forward * BuildingSystem.instance.CellSize, out x,
+                out z);
 
             //find the closest tile (that is reachable)
             float sqrDistance = Single.MaxValue;
             Vector3 closestPosition = Vector3.zero;
-            foreach (Vector2Int coords in target.gridPositionlist){
+            foreach (Vector2Int coords in target.gridPositionlist)
+            {
                 //if building has a tile on the root tile, only this tile is reachable so go there
-                if (coords.x == x && coords.y == z){
+                if (coords.x == x && coords.y == z)
+                {
                     closestPosition = BuildingSystem.instance.grid.GetCell(coords.x, coords.y).WorldPosition;
                     break;
                 }
 
-                if (NavigationManager.instance.reachableCells.Contains(BuildingSystem.instance.grid.GetCell(coords.x, coords.y))){
-                    float tmpdist = (BuildingSystem.instance.grid.GetCell(coords.x, coords.y).WorldPosition - transform.position).sqrMagnitude;
-                    if (tmpdist < sqrDistance){
+                if (NavigationManager.instance.reachableCells.Contains(
+                    BuildingSystem.instance.grid.GetCell(coords.x, coords.y)))
+                {
+                    float tmpdist = (BuildingSystem.instance.grid.GetCell(coords.x, coords.y).WorldPosition -
+                                     transform.position).sqrMagnitude;
+                    if (tmpdist < sqrDistance)
+                    {
                         sqrDistance = tmpdist;
                         closestPosition = BuildingSystem.instance.grid.GetCell(coords.x, coords.y).WorldPosition;
                     }
                 }
             }
 
-            //Vector3 targetPosition = reachable[target].Position;
             targetPosition = closestPosition;
-            //NavMeshPath path = new NavMeshPath();
-            //agent.CalculatePath(transform.position, closestPosition, NavMesh.AllAreas ,path);
-            //NavMesh.CalculatePath(transform.position, closestPosition, NavMesh.AllAreas, path);
-            //agent.SetPath(path);
             agent.SetDestination(closestPosition);
             goingToAttraction = true;
         }

@@ -7,15 +7,19 @@ public class Employee : Person
 {
     protected float price;
     protected float salary;
-    protected const float SALARYMULTIPLIER=0.1f;
+    protected const float SALARYMULTIPLIER = 0.1f;
 
-    protected Employee() { }
+    protected Employee()
+    {
+    }
 
-    protected override void Awake(){
+    protected override void Awake()
+    {
         base.Awake();
     }
 
-    protected override void Start(){
+    protected override void Start()
+    {
         base.Start();
     }
 
