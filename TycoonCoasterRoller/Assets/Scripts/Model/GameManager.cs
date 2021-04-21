@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour{
                     mechanic.Repair(target);
                     target.beingRepaired = true;
                     availableMechanics--;
-                    this.money = this.money - (target.Value * 0.1f);
+                    //this.money = this.money - (target.Value * 0.1f);
                 }
                 else{
                     EventManager.instance.NoPathToBuilding();
@@ -290,7 +290,10 @@ public class GameManager : MonoBehaviour{
 
     public int GameSecond => gameSecond;
 
-    public float Money => money;
+    public float Money{
+        get => money;
+        set => money = value;
+    }
 
     public float TotalCapacity => NavigationManager.instance.reachableCapacity;
 

@@ -116,13 +116,13 @@ public class Janitor : Employee{
     protected override void Update(){
         base.Update();
 
-        if (roadTarget == null){
+        /*if (roadTarget == null){
             agent.Warp(BuildingSystem.instance.entryPoint.position + new Vector3(1, 0, 1) * BuildingSystem.instance.CellSize / 2);
             GoToRandomRoad();
             //GameManager.instance.storedJanitors++;
             //Destroy(gameObject);
             
-        }
+        }*/
 
         if (!IsOnNavMesh()){
             agent.Warp(BuildingSystem.instance.entryPoint.position + new Vector3(1, 0, 1) * BuildingSystem.instance.CellSize / 2);

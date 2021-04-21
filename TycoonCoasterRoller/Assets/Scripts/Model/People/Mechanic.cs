@@ -91,6 +91,9 @@ public class Mechanic : Employee{
         targeted.transform.Find("Broke").GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/buildingRepairing");
         repairing = true;
         repairStartTick = TimeManager.instance.Tick;
+
+        GameManager.instance.Money -= targeted.Value * 0.1f;
+
         //Invoke(nameof(LeaveBuilding), 3f);
     }
 

@@ -57,6 +57,7 @@ public class Attraction : Building{
 
 
     public void BreakBuilding(){
+        EventManager.instance.MapChanged();
         _broke = true;
         brokeVisual.gameObject.SetActive(true);
         EventManager.instance.MapChanged();
@@ -77,6 +78,7 @@ public class Attraction : Building{
     }
 
     public void RepairBuilding(){
+        EventManager.instance.MapChanged();
         _broke = false;
         brokeVisual.gameObject.SetActive(false);
         beingRepaired = false;
