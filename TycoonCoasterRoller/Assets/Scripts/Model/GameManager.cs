@@ -295,11 +295,7 @@ public class GameManager : MonoBehaviour
 
         this.totalHappiness = 1f - this.trashPercentage;
     }
-
-    private void UpdateWeather()
-    {
-    }
-
+    
     public void Resume()
     {
         TimeManager.instance.GameSpeed = 10;
