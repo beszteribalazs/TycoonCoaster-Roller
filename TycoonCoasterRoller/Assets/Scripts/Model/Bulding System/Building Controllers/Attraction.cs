@@ -39,7 +39,7 @@ public class Attraction : Building{
     public override float SellPrice => Value / 2;
 
     public int RepairTickDuration => gridPositionlist.Count * 15;
-    
+
     public override float Upkeep => DailyUpkeep / 24f / 60f;
     public float DailyUpkeep => Mathf.Pow(DailyIncome, 0.75f);
     public override float Income => _broke ? 0 : DailyIncome / 24f / 60f * ((float) peopleInside.Count / (float) TotalCapacity);
@@ -60,9 +60,10 @@ public class Attraction : Building{
         //EventManager.instance.MapChanged();
         _broke = true;
         brokeVisual.gameObject.SetActive(true);
-        EventManager.instance.MapChanged();
+
         //visitorok kiküldése
         SendOutVisitors();
+        EventManager.instance.MapChanged();
     }
 
     public void SendOutVisitors(){
@@ -78,9 +79,9 @@ public class Attraction : Building{
     }
 
     public void RepairBuilding(){
-        EventManager.instance.MapChanged();
         _broke = false;
         brokeVisual.gameObject.SetActive(false);
         beingRepaired = false;
+        EventManager.instance.MapChanged();
     }
 }

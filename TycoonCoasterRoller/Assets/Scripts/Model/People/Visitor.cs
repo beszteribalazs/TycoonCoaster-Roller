@@ -8,8 +8,8 @@ using Random = UnityEngine.Random;
 public class Visitor : Person{
     int ticksToStayInPark;
     int enteredPark;
-    int minStayTick = 120;
-    int maxStayTick = 720;
+    int minStayTick = 240;
+    int maxStayTick = 960;
 
     protected override void Awake(){
         base.Awake();
@@ -74,7 +74,7 @@ public class Visitor : Person{
     }
 
     bool inBuilding = false;
-    int tickToStay = 30;
+    int tickToStay;
     int enterTime;
 
 
@@ -166,7 +166,7 @@ public class Visitor : Person{
 
 
     void EnterBuilding(){
-        tickToStay = Random.Range(30, 181);
+        tickToStay = Random.Range(120, 360);
         goingToAttraction = false;
         target.peopleInside.Add(this);
         previousBuilding = target;
@@ -259,6 +259,10 @@ public class Visitor : Person{
 
             //Vector3 targetPosition = reachable[target].Position;
             targetPosition = closestPosition;
+            //NavMeshPath path = new NavMeshPath();
+            //agent.CalculatePath(transform.position, closestPosition, NavMesh.AllAreas ,path);
+            //NavMesh.CalculatePath(transform.position, closestPosition, NavMesh.AllAreas, path);
+            //agent.SetPath(path);
             agent.SetDestination(closestPosition);
             goingToAttraction = true;
         }
