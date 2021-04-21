@@ -219,7 +219,6 @@ public class GameManager : MonoBehaviour{
             }
         }
 
-        
 
         this.money -= (mechanicSalary * totalMechanics);
 
@@ -231,10 +230,14 @@ public class GameManager : MonoBehaviour{
             this.money -= janitor.Salary;
             trashLevel -= 0.2f / 24f / 60f * 15;
         }
-        
-        
+
+
         if (this.trashLevel > this.TotalCapacity){
             this.trashLevel = this.TotalCapacity;
+        }
+
+        if (trashLevel < 0){
+            trashLevel = 0;
         }
 
         if (this.TotalCapacity == 0){
