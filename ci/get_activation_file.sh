@@ -8,7 +8,7 @@ echo "Retrieving manual activation file for unity version \"$UNITY_VERSION\"."
 
 
 # Determine the expected file name and path
-FILE_NAME=Unity_v$UNITY_VERSION.alf
+FILE_NAME=unity3d.alf
 FILE_PATH=$FILE_NAME
 
 # Request the manual activation file for activating unity personal
