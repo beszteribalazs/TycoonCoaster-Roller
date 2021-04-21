@@ -9,6 +9,7 @@ public class TabButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 {
     public TabGroup tabGroup;
     public Image background;
+
     void Start()
     {
         background = GetComponent<Image>();

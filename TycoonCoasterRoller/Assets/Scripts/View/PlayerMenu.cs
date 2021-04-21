@@ -5,16 +5,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
 public class PlayerMenu : MonoBehaviour
 {
     [SerializeField] Slider mainSlider;
     [SerializeField] TMP_Text fieldSizeText;
     private int size;
-    
+
     public void PlayGame()
     {
         MapSizeController.mapSize = size;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     private void Update()

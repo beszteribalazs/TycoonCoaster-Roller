@@ -11,13 +11,14 @@ public class TabGroup : MonoBehaviour
     public Color32 idleTabColor;
     public Color32 activeTabColor;
     public Color32 hoverTabColor;
-    
+
     public void Subscribe(TabButton button)
     {
         if (tabButtons == null)
         {
             tabButtons = new List<TabButton>();
         }
+
         tabButtons.Add(button);
     }
 
@@ -39,7 +40,7 @@ public class TabGroup : MonoBehaviour
             }
         }
     }
-    
+
     public void OnTabEnter(TabButton button)
     {
         ResetTabs();
@@ -48,7 +49,7 @@ public class TabGroup : MonoBehaviour
             button.background.color = hoverTabColor;
         }
     }
-    
+
     public void OnTabExit(TabButton button)
     {
         ResetTabs();
@@ -62,6 +63,7 @@ public class TabGroup : MonoBehaviour
             {
                 continue;
             }
+
             button.background.color = idleTabColor;
         }
     }

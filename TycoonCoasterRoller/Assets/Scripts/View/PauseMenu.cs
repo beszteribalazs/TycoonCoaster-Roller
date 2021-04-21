@@ -9,10 +9,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject buyMenu;
     [SerializeField] GameObject insperctorMenu;
     [SerializeField] GameObject pauseMenuUi;
-    
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !buyMenu.activeSelf && !insperctorMenu.activeSelf && GameManager.instance.buildingSystem.currentMode==BuildingSystem.ClickMode.Normal)
+        if (Input.GetKeyDown(KeyCode.Escape) && !buyMenu.activeSelf && !insperctorMenu.activeSelf && GameManager.instance.buildingSystem.currentMode == BuildingSystem.ClickMode.Normal)
         {
             if (GameIsPaused)
             {
@@ -44,7 +44,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUi.SetActive(false);
         GameIsPaused = false;
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
     public void QuitGame()

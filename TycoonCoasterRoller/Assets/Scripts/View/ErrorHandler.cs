@@ -16,14 +16,14 @@ public class ErrorHandler : MonoBehaviour
     [SerializeField] GameObject brokenSell;
     [SerializeField] GameObject noPath;
     [SerializeField] TextMeshProUGUI gotMoneyText;
-    
-    Coroutine co;
-    
+
+    private Coroutine co;
+
     private void Awake()
     {
         instance = this;
     }
-    
+
     private void Start()
     {
         EventManager.instance.onBuildingSold += GotMoney;
@@ -31,7 +31,7 @@ public class ErrorHandler : MonoBehaviour
         EventManager.instance.onBrokeBuildingSold += BrokenAttractionError;
         EventManager.instance.onNoPathToBuilding += NoPathError;
     }
-    
+
     public void BuyMechanic()
     {
         if (!GameManager.instance.BuyMechanic())
@@ -40,10 +40,11 @@ public class ErrorHandler : MonoBehaviour
             {
                 StopCoroutine(co);
             }
-            co=StartCoroutine(NoMoneyWait());
+
+            co = StartCoroutine(NoMoneyWait());
         }
     }
-    
+
     public void BuyJanitor()
     {
         if (!GameManager.instance.BuyJanitor())
@@ -52,10 +53,11 @@ public class ErrorHandler : MonoBehaviour
             {
                 StopCoroutine(co);
             }
-            co=StartCoroutine(NoMoneyWait());
+
+            co = StartCoroutine(NoMoneyWait());
         }
     }
-    
+
     public void SellMechanic()
     {
         if (!GameManager.instance.RemoveMechanic())
@@ -64,10 +66,11 @@ public class ErrorHandler : MonoBehaviour
             {
                 StopCoroutine(co);
             }
-            co=StartCoroutine(NoMechanicWait());
+
+            co = StartCoroutine(NoMechanicWait());
         }
     }
-    
+
     public void SellJanitor()
     {
         if (!GameManager.instance.RemoveJanitor())
@@ -76,10 +79,11 @@ public class ErrorHandler : MonoBehaviour
             {
                 StopCoroutine(co);
             }
-            co=StartCoroutine(NoJanitorWait());
+
+            co = StartCoroutine(NoJanitorWait());
         }
     }
-    
+
     public void BuyBuilding(BuildingTypeSO type)
     {
         if (!GameManager.instance.ChangeSelectedType(type))
@@ -88,21 +92,23 @@ public class ErrorHandler : MonoBehaviour
             {
                 StopCoroutine(co);
             }
-            co=StartCoroutine(NoMoneyWait());
+
+            co = StartCoroutine(NoMoneyWait());
         }
         else
         {
             buyMenu.SetActive(false);
         }
     }
-    
+
     public void NoMoneyError()
     {
         if (co != null)
         {
             StopCoroutine(co);
         }
-        co=StartCoroutine(NoMoneyWait());
+
+        co = StartCoroutine(NoMoneyWait());
     }
 
     public void GotMoney(float number)
@@ -112,25 +118,28 @@ public class ErrorHandler : MonoBehaviour
         {
             StopCoroutine(co);
         }
-        co=StartCoroutine(GotMoneyWait());
+
+        co = StartCoroutine(GotMoneyWait());
     }
-    
+
     public void BrokenAttractionError()
     {
         if (co != null)
         {
             StopCoroutine(co);
         }
-        co=StartCoroutine(BrokenSellWait());
+
+        co = StartCoroutine(BrokenSellWait());
     }
-    
+
     public void NoPathError()
     {
         if (co != null)
         {
             StopCoroutine(co);
         }
-        co=StartCoroutine(NoPathWait());
+
+        co = StartCoroutine(NoPathWait());
     }
 
     IEnumerator NoMoneyWait()
@@ -144,7 +153,7 @@ public class ErrorHandler : MonoBehaviour
         yield return new WaitForSeconds(1);
         noMoney.SetActive(false);
     }
-    
+
     IEnumerator NoMechanicWait()
     {
         noPath.SetActive(false);
@@ -156,7 +165,7 @@ public class ErrorHandler : MonoBehaviour
         yield return new WaitForSeconds(1);
         noMechanic.SetActive(false);
     }
-    
+
     IEnumerator NoJanitorWait()
     {
         noPath.SetActive(false);
@@ -180,7 +189,7 @@ public class ErrorHandler : MonoBehaviour
         yield return new WaitForSeconds(1);
         gotMoney.SetActive(false);
     }
-    
+
     IEnumerator BrokenSellWait()
     {
         noPath.SetActive(false);
@@ -192,7 +201,7 @@ public class ErrorHandler : MonoBehaviour
         yield return new WaitForSeconds(1);
         brokenSell.SetActive(false);
     }
-    
+
     IEnumerator NoPathWait()
     {
         noMechanic.SetActive(false);

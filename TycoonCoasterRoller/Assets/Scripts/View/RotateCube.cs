@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotateCube : MonoBehaviour{
+public class RotateCube : MonoBehaviour
+{
     [SerializeField] float rotationSpeed;
 
     void Update()
