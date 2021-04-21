@@ -147,6 +147,7 @@ public class NavigationManager : MonoBehaviour{
         foreach (Attraction attraction in reachable){
             reachableCapacity += attraction.TotalCapacity;
         }
+        //Debug.Log(reachableCapacity);
 
         reachableAttractions = reachable;
         reachableAttractionCount = reachable.Count;
