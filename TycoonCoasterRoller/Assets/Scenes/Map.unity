@@ -1688,7 +1688,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 745dcff7af271c94a8460585b3f0107a,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2329,7 +2329,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: e1d0fcf6161a16a46b88256f84b9bfc3,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2829,7 +2829,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: a6a84bf784d2825479509ed1f241bef4,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3624,7 +3624,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 0ff3c9b1691d408468bcbd80206acc27,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4016,7 +4016,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: ffa5f22030598974c9e9da0284ab194a,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4185,7 +4185,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: a1a9fee8c0a03424c83d9bf27aaeabc8,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4712,7 +4712,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: bfe61c77bca7bb94d8932057407211df,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5182,7 +5182,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: e4006dcb9d64c3c4987408cc6887b642,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5401,7 +5401,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 0df7122db50fbab49a210a92a09b6657,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5878,7 +5878,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: a9f18f1aa05fd2c4aac709e922ce24bc,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6500,7 +6500,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 04d91bb7b95532d40a8cacb786c998fc,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6922,7 +6922,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 9bd198f1957bd38428c13cf04f5c7a09,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8356,7 +8356,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: d62bbec16d0dcc649ad95f8af1a77bf3,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8573,7 +8573,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 8c56614a88e5fb84980e22a4556a9203,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8798,6 +8798,7 @@ MonoBehaviour:
   spawner: {fileID: 1439787515}
   totalMechanics: 0
   availableMechanics: 0
+  storedJanitors: 0
 --- !u!4 &756077025
 Transform:
   m_ObjectHideFlags: 0
@@ -9662,7 +9663,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: e125caa556c0f8443befaeb86cba226b,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -11594,7 +11595,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 500fd929679f58044b862b8c756e82b7,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -12125,7 +12126,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 0fa229c0ec024ba478e9b5afc3484612,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -12267,7 +12268,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: de41f62550a61924fb8a1d1770cc5980,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -13616,7 +13617,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 4ea83559d940e0240b7cfb8c5e6ed222,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -14367,7 +14368,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: e9be47d9e3f3fd74ba3006be5620d764,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -14921,7 +14922,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: c82b087ead2df30478e11610f8833b22,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -15235,6 +15236,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingSystem: {fileID: 1197608044}
+  reachableRoads: []
+  reachableAttractions: []
+  reachableAttractionCount: 0
+  reachableCapacity: 0
 --- !u!114 &1439787515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15584,7 +15589,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 2fe3aab88c613854ab3447f2141a1177,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -17184,7 +17189,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: a8cdf3678680eaf45b3a840c666cf5c3,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -17578,7 +17583,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: b23b00530f871af4ba07016b249469e4,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -18716,7 +18721,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 2f98d8f606d38404483b472d2a85581f,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -20937,7 +20942,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 319988a6237baf849bec815c476b86d2,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
