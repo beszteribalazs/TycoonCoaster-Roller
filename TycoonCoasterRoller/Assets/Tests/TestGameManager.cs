@@ -263,6 +263,15 @@ namespace Tests
             Assert.IsFalse(gameManager.RemoveJanitor());
         }
         
+        [UnityTest]
+        public IEnumerator StoredJanitorChange()
+        {
+            gameManager.storedJanitors = 1;
+            gameManager.storedJanitors = gameManager.storedJanitors - 1;
+            yield return new WaitForSeconds(0.1f);
+            Assert.AreEqual(0,gameManager.storedJanitors);
+        }
+        
 
     }
 }
