@@ -6,7 +6,7 @@ public class Attraction : Building
 {
     int level;
     [SerializeField] bool _broke = false;
-    [SerializeField] Transform brokeVisual;
+    public Transform brokeVisual;
     public bool beingRepaired;
 
     public Attraction()

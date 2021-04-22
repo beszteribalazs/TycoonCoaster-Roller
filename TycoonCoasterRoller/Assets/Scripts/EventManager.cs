@@ -11,6 +11,11 @@ public class EventManager : MonoBehaviour
         instance = this;
     }
 
+    public event Action<float> onHappinessMoney;
+    public void HappinessMoney(float money){
+        onHappinessMoney?.Invoke(money);
+    }
+    
     public event Action<int> onSpeedChanged;
     public void SpeedChanged(int speedMultiplier)
     {

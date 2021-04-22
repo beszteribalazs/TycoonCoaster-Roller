@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c230c9f0c23ef0e40bc104c8257346f2, type: 3}
   m_Name: TrashBin
   m_EditorClassIdentifier: 
-  buildingName: Trach Bin
+  buildingName: Trash Bin
   capacity: 0
   price: 50
   sellMultiplier: 0.5

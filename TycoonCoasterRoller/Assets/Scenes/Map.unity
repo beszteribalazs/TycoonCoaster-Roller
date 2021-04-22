@@ -1688,7 +1688,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 745dcff7af271c94a8460585b3f0107a,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2134,7 +2134,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You don't have enough janitor for this.
+  m_text: You don't have enough janitors.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8e52ceca9747a044c9901c7b6643294b, type: 2}
   m_sharedMaterial: {fileID: -2766039577044948557, guid: 8e52ceca9747a044c9901c7b6643294b,
@@ -2329,7 +2329,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: e1d0fcf6161a16a46b88256f84b9bfc3,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2829,7 +2829,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: a6a84bf784d2825479509ed1f241bef4,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3211,7 +3211,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You don't have enough mechanic for this.
+  m_text: You don't have enough mechanics.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8e52ceca9747a044c9901c7b6643294b, type: 2}
   m_sharedMaterial: {fileID: -2766039577044948557, guid: 8e52ceca9747a044c9901c7b6643294b,
@@ -3624,7 +3624,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 0ff3c9b1691d408468bcbd80206acc27,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4016,7 +4016,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: ffa5f22030598974c9e9da0284ab194a,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4185,7 +4185,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: a1a9fee8c0a03424c83d9bf27aaeabc8,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4712,7 +4712,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: bfe61c77bca7bb94d8932057407211df,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5182,7 +5182,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: e4006dcb9d64c3c4987408cc6887b642,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5401,7 +5401,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 0df7122db50fbab49a210a92a09b6657,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5878,7 +5878,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: a9f18f1aa05fd2c4aac709e922ce24bc,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6500,7 +6500,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 04d91bb7b95532d40a8cacb786c998fc,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6922,7 +6922,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 9bd198f1957bd38428c13cf04f5c7a09,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8356,7 +8356,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: d62bbec16d0dcc649ad95f8af1a77bf3,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8573,7 +8573,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 8c56614a88e5fb84980e22a4556a9203,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8798,6 +8798,8 @@ MonoBehaviour:
   spawner: {fileID: 1439787515}
   totalMechanics: 0
   availableMechanics: 0
+  storedJanitors: 0
+  testMode: 0
 --- !u!4 &756077025
 Transform:
   m_ObjectHideFlags: 0
@@ -9662,7 +9664,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: e125caa556c0f8443befaeb86cba226b,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -11594,7 +11596,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 500fd929679f58044b862b8c756e82b7,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -12125,7 +12127,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 0fa229c0ec024ba478e9b5afc3484612,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -12267,7 +12269,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: de41f62550a61924fb8a1d1770cc5980,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -13616,7 +13618,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 4ea83559d940e0240b7cfb8c5e6ed222,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -14367,7 +14369,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: e9be47d9e3f3fd74ba3006be5620d764,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -14921,7 +14923,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: c82b087ead2df30478e11610f8833b22,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -15235,6 +15237,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingSystem: {fileID: 1197608044}
+  reachableRoads: []
+  reachableAttractions: []
+  reachableAttractionCount: 0
+  reachableTrashBinCount: 0
+  reachableCapacity: 0
 --- !u!114 &1439787515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15584,7 +15591,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 2fe3aab88c613854ab3447f2141a1177,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -17184,7 +17191,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: a8cdf3678680eaf45b3a840c666cf5c3,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -17578,7 +17585,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: b23b00530f871af4ba07016b249469e4,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -18716,7 +18723,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 2f98d8f606d38404483b472d2a85581f,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -20937,7 +20944,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 319988a6237baf849bec815c476b86d2,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingTypeSO, GameAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -21604,6 +21611,154 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1973313615}
   m_CullTransparentMesh: 0
+--- !u!1 &1975851264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1975851265}
+  - component: {fileID: 1975851267}
+  - component: {fileID: 1975851266}
+  - component: {fileID: 1975851268}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1975851265
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975851264}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1985473492}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -132.8, y: -58.7}
+  m_SizeDelta: {x: 263.94226, y: 53.914856}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1975851266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975851264}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: + 66$
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8e52ceca9747a044c9901c7b6643294b, type: 2}
+  m_sharedMaterial: {fileID: -2766039577044948557, guid: 8e52ceca9747a044c9901c7b6643294b,
+    type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278240000
+  m_fontColor: {r: 0, g: 0.764151, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 30
+  m_fontSizeBase: 30
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1975851267
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975851264}
+  m_CullTransparentMesh: 0
+--- !u!114 &1975851268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975851264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 054172d088bf59445bdea8014f68f61c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1975851266}
 --- !u!1 &1978170181
 GameObject:
   m_ObjectHideFlags: 0
@@ -21818,6 +21973,7 @@ RectTransform:
   - {fileID: 1971373931}
   - {fileID: 646588996}
   - {fileID: 701378745}
+  - {fileID: 1975851265}
   m_Father: {fileID: 2122030919}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

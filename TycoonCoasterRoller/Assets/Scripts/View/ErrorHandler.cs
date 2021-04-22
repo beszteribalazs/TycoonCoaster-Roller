@@ -150,7 +150,7 @@ public class ErrorHandler : MonoBehaviour
         noJanitor.SetActive(false);
         noMechanic.SetActive(false);
         noMoney.SetActive(true);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
         noMoney.SetActive(false);
     }
 
@@ -162,7 +162,7 @@ public class ErrorHandler : MonoBehaviour
         noJanitor.SetActive(false);
         noMoney.SetActive(false);
         noMechanic.SetActive(true);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
         noMechanic.SetActive(false);
     }
 
@@ -174,7 +174,7 @@ public class ErrorHandler : MonoBehaviour
         noMechanic.SetActive(false);
         noMoney.SetActive(false);
         noJanitor.SetActive(true);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
         noJanitor.SetActive(false);
     }
 
@@ -186,7 +186,7 @@ public class ErrorHandler : MonoBehaviour
         noMoney.SetActive(false);
         noJanitor.SetActive(false);
         gotMoney.SetActive(true);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
         gotMoney.SetActive(false);
     }
 
@@ -198,7 +198,7 @@ public class ErrorHandler : MonoBehaviour
         noJanitor.SetActive(false);
         gotMoney.SetActive(false);
         brokenSell.SetActive(true);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
         brokenSell.SetActive(false);
     }
 
@@ -210,7 +210,7 @@ public class ErrorHandler : MonoBehaviour
         gotMoney.SetActive(false);
         brokenSell.SetActive(false);
         noPath.SetActive(true);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
         noPath.SetActive(false);
     }
 }
