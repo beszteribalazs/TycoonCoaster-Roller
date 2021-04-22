@@ -269,12 +269,16 @@ public class GameManager : MonoBehaviour
         //Calculate trash level
 
         trashLevel += currentVisitors * 0.2f / 24f / 60f;
-
+        
+        trashLevel -= NavigationManager.instance.reachableTrashBinCount * 0.2f / 24f / 60f;
+        
         foreach (Janitor janitor in this.janitors)
         {
             this.money -= janitor.Salary;
             trashLevel -= 0.2f / 24f / 60f * 15;
         }
+
+        
 
 
         if (this.trashLevel > this.TotalCapacity)
@@ -297,6 +301,13 @@ public class GameManager : MonoBehaviour
         }
 
         this.totalHappiness = 1f - this.trashPercentage;
+
+        if (Random.Range(0f, 1f) <= totalHappiness / 60f / 12f){
+            float extraMoney = currentVisitors * Random.Range(0.9f, 1.8f);
+            money += extraMoney;
+            EventManager.instance.HappinessMoney(extraMoney);
+        }
+        
     }
     
     public void Resume()
