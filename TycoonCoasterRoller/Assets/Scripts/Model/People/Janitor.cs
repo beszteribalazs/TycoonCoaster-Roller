@@ -118,7 +118,7 @@ public class Janitor : Employee
         }
     }
 
-    int tickToRetarget = 10;
+    int tickToRetarget = 50;
     int lastRetarget = -1000;
 
     public Vector3 navDestination;

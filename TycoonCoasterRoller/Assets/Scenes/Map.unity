@@ -2134,7 +2134,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You don't have enough janitor for this.
+  m_text: You don't have enough janitors.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8e52ceca9747a044c9901c7b6643294b, type: 2}
   m_sharedMaterial: {fileID: -2766039577044948557, guid: 8e52ceca9747a044c9901c7b6643294b,
@@ -3211,7 +3211,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You don't have enough mechanic for this.
+  m_text: You don't have enough mechanics.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8e52ceca9747a044c9901c7b6643294b, type: 2}
   m_sharedMaterial: {fileID: -2766039577044948557, guid: 8e52ceca9747a044c9901c7b6643294b,

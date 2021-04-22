@@ -52,8 +52,8 @@ public class Person : MonoBehaviour
         }
 
         animator.speed = velocity.magnitude * 10;
-        Debug.DrawLine(transform.position + Vector3.up, targetPosition + Vector3.up, Color.red);
-        Debug.DrawLine(transform.position + Vector3.up, agent.destination + Vector3.up, Color.blue);
+        //Debug.DrawLine(transform.position + Vector3.up, targetPosition + Vector3.up, Color.red);
+        //Debug.DrawLine(transform.position + Vector3.up, agent.destination + Vector3.up, Color.blue);
     }
 
     protected bool IsOnNavMesh()

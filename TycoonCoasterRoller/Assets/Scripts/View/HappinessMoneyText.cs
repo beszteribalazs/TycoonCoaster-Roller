@@ -14,7 +14,7 @@ public class HappinessMoneyText : MonoBehaviour{
     public void DisplayText(float money){
         text.text = "+" + Math.Round(money,2) + "$";
         text.enabled = true;
-        Invoke(nameof(DestroySelf), 1f);
+        Invoke(nameof(DestroySelf), 2f);
     }
 
     void DestroySelf(){

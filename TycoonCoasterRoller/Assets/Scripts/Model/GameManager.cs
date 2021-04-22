@@ -270,7 +270,7 @@ public class GameManager : MonoBehaviour
 
         trashLevel += currentVisitors * 0.2f / 24f / 60f;
         
-        trashLevel -= NavigationManager.instance.reachableTrashBinCount * 0.2f / 24f / 60f;
+        trashLevel -= NavigationManager.instance.reachableTrashBinCount * 3 * 0.2f / 24f / 60f;
         
         foreach (Janitor janitor in this.janitors)
         {
@@ -279,8 +279,6 @@ public class GameManager : MonoBehaviour
         }
 
         
-
-
         if (this.trashLevel > this.TotalCapacity)
         {
             this.trashLevel = this.TotalCapacity;
