@@ -5,9 +5,9 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour{
-    [SerializeField] GameObject visitorPrefab; //prefab to spawn
-    [SerializeField] GameObject mechanicPrefab;
-    [SerializeField] GameObject janitorPrefab;
+    public GameObject visitorPrefab; //prefab to spawn
+    public GameObject mechanicPrefab;
+    public GameObject janitorPrefab;
     public GameObject prefabParent; //parent gameobject of the prefab
 
 
@@ -17,7 +17,7 @@ public class Spawner : MonoBehaviour{
     void Update(){
         if (TimeManager.instance.Tick - lastSpawnedTick >= spawnFrequency){
             int available = (int)GameManager.instance.TotalCapacity - (int)GameManager.instance.CurrentVisitors; 
-            if (available > 0){
+            if (available > -20){
                 float chance = ((available * 2f) / GameManager.instance.TotalCapacity);
                 //Debug.Log(chance);
                 if (Random.Range(0f, 1f) <= chance){

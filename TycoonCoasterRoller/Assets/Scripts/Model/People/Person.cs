@@ -156,19 +156,19 @@ public class Person : MonoBehaviour
                 // can't exit, wander randomly
                 else
                 {
-                    GoToRandomRoad();
+                    Destroy(gameObject);
                 }
             }
             // can't exit, wander randomly
             else
             {
-                GoToRandomRoad();
+                Destroy(gameObject);
             }
         }
         // can't exit, wander randomly
         else
         {
-            GoToRandomRoad();
+            Destroy(gameObject);
         }
     }
 
