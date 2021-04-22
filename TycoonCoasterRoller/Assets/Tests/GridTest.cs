@@ -216,5 +216,89 @@ namespace Tests
             Assert.AreEqual(15,adjacentRoadsCase);
             yield return new WaitForSeconds(0.1f);
         }
+        
+        [UnityTest]
+        public IEnumerator RoadEntranceDown()
+        {
+            grid.GetCell(2,0).SetBuilding(baseRoad);
+            int adjacentRoadsCase = grid.GetCell(2, 0).AdjacentRoads;
+            Assert.AreEqual(16,adjacentRoadsCase);
+            yield return new WaitForSeconds(0.1f);
+        }
+        
+        [UnityTest]
+        public IEnumerator RoadEntranceUpDownLeftRight()
+        {
+            grid.GetCell(2,0).SetBuilding(baseRoad);
+            grid.GetCell(2,1).SetBuilding(baseRoad);
+            grid.GetCell(1,0).SetBuilding(baseRoad);
+            grid.GetCell(3,0).SetBuilding(baseRoad);
+            int adjacentRoadsCase = grid.GetCell(2, 0).AdjacentRoads;
+            Assert.AreEqual(17,adjacentRoadsCase);
+            yield return new WaitForSeconds(0.1f);
+        }
+        
+        [UnityTest]
+        public IEnumerator RoadEntranceDownRight()
+        {
+            grid.GetCell(2,0).SetBuilding(baseRoad);
+            grid.GetCell(3,0).SetBuilding(baseRoad);
+            int adjacentRoadsCase = grid.GetCell(2, 0).AdjacentRoads;
+            Assert.AreEqual(18,adjacentRoadsCase);
+            yield return new WaitForSeconds(0.1f);
+        }
+        
+        [UnityTest]
+        public IEnumerator RoadEntranceDownLeft()
+        {
+            grid.GetCell(2,0).SetBuilding(baseRoad);
+            grid.GetCell(1,0).SetBuilding(baseRoad);
+            int adjacentRoadsCase = grid.GetCell(2, 0).AdjacentRoads;
+            Assert.AreEqual(19,adjacentRoadsCase);
+            yield return new WaitForSeconds(0.1f);
+        }
+        
+        [UnityTest]
+        public IEnumerator RoadEntranceUpDownRight()
+        {
+            grid.GetCell(2,0).SetBuilding(baseRoad);
+            grid.GetCell(2,1).SetBuilding(baseRoad);
+            grid.GetCell(3,0).SetBuilding(baseRoad);
+            int adjacentRoadsCase = grid.GetCell(2, 0).AdjacentRoads;
+            Assert.AreEqual(20,adjacentRoadsCase);
+            yield return new WaitForSeconds(0.1f);
+        }
+        
+        [UnityTest]
+        public IEnumerator RoadEntranceUpDownLeft()
+        {
+            grid.GetCell(2,0).SetBuilding(baseRoad);
+            grid.GetCell(2,1).SetBuilding(baseRoad);
+            grid.GetCell(1,0).SetBuilding(baseRoad);
+            int adjacentRoadsCase = grid.GetCell(2, 0).AdjacentRoads;
+            Assert.AreEqual(21,adjacentRoadsCase);
+            yield return new WaitForSeconds(0.1f);
+        }
+        
+        [UnityTest]
+        public IEnumerator RoadEntranceLeftRight()
+        {
+            grid.GetCell(2,0).SetBuilding(baseRoad);
+            grid.GetCell(1,0).SetBuilding(baseRoad);
+            grid.GetCell(3,0).SetBuilding(baseRoad);
+            int adjacentRoadsCase = grid.GetCell(2, 0).AdjacentRoads;
+            Assert.AreEqual(22,adjacentRoadsCase);
+            yield return new WaitForSeconds(0.1f);
+        }
+        
+        [UnityTest]
+        public IEnumerator RoadEntranceUpDown()
+        {
+            grid.GetCell(2,0).SetBuilding(baseRoad);
+            grid.GetCell(2,1).SetBuilding(baseRoad);
+            int adjacentRoadsCase = grid.GetCell(2, 0).AdjacentRoads;
+            Assert.AreEqual(23,adjacentRoadsCase);
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }
